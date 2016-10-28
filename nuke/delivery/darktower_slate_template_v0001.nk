@@ -1,8 +1,8 @@
-#! /Applications/Nuke10.0v3/Nuke10.0v3.app/Contents/MacOS//libnuke-10.0.3.dylib -nx
-version 10.0 v3
+#! /Applications/Nuke10.0v4/Nuke10.0v4.app/Contents/MacOS//libnuke-10.0.4.dylib -nx
+version 10.0 v4
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="2560" h="1345" screen="0">
+    <window x="0" y="23" w="2560" h="1344" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
@@ -10,7 +10,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="1323"/>
+                <split size="1322"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
@@ -29,7 +29,6 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
         <splitter orientation="1">
             <split size="3210"/>
             <dock id="" activePageId="Viewer.1">
-                <page id="Viewer.1"/>
                 <page id="Viewer.1"/>
             </dock>
             <split size="882"/>
@@ -85,6 +84,7 @@ Root {
  mariLocation /Applications/Mari2.6v4/Contents/MacOS/Mari2.6v4
  addUserKnob {20 endGroup n -1}
  addUserKnob {20 tab_inhouse l In-House}
+ addUserKnob {6 nocc l "no color correction" +STARTLINE}
  addUserKnob {1 ti_ih_show_name l "show name"}
  ti_ih_show_name "The Dark Tower"
  addUserKnob {1 ti_ih_file_name l "file name"}
@@ -159,14 +159,84 @@ Read {
  metadatafilter timecode
  name EXR_READ
  xpos 1684
- ypos -107
+ ypos -300
 }
+Dot {
+ name Dot4
+ xpos 1718
+ ypos -187
+}
+set N257d73f0 [stack 0]
+Dot {
+ name Dot14
+ xpos 1880
+ ypos -187
+}
+set N257e1f80 [stack 0]
+Dot {
+ name Dot17
+ xpos 2034
+ ypos -187
+}
+Reformat {
+ format "2100 1152 0 0 2100 1152 1 Dark Tower 2K Delivery (.dt2k)"
+ black_outside true
+ name Reformat9
+ xpos 2000
+ ypos -122
+}
+Dot {
+ name Dot16
+ xpos 2034
+ ypos 10
+}
+push $N257e1f80
+Reformat {
+ format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ black_outside true
+ name Reformat7
+ xpos 1846
+ ypos -124
+}
+Reformat {
+ format "2100 1152 0 0 2100 1152 1 Dark Tower 2K Delivery (.dt2k)"
+ resize none
+ black_outside true
+ name Reformat8
+ xpos 1846
+ ypos -92
+}
+Dot {
+ name Dot15
+ xpos 1880
+ ypos -38
+}
+push $N257d73f0
+push $N257d73f0
+Dot {
+ name Dot6
+ xpos 1549
+ ypos -187
+}
+Dot {
+ name Dot8
+ xpos 1549
+ ypos 10
+}
+Switch {
+ inputs 4
+ which {{"EXR_READ.width == 2100 ? 0 : (EXR_READ.width == 1920 ? 1 : (EXR_READ.width == 3414 ? 2 : (EXR_READ.width == 6560 ? 3 : 0)))"}}
+ name Switch1
+ xpos 1684
+ ypos 7
+}
+set N22f32c50 [stack 0]
 Dot {
  name Dot9
  xpos 1718
  ypos 126
 }
-set N26a7f560 [stack 0]
+set N22f39fc0 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  resize height
@@ -175,7 +245,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set N26ea5720 [stack 0]
+set N22f3e2c0 [stack 0]
 Reformat {
  format "2100 1152 0 0 2100 1152 1 Dark Tower 2K Delivery (.dt2k)"
  resize none
@@ -194,7 +264,7 @@ Dot {
  xpos 1794
  ypos 584
 }
-push $N26a7f560
+push $N22f39fc0
 Dot {
  name Dot10
  xpos 1859
@@ -202,12 +272,12 @@ Dot {
 }
 Switch {
  inputs 2
- which {{parent.Switch1.which}}
+ which {{"EXR_READ.bbox.x > 0 ? 1 : 0"}}
  name Switch2
  xpos 1825
  ypos 581
 }
-set N26ecbe60 [stack 0]
+set N22f64860 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -259,7 +329,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\nFile Name:\t\[value root.ti_ih_file_name]\n\nVendor:\t\[value root.ti_ih_vendor]\n \nDate:\t\[date %m-%d-%Y] \n\nFrames:\t\[value root.first_frame]-\[value root.last_frame]\n\n\n\nShot Notes:\t\[value root.ti_ih_notes_1]\n\t\[value root.ti_ih_notes_2]\n\t\[value root.ti_ih_notes_3]\n\t\[value root.ti_ih_notes_4]\n\t\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 9 83 72 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49 10 10 86 101 110 100 111 114 58 9 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 9 49 48 45 50 52 45 50 48 49 54 32 10 10 70 114 97 109 101 115 58 9 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 9 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 9 10 9 10 9 10 9}
+ old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 9 83 72 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49 10 10 86 101 110 100 111 114 58 9 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 9 49 48 45 50 56 45 50 48 49 54 32 10 10 70 114 97 109 101 115 58 9 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 9 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 9 10 9 10 9 10 9}
    }
  old_expression_markers {{14 30 41 50 60 69 81 84 86 89 106 120 123 122 125 124 127 126 129 128}
    }
@@ -282,13 +352,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N26ad0ba0 [stack 0]
+set N2629dd00 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N26ea5720
+push $N22f3e2c0
 Dot {
  name Dot3
  xpos 1607
@@ -306,7 +376,7 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N2db02be0 [stack 0]
+set N31a14ac0 [stack 0]
 Dot {
  name Dot12
  xpos 1100
@@ -343,13 +413,14 @@ Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Reformat5
  xpos 1066
- ypos 802
+ ypos 767
 }
 Colorspace {
  colorspace_out AlexaV3LogC
  name Colorspace1
  xpos 1066
- ypos 871
+ ypos 836
+ disable {{root.nocc}}
 }
 OCIOCDLTransform {
  slope {1.019799948 1.017500043 1.00759995}
@@ -362,17 +433,19 @@ OCIOCDLTransform {
  version 9
  name OCIOCDLTransform1
  xpos 1066
- ypos 917
+ ypos 882
+ disable {{root.nocc}}
 }
 Vectorfield {
  vfield_file /Volumes/raid_vol01/work/darktower/SHARED/lut/TDT_10052016_REC709.cube
- version 61
+ version 63
  file_type cube
  interpolation "cubic field"
  colorspaceOut rec709
  name Vectorfield3
  xpos 1066
- ypos 971
+ ypos 936
+ disable {{root.nocc}}
 }
 Sharpen {
  amount 0.65
@@ -386,14 +459,14 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_vendor]"
- old_message {{73 110 32 72 111 117 115 101 47 78 101 100}
+ old_message {{78 101 100 32 87 105 108 115 111 110}
    }
- old_expression_markers {{0 11}
+ old_expression_markers {{0 9}
    }
  box {16 1033 207 1064}
  transforms {{0 2}
    }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30}
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
    }
  cursor_position 25
  font_size 30
@@ -414,7 +487,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{49 48 45 49 56 45 50 48 49 54}
+ old_message {{49 48 45 50 56 45 50 48 49 54}
    }
  old_expression_markers {{0 9}
    }
@@ -444,7 +517,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_file_name]"
- old_message {{68 80 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49}
+ old_message {{83 72 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49}
    }
  old_expression_markers {{0 16}
    }
@@ -474,16 +547,16 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_notes_1]"
- old_message {{80 97 105 110 116 32 111 117 116 32 103 97 119 107 105 110 103 32 111 110 108 111 111 107 101 114 115}
+ old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
    }
- old_expression_markers {{0 26}
+ old_expression_markers {{0 14}
    }
  box {380 16 1540 47}
  xjustify center
  yjustify bottom
  transforms {{0 2}
    }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30 22 30 23 30 24 30 25 30 26 30}
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
    }
  cursor_position 25
  font_size 30
@@ -505,7 +578,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 48 49}
+ old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 49 49}
    }
  old_expression_markers {{1 4 6 9 13 16}
    }
@@ -619,7 +692,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N2db02be0
+push $N31a14ac0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -651,13 +724,14 @@ Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Reformat1
  xpos 1325
- ypos 762
+ ypos 767
 }
 Colorspace {
  colorspace_out AlexaV3LogC
  name Colorspace3
  xpos 1325
- ypos 831
+ ypos 836
+ disable {{root.nocc}}
 }
 OCIOCDLTransform {
  slope {1.019799948 1.017500043 1.00759995}
@@ -671,16 +745,18 @@ OCIOCDLTransform {
  name OCIOCDLTransform2
  xpos 1325
  ypos 882
+ disable {{root.nocc}}
 }
 Vectorfield {
  vfield_file /Volumes/raid_vol01/work/darktower/SHARED/lut/TDT_10052016_REC709.cube
- version 62
+ version 64
  file_type cube
  interpolation "cubic field"
  colorspaceOut rec709
  name Vectorfield1
  xpos 1325
- ypos 931
+ ypos 936
+ disable {{root.nocc}}
 }
 Sharpen {
  amount 0.65
@@ -688,7 +764,6 @@ Sharpen {
  xpos 1325
  ypos 1007
 }
-set N2e929d90 [stack 0]
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 1 : 0"}}
@@ -702,14 +777,14 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_vendor]"
- old_message {{73 110 32 72 111 117 115 101 47 78 101 100}
+ old_message {{78 101 100 32 87 105 108 115 111 110}
    }
- old_expression_markers {{0 11}
+ old_expression_markers {{0 9}
    }
  box {16 1033 207 1064}
  transforms {{0 2}
    }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30}
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
    }
  cursor_position 25
  font_size 30
@@ -731,7 +806,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{49 48 45 50 52 45 50 48 49 54}
+ old_message {{49 48 45 50 56 45 50 48 49 54}
    }
  old_expression_markers {{0 9}
    }
@@ -761,7 +836,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_file_name]"
- old_message {{68 80 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49}
+ old_message {{83 72 48 48 49 48 95 99 111 109 112 95 118 48 48 48 49}
    }
  old_expression_markers {{0 16}
    }
@@ -791,16 +866,16 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_notes_1]"
- old_message {{80 97 105 110 116 32 111 117 116 32 103 97 119 107 105 110 103 32 111 110 108 111 111 107 101 114 115}
+ old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
    }
- old_expression_markers {{0 26}
+ old_expression_markers {{0 14}
    }
  box {380 16 1540 47}
  xjustify center
  yjustify bottom
  transforms {{0 2}
    }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30 22 30 23 30 24 30 25 30 26 30}
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
    }
  cursor_position 25
  font_size 30
@@ -882,7 +957,7 @@ Write {
  xpos 1325
  ypos 1448
 }
-push $N26ad0ba0
+push $N2629dd00
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -911,7 +986,7 @@ Text2 {
  xpos 2164
  ypos 789
 }
-push $N26ecbe60
+push $N22f64860
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 0 : 1"}}
@@ -967,11 +1042,41 @@ Write {
  transfer log
  checkHashOnRead false
  version 89
+ in_colorspace linear
+ out_colorspace linear
  name DPX_WRITE
  xpos 1825
  ypos 1339
 }
-push $N2e929d90
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label "Alexa XT Source"
+ xpos 1848
+ ypos -163
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ label "Alexa 65 Source"
+ xpos 2001
+ ypos -162
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ label "Dark Tower 2K\nDelivery Source"
+ xpos 1515
+ ypos -156
+}
+StickyNote {
+ inputs 0
+ name StickyNote4
+ label "HD Source"
+ xpos 1682
+ ypos -141
+}
+push $N22f32c50
 Viewer {
  frame_range 1001-1133
  frame_increment 5
