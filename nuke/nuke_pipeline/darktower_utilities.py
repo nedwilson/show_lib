@@ -27,14 +27,17 @@ class DarkTowerNotesPanel(nukescripts.PythonPanel):
         self.dpx_knob = nuke.Boolean_Knob('dpx_', 'DPX', True)
         self.addKnob(self.dpx_knob)
 
-def get_delivery_directory_darktower(str_path):
+def get_delivery_directory_darktower(str_path, b_istemp=False):
     delivery_folder = str_path
+    s_folder_contents = "DPX"
+    if b_istemp:
+        s_folder_contents = "MED"
     tday = datetime.date.today().strftime('%Y%m%d')
-    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*" % tday))
+    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents)))
     noxl = ""
     max_dir = 0
     if len(matching_folders) == 0:
-        calc_folder = os.path.join(delivery_folder, "INH_%s_01_DPX" % tday)
+        calc_folder = os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents))
     else:
         for suspect_folder in matching_folders:
             csv_spreadsheet = glob.glob(os.path.join(suspect_folder, "*.csv"))
@@ -48,7 +51,7 @@ def get_delivery_directory_darktower(str_path):
         if noxl != "":
             calc_folder = noxl
         else:
-            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d_DPX" % (tday, max_dir + 1))
+            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d_%s" % (tday, max_dir + 1, s_folder_contents))
     return calc_folder
 
 def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_filelist):
@@ -228,7 +231,8 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             s_filename = os.path.basename(render_path).split('.')[0]
             s_shot = s_filename.split('_')[0]
             s_sequence = s_shot[0:2]
-            s_version = s_filename.split('_v')[-1]
+            # allow version number to have arbitrary text after it, such as "_matte" or "_temp"
+            s_version = s_filename.split('_v')[-1].split('_')[0]
             s_artist_name = "In House/%s"%user_full_name().split(" ")[0]
             s_format = config.get('darktower', 'delivery_resolution')
             
@@ -239,7 +243,12 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                     break
                 l_notes[idx] = s_note
                 
-            s_delivery_package_full = get_delivery_directory_darktower(s_delivery_folder)
+            s_delivery_package_full = ""
+            if dpx_delivery: 
+                s_delivery_package_full = get_delivery_directory_darktower(s_delivery_folder)
+            else:
+                s_delivery_package_full = get_delivery_directory_darktower(s_delivery_folder, b_istemp=True)
+            
             s_delivery_package = os.path.split(s_delivery_package_full)[-1]
             s_seq_path = os.path.join(s_show_root, s_sequence)
             s_shot_path = os.path.join(s_seq_path, s_shot)
@@ -270,6 +279,11 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             os.write(fh_nukepy, "# set root frame range\n")
             os.write(fh_nukepy, "nd_root.knob('first_frame').setValue(%d)\n"%start_frame)
             os.write(fh_nukepy, "nd_root.knob('last_frame').setValue(%d)\n"%end_frame)
+            
+            # allow user to disable color correction, usually for temps
+            if not cc_delivery:
+                os.write(fh_nukepy, "nd_root.knob('nocc').setValue(True)\n")
+            
             os.write(fh_nukepy, "\n")
             os.write(fh_nukepy, "nd_read = nuke.toNode('EXR_READ')\n")
             os.write(fh_nukepy, "nd_read.knob('file').setValue(\"%s\")\n"%render_path)

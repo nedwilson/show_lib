@@ -196,7 +196,7 @@ def deliver(f):
                         rowdict['Shot Number'] = child.text
                     elif child.tag == 'AvidQTFileName':
                         rowdict['Filename'] = child.text
-                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1]
+                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         rowdict['Filetype'] = 'MOV'
                         # email_list.append(rowdict['Filename'])
                         ale_row_single['Name'] = child.text
@@ -208,7 +208,7 @@ def deliver(f):
                         # email_list.append(dpxfilename)
                         rowdict['Submitted For'] = 'REVIEW'
                         rowdict['Filetype'] = 'DPX'
-                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1]
+                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         isdpx = True
 #                     elif child.tag == 'EXRFileName':
 #                         exrfilename = '.'.join([child.text.split('.')[0], 'exr'])
