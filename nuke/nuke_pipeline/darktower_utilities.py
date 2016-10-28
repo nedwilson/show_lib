@@ -4,6 +4,7 @@ import nuke
 import nukescripts
 import os
 import sys
+import traceback
 from utilities import *
 import pwd
 import ConfigParser
@@ -52,6 +53,7 @@ def get_delivery_directory_darktower(str_path, b_istemp=False):
             calc_folder = noxl
         else:
             calc_folder = os.path.join(delivery_folder, "INH_%s_%02d_%s" % (tday, max_dir + 1, s_folder_contents))
+    print "INFO: Returning delivery folder: %s"%calc_folder
     return calc_folder
 
 def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_filelist):
@@ -88,10 +90,14 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
     if proc.returncode != 0:
         s_errmsg = ""
         s_err = '\n'.join(s_err_ar)
+        l_err_verbose = []
+        for err_line in s_err_ar:
+            if err_line.find("ERROR") != -1:
+                l_err_verbose.append(err_line)
         if s_err.find("FOUNDRY LICENSE ERROR REPORT") != -1:
             s_errmsg = "Unable to obtain a license for Nuke! Package execution fails, will not proceed!"
         else:
-            s_errmsg = "An unknown error has occurred. Please check the STDERR log above for more information."
+            s_errmsg = "Error(s) have occurred. Details:\n%s"%'\n'.join(l_err_verbose)
         nuke.critical(s_errmsg)
     else:
         print "INFO: Successfully completed delivery render."
@@ -118,9 +124,10 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
             f_progress = float(i_count)/float(i_len)
             progress_bar.setProgress(50 + int(f_progress * 50))
     except:
-        e_type = sys.exc_info()[0]
-        e_msg = sys.exc_info()[1]
-        nuke.critical("An error of type %s has occurred!\nDetails:\n%s"%(e_type, e_msg))
+#         e_type = sys.exc_info()[0]
+#         e_msg = sys.exc_info()[1]
+#         e_traceback = sys.exc_info()[2]
+        nuke.critical(traceback.format_exc())
     else:
         progress_bar.setProgress(100)
         progress_bar.setMessage("Done!")
@@ -197,12 +204,14 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             def_note_text = "Scan Verification."
 
         b_execute_overall = False
+        cc_delivery = False
 
         if current_version_notes is not None:
             cvn_txt = current_version_notes
             avidqt_delivery = b_method_avidqt
             vfxqt_delivery = b_method_vfxqt
             dpx_delivery = b_method_dpx
+            cc_delivery = cc
             b_execute_overall = True
         else:
             pnl = DarkTowerNotesPanel()
@@ -272,6 +281,8 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             os.write(fh_nukepy, "\n")
             os.write(fh_nukepy, "import nuke\n")
             os.write(fh_nukepy, "import os\n")
+            os.write(fh_nukepy, "import sys\n")
+            os.write(fh_nukepy, "import traceback\n")
             os.write(fh_nukepy, "\n")
             os.write(fh_nukepy, "nuke.scriptOpen(\"%s\")\n"%s_delivery_template)
             os.write(fh_nukepy, "nd_root = root = nuke.root()\n")
@@ -338,7 +349,11 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 l_exec_nodes.append('DPX_WRITE')
             
             s_exec_nodes = (', '.join('nuke.toNode("' + write_node + '")' for write_node in l_exec_nodes))
-            os.write(fh_nukepy, "nuke.executeMultiple((%s),((%d,%d,1),))\n"%(s_exec_nodes, start_frame - 1, end_frame))
+            os.write(fh_nukepy, "print \"INFO: About to execute render...\"\n")
+            os.write(fh_nukepy, "try:\n")
+            os.write(fh_nukepy, "    nuke.executeMultiple((%s),((%d,%d,1),))\n"%(s_exec_nodes, start_frame - 1, end_frame))
+            os.write(fh_nukepy, "except:\n")
+            os.write(fh_nukepy, "    print \"ERROR: Exception caught!\\n%s\"%traceback.format_exc()\n")
             os.close(fh_nukepy)
 
             # generate the xml file
