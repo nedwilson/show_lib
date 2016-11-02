@@ -38,7 +38,7 @@ def get_delivery_directory_darktower(str_path, b_istemp=False):
     noxl = ""
     max_dir = 0
     if len(matching_folders) == 0:
-        calc_folder = os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents))
+        calc_folder = os.path.join(delivery_folder, "INH_%s_01_%s"%(tday, s_folder_contents))
     else:
         for suspect_folder in matching_folders:
             csv_spreadsheet = glob.glob(os.path.join(suspect_folder, "*.csv"))
@@ -263,15 +263,26 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             s_shot_path = os.path.join(s_seq_path, s_shot)
             
             d_files_to_copy = {}
+            b_deliver_cdl = True
             
             s_avidqt_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "mov"])
             s_vfxqt_src = '.'.join(["%s_h264"%os.path.splitext(render_path)[0].split('.')[0], "mov"])
             s_dpx_src = os.path.join(os.path.dirname(render_path), "%s.*.dpx"%s_filename)
             s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
+            # copy CDL file into destination folder
+            # requested by production on 11/01/2016
+            s_cdl_src = os.path.join(s_shot_path, "data", "cdl", "%s.cdl"%s_shot)
+            if not os.path.exists(s_cdl_src):
+                print "WARNING: Unable to locate CDL file at: %s"%s_cdl_src
+                b_deliver_cdl = False
+            
             s_avidqt_dest = os.path.join(s_delivery_package_full, "AVID", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, "VFX", "%s_h264.mov"%s_filename)
             s_dpx_dest = os.path.join(s_delivery_package_full, "DPX", s_filename, s_format)
+            # copy CDL file into destination folder
+            # requested by production on 11/01/2016
+            s_cdl_dest = os.path.join(s_dpx_dest, "%s.cdl"%s_shot)
             s_xml_dest = os.path.join(s_delivery_package_full, ".delivery", "%s.xml"%s_filename)
             
             # print out python script to a temp file
@@ -344,6 +355,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             
             if not dpx_delivery:
                 os.write(fh_nukepy, "nuke.toNode('DPX_WRITE').knob('disable').setValue(True)\n")
+                b_deliver_cdl = False
             else:
                 d_files_to_copy[s_dpx_src] = s_dpx_dest
                 l_exec_nodes.append('DPX_WRITE')
@@ -391,6 +403,10 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             xml_ds.close()
 
             d_files_to_copy[s_xml_src] = s_xml_dest
+            
+            # copy CDL file if we are delivering DPX frames
+            if b_deliver_cdl:
+                d_files_to_copy[s_cdl_src] = s_cdl_dest
 
             # render all frames - in a background thread
             threading.Thread(target=render_delivery_threaded, args=[s_nukepy, start_frame, end_frame, d_files_to_copy]).start()
