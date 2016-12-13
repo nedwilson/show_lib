@@ -64,7 +64,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
     s_nuke_exe_path = nuke.env['ExecutablePath']  # "/Applications/Nuke9.0v4/Nuke9.0v4.app/Contents/MacOS/Nuke9.0v4"
     s_pyscript = ms_python_script
 
-    s_cmd = "%s -i -V 2 -C 2G -t %s" % (s_nuke_exe_path, s_pyscript)
+    s_cmd = "%s -i -V 2 -c 2G -t %s" % (s_nuke_exe_path, s_pyscript)
     s_err_ar = []
     f_progress = 0.0
     print "INFO: Beginning: %s" % s_cmd
