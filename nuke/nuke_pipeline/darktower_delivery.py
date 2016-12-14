@@ -210,6 +210,14 @@ def deliver(f):
                         rowdict['Filetype'] = 'DPX'
                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         isdpx = True
+                    elif child.tag == 'MatteFileName':
+                        mattefilename = child.text
+                        # email_list.append(dpxfilename)
+                        rowdict['Filetype'] = 'TIF'
+                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        if not rowdict['Submitted For'] == 'REVIEW':
+                            rowdict['Submitted For'] = 'MATTE'
+                        ismatte = True
 #                     elif child.tag == 'EXRFileName':
 #                         exrfilename = '.'.join([child.text.split('.')[0], 'exr'])
 #                         email_list.append(exrfilename)
@@ -233,8 +241,9 @@ def deliver(f):
 #                         rowdict['Artist'] = child.text
 #                 rowdict['Frames'] = int(end) - int(start) + 1
                 if isdpx:
-#                     dpxdict = copy.deepcopy(rowdict)
                     rowdict['Filename'] = "%s.%s-%s.dpx"%(dpxfilename.split('.')[0], start, end)
+                if ismatte:
+                    rowdict['Filename'] = "%s.%s-%s.tif"%(mattefilename.split('.')[0], start, end)
 #                 if isexr:
 #                     exrdict = copy.deepcopy(rowdict)
 #                     exrdict['Filename'] = exrfilename

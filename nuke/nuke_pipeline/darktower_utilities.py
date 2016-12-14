@@ -27,6 +27,8 @@ class DarkTowerNotesPanel(nukescripts.PythonPanel):
         self.addKnob(self.vfxqt_knob)
         self.dpx_knob = nuke.Boolean_Knob('dpx_', 'DPX', True)
         self.addKnob(self.dpx_knob)
+        self.matte_knob = nuke.Boolean_Knob('matte_', 'Matte', False)
+        self.addKnob(self.matte_knob)
 
 def get_delivery_directory_darktower(str_path, b_istemp=False):
     delivery_folder = str_path
@@ -73,7 +75,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
         try:
             s_out = proc.stdout.readline()
             s_err_ar.append(s_out.rstrip())
-            if not s_out.find(".dpx took") == -1:
+            if s_out.find(".dpx took") > -1 or s_out.find(".tif took") > -1:
                 s_line_ar = s_out.split(" ")
                 s_dpx_frame = s_line_ar[1].split('.')[-2]
                 i_dpx_frame = int(s_dpx_frame)
@@ -135,7 +137,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
     del progress_bar
 
 
-def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_dpx=True):
+def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_dpx=True, b_method_matte=False):
     oglist = []
 
 
@@ -211,6 +213,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             avidqt_delivery = b_method_avidqt
             vfxqt_delivery = b_method_vfxqt
             dpx_delivery = b_method_dpx
+            matte_delivery = b_method_matte
             cc_delivery = cc
             b_execute_overall = True
         else:
@@ -222,6 +225,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 avidqt_delivery = pnl.knobs()['avidqt_'].value()
                 vfxqt_delivery = pnl.knobs()['vfxqt_'].value()
                 dpx_delivery = pnl.knobs()['dpx_'].value()
+                matte_delivery = pnl.knobs()['matte_'].value()
                 b_execute_overall = True
 
         if b_execute_overall:
@@ -268,6 +272,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             s_avidqt_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "mov"])
             s_vfxqt_src = '.'.join(["%s_h264"%os.path.splitext(render_path)[0].split('.')[0], "mov"])
             s_dpx_src = os.path.join(os.path.dirname(render_path), "%s.*.dpx"%s_filename)
+            s_matte_src = os.path.join(os.path.dirname(render_path), "%s_matte.*.tif"%s_filename)
             s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
             # copy CDL file into destination folder
@@ -280,6 +285,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             s_avidqt_dest = os.path.join(s_delivery_package_full, "AVID", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, "VFX", "%s_h264.mov"%s_filename)
             s_dpx_dest = os.path.join(s_delivery_package_full, "DPX", s_filename, s_format)
+            s_matte_dest = os.path.join(s_delivery_package_full, "TIF", "%s_matte"%s_filename, s_format)
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
             s_cdl_dest = os.path.join(s_dpx_dest, "%s.cdl"%s_shot)
@@ -359,11 +365,20 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             else:
                 d_files_to_copy[s_dpx_src] = s_dpx_dest
                 l_exec_nodes.append('DPX_WRITE')
+
+            if not matte_delivery:
+                os.write(fh_nukepy, "nuke.toNode('TIFF_MATTE_WRITE').knob('disable').setValue(True)\n")
+            else:
+                d_files_to_copy[s_matte_src] = s_matte_dest
+                l_exec_nodes.append('TIFF_MATTE_WRITE')
             
             s_exec_nodes = (', '.join('nuke.toNode("' + write_node + '")' for write_node in l_exec_nodes))
             os.write(fh_nukepy, "print \"INFO: About to execute render...\"\n")
             os.write(fh_nukepy, "try:\n")
-            os.write(fh_nukepy, "    nuke.executeMultiple((%s),((%d,%d,1),))\n"%(s_exec_nodes, start_frame - 1, end_frame))
+            if len(l_exec_nodes) == 1:
+                os.write(fh_nukepy, "    nuke.execute(nuke.toNode(\"%s\"),%d,%d,1,)\n"%(l_exec_nodes[0], start_frame - 1, end_frame))
+            else:
+                os.write(fh_nukepy, "    nuke.executeMultiple((%s),((%d,%d,1),))\n"%(s_exec_nodes, start_frame - 1, end_frame))
             os.write(fh_nukepy, "except:\n")
             os.write(fh_nukepy, "    print \"ERROR: Exception caught!\\n%s\"%traceback.format_exc()\n")
             os.close(fh_nukepy)
@@ -382,6 +397,9 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             if dpx_delivery:
                 dpx_fname_se = etree.SubElement(new_submission, 'DPXFileName')
                 dpx_fname_se.text = os.path.basename(s_dpx_src)
+            if matte_delivery:
+                matte_fname_se = etree.SubElement(new_submission, 'MatteFileName')
+                matte_fname_se.text = os.path.basename(s_matte_src)
             sframe_se = etree.SubElement(new_submission, 'StartFrame')
             sframe_se.text = "%d" % (start_frame - 1)
             eframe_se = etree.SubElement(new_submission, 'EndFrame')
