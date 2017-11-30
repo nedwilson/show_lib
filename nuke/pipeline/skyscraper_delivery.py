@@ -36,9 +36,9 @@ try:
     config = ConfigParser.ConfigParser()
     config.read(os.environ['IH_SHOW_CFG_PATH'])
     if sys.platform == "win32":
-        g_delivery_folder = config.get('spinel', 'delivery_folder_win32')
+        g_delivery_folder = config.get('skyscraper', 'delivery_folder_win32')
     else:
-        g_delivery_folder = config.get('spinel', 'delivery_folder')
+        g_delivery_folder = config.get('skyscraper', 'delivery_folder')
     DISTRO_LIST_TO = set(config.get('email', 'distro_list_to').split(', '))
     DISTRO_LIST_CC = set(config.get('email', 'distro_list_cc').split(', '))
     MAIL_FROM = config.get('email', 'mail_from')
@@ -46,7 +46,7 @@ try:
     g_mail_username = config.get('email', 'mail_username')
     g_mail_password = config.get('email', 'mail_password')
     g_mail_smtp_server = config.get('email', 'mail_smtp_server')
-    if config.get('spinel', 'write_ale') == 'yes':
+    if config.get('skyscraper', 'write_ale') == 'yes':
         g_write_ale = True
 except:
     # Todo: Handle exception
@@ -69,7 +69,7 @@ class ALEWriter():
         ale_header = """Heading
 FIELD_DELIM	TABS
 VIDEO_FORMAT	1080
-TAPE	MLIH_AVID
+TAPE	SKYIH_AVID
 FPS	23.976
 
 Column
@@ -96,7 +96,7 @@ def send_email(delivery_directory, file_list):
 
     formatted_list= "\r\n".join(file_list)
 
-    msg="Hello Shannon Leigh,\n\
+    msg="Hello Harrison,\n\
 \n\
 The following shots are ready in %s:\n\
 \n\
@@ -105,7 +105,7 @@ The following shots are ready in %s:\n\
 Enjoy!\n\
 \n\n" %(delivery_directory, formatted_list)
     email = "\r\n".join([
-        "From: Ned Wilson",
+        "From: Skyscraper In-House",
         "To: %s" %", ".join(DISTRO_LIST_TO),
         "Cc: %s"%", ".join(DISTRO_LIST_CC),
         "Subject: In-House delivery: %s" %os.path.split(delivery_directory)[-1]

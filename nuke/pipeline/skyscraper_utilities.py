@@ -12,10 +12,11 @@ import tempfile
 import threading
 import glob
 import shutil
+import re
 
-class DarkTowerNotesPanel(nukescripts.PythonPanel):
+class SkyscraperNotesPanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(self, 'Dark Tower Review Submission')
+        nukescripts.PythonPanel.__init__(self, 'Skyscraper Review Submission')
         self.cvn_knob = nuke.Multiline_Eval_String_Knob('cvn_', 'current version notes', 'For review')
         self.addKnob(self.cvn_knob)
         self.cc_knob = nuke.Boolean_Knob('cc_', 'CC', True)
@@ -23,18 +24,18 @@ class DarkTowerNotesPanel(nukescripts.PythonPanel):
         self.addKnob(self.cc_knob)
         self.avidqt_knob = nuke.Boolean_Knob('avidqt_', 'Avid QT', True)
         self.addKnob(self.avidqt_knob)
-        self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', True)
+        self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', False)
         self.addKnob(self.vfxqt_knob)
-        self.dpx_knob = nuke.Boolean_Knob('dpx_', 'DPX', True)
-        self.addKnob(self.dpx_knob)
+        self.exr_knob = nuke.Boolean_Knob('exr_', 'EXR', True)
+        self.addKnob(self.exr_knob)
         self.matte_knob = nuke.Boolean_Knob('matte_', 'Matte', False)
         self.addKnob(self.matte_knob)
 
-def get_delivery_directory_darktower(str_path, b_istemp=False):
+def get_delivery_directory_skyscraper(str_path, b_istemp=False):
     delivery_folder = str_path
-    s_folder_contents = "DPX"
+    s_folder_contents = "EXR"
     if b_istemp:
-        s_folder_contents = "MED"
+        s_folder_contents = "MOV"
     tday = datetime.date.today().strftime('%Y%m%d')
     matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents)))
     noxl = ""
@@ -75,15 +76,15 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
         try:
             s_out = proc.stdout.readline()
             s_err_ar.append(s_out.rstrip())
-            if s_out.find(".dpx took") > -1 or s_out.find(".tif took") > -1:
+            if s_out.find(".exr took") > -1 or s_out.find(".tif took") > -1:
                 s_line_ar = s_out.split(" ")
-                s_dpx_frame = s_line_ar[1].split('.')[-2]
-                i_dpx_frame = int(s_dpx_frame)
+                s_exr_frame = s_line_ar[1].split('.')[-2]
+                i_exr_frame = int(s_exr_frame)
             
                 f_duration = float(end_frame - start_frame + 1)
-                f_progress = (float(i_dpx_frame) - float(start_frame) + 1.0)/f_duration
-                # print "INFO: Rendering: Frame %d"%i_dpx_frame
-                progress_bar.setMessage("Rendering: Frame %d" % i_dpx_frame)
+                f_progress = (float(i_exr_frame) - float(start_frame) + 1.0)/f_duration
+                # print "INFO: Rendering: Frame %d"%i_exr_frame
+                progress_bar.setMessage("Rendering: Frame %d" % i_exr_frame)
                 progress_bar.setProgress(int(f_progress * 50))
         except IOError:
             print "ERROR: IOError Caught!"
@@ -136,8 +137,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
 
     del progress_bar
 
-
-def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_dpx=True, b_method_matte=False):
+def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):
     oglist = []
 
 
@@ -183,11 +183,12 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
         if sys.platform == "win32":
             if "/Volumes/raid_vol01" in render_path:
                 render_path = render_path.replace("/Volumes/raid_vol01", "Y:")
-        # no longer uses timecode information from metadata. hardcoded from start frame.
-        # first_frame_tc_str = startNode.metadata("input/timecode", float(start_frame))
-        # last_frame_tc_str = startNode.metadata("input/timecode", float(end_frame))
-        first_frame_tc_str = str(TimeCode(start_frame))
-        last_frame_tc_str = str(TimeCode(end_frame))
+        # un-comment to use timecode information from metadata
+        first_frame_tc_str = startNode.metadata("input/timecode", float(start_frame))
+        last_frame_tc_str = startNode.metadata("input/timecode", float(end_frame))
+        # un-comment to use timecode from start frame (1001 = 00:00:41:17) and end frame
+        # first_frame_tc_str = str(TimeCode(start_frame))
+        # last_frame_tc_str = str(TimeCode(end_frame))
         if first_frame_tc_str == None:
             first_frame_tc = TimeCode(start_frame)
         else:
@@ -212,42 +213,42 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             cvn_txt = current_version_notes
             avidqt_delivery = b_method_avidqt
             vfxqt_delivery = b_method_vfxqt
-            dpx_delivery = b_method_dpx
+            exr_delivery = b_method_exr
             matte_delivery = b_method_matte
             cc_delivery = cc
             b_execute_overall = True
         else:
-            pnl = DarkTowerNotesPanel()
+            pnl = SkyscraperNotesPanel()
             pnl.knobs()['cvn_'].setValue(def_note_text)
             if pnl.showModalDialog():
                 cvn_txt = pnl.knobs()['cvn_'].value()
                 cc_delivery = pnl.knobs()['cc_'].value()
                 avidqt_delivery = pnl.knobs()['avidqt_'].value()
                 vfxqt_delivery = pnl.knobs()['vfxqt_'].value()
-                dpx_delivery = pnl.knobs()['dpx_'].value()
+                exr_delivery = pnl.knobs()['exr_'].value()
                 matte_delivery = pnl.knobs()['matte_'].value()
                 b_execute_overall = True
 
         if b_execute_overall:
         
             # pull some things out of the show config file
+            s_show_root = os.environ['IH_SHOW_ROOT']
+            s_show = os.environ['IH_SHOW_CODE']
             config = ConfigParser.ConfigParser()
             config.read(os.environ['IH_SHOW_CFG_PATH'])
             if sys.platform == "win32":
-                s_delivery_folder = config.get('darktower', 'delivery_folder_win32')
+                s_delivery_folder = config.get(s_show, 'delivery_folder_win32')
             else:
-                s_delivery_folder = config.get('darktower', 'delivery_folder')
+                s_delivery_folder = config.get(s_show, 'delivery_folder')
             # delivery template
-            s_show_root = os.environ['IH_SHOW_ROOT']
-            s_show = os.environ['IH_SHOW_CODE']
-            s_delivery_template = os.path.join(s_show_root, 'SHARED', 'lib', 'nuke', 'delivery', config.get('darktower', 'delivery_template'))
+            s_delivery_template = os.path.join(s_show_root, 'SHARED', 'lib', 'nuke', 'delivery', config.get(s_show, 'delivery_template'))
             s_filename = os.path.basename(render_path).split('.')[0]
-            s_shot = s_filename.split('_')[0]
-            s_sequence = s_shot[0:2]
+            s_shot = "%s_%s"%(s_filename.split('_')[0],s_filename.split('_')[1])
+            s_sequence = s_shot[0:5]
             # allow version number to have arbitrary text after it, such as "_matte" or "_temp"
             s_version = s_filename.split('_v')[-1].split('_')[0]
-            s_artist_name = "In House/%s"%user_full_name().split(" ")[0]
-            s_format = config.get('darktower', 'delivery_resolution')
+            s_artist_name = "%s"%user_full_name()
+            s_format = config.get(s_show, 'delivery_resolution')
             
             # notes
             l_notes = ["", "", "", "", ""]
@@ -257,10 +258,10 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 l_notes[idx] = s_note
                 
             s_delivery_package_full = ""
-            if dpx_delivery: 
-                s_delivery_package_full = get_delivery_directory_darktower(s_delivery_folder)
+            if exr_delivery: 
+                s_delivery_package_full = get_delivery_directory_skyscraper(s_delivery_folder)
             else:
-                s_delivery_package_full = get_delivery_directory_darktower(s_delivery_folder, b_istemp=True)
+                s_delivery_package_full = get_delivery_directory_skyscraper(s_delivery_folder, b_istemp=True)
             
             s_delivery_package = os.path.split(s_delivery_package_full)[-1]
             s_seq_path = os.path.join(s_show_root, s_sequence)
@@ -271,7 +272,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             
             s_avidqt_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "mov"])
             s_vfxqt_src = '.'.join(["%s_h264"%os.path.splitext(render_path)[0].split('.')[0], "mov"])
-            s_dpx_src = os.path.join(os.path.dirname(render_path), "%s.*.dpx"%s_filename)
+            s_exr_src = os.path.join(os.path.dirname(render_path), "%s.*.exr"%s_filename)
             s_matte_src = os.path.join(os.path.dirname(render_path), "%s_matte.*.tif"%s_filename)
             s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
@@ -282,13 +283,51 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 print "WARNING: Unable to locate CDL file at: %s"%s_cdl_src
                 b_deliver_cdl = False
             
+            # open up the cdl and extract the cccid
+            cdltext = open(s_cdl_src, 'r').read()
+            cccid_re_str = r'<ColorCorrection id="([A-Za-z0-9-_]+)">'
+            cccid_re = re.compile(cccid_re_str)
+            cccid_match = cccid_re.search(cdltext)
+            s_cccid = cccid_match.group(1)
+            
+            # slope
+            slope_re_str = r'<Slope>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Slope>'
+            slope_re = re.compile(slope_re_str)
+            slope_match = slope_re.search(cdltext)
+            slope_r = slope_match.group(1)
+            slope_g = slope_match.group(2)
+            slope_b = slope_match.group(3)
+
+            # offset
+            offset_re_str = r'<Offset>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Offset>'
+            offset_re = re.compile(offset_re_str)
+            offset_match = offset_re.search(cdltext)
+            offset_r = offset_match.group(1)
+            offset_g = offset_match.group(2)
+            offset_b = offset_match.group(3)
+            
+            # power
+            power_re_str = r'<Power>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Power>'
+            power_re = re.compile(power_re_str)
+            power_match = power_re.search(cdltext)
+            power_r = power_match.group(1)
+            power_g = power_match.group(2)
+            power_b = power_match.group(3)
+            
+            # saturation
+            saturation_re_str = r'<Saturation>([0-9.-]+)</Saturation>'
+            saturation_re = re.compile(saturation_re_str)
+            saturation_match = saturation_re.search(cdltext)
+            saturation = saturation_match.group(1)
+
+            
             s_avidqt_dest = os.path.join(s_delivery_package_full, "AVID", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, "VFX", "%s_h264.mov"%s_filename)
-            s_dpx_dest = os.path.join(s_delivery_package_full, "DPX", s_filename, s_format)
+            s_exr_dest = os.path.join(s_delivery_package_full, "EXR", s_filename, s_format)
             s_matte_dest = os.path.join(s_delivery_package_full, "TIF", "%s_matte"%s_filename, s_format)
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_dest = os.path.join(s_dpx_dest, "%s.cdl"%s_shot)
+            s_cdl_dest = os.path.join(s_exr_dest, "%s.cdl"%s_shot)
             s_xml_dest = os.path.join(s_delivery_package_full, ".delivery", "%s.xml"%s_filename)
             
             # print out python script to a temp file
@@ -336,7 +375,7 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             os.write(fh_nukepy, "nd_root.knob('txt_ih_seq_path').setValue(\"%s\")\n"%s_seq_path)
             os.write(fh_nukepy, "nd_root.knob('txt_ih_shot').setValue(\"%s\")\n"%s_shot)
             os.write(fh_nukepy, "nd_root.knob('txt_ih_shot_path').setValue(\"%s\")\n"%s_shot_path)
-            
+
             if not cc_delivery:
                 os.write(fh_nukepy, "nuke.toNode('Colorspace1').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('disable').setValue(True)\n")
@@ -344,6 +383,23 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 os.write(fh_nukepy, "nuke.toNode('Colorspace3').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('Vectorfield1').knob('disable').setValue(True)\n")
+            else:
+                # hard code cdl values because fuck nuke
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('file').setValue(\"%s\")\n"%s_cdl_src)
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('cccid').setValue(\"%s\")\n"%s_cccid)
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('read_from_file').setValue(False)\n")
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('slope').setValue([%s, %s, %s])\n"%(slope_r, slope_g, slope_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('offset').setValue([%s, %s, %s])\n"%(offset_r, offset_g, offset_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('power').setValue([%s, %s, %s])\n"%(power_r, power_g, power_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('saturation').setValue(%s)\n"%saturation)
+
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('file').setValue(\"%s\")\n"%s_cdl_src)
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('cccid').setValue(\"%s\")\n"%s_cccid)
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('read_from_file').setValue(False)\n")
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('slope').setValue([%s, %s, %s])\n"%(slope_r, slope_g, slope_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('offset').setValue([%s, %s, %s])\n"%(offset_r, offset_g, offset_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('power').setValue([%s, %s, %s])\n"%(power_r, power_g, power_b))
+                os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('saturation').setValue(%s)\n"%saturation)
             
             l_exec_nodes = []
             
@@ -359,12 +415,12 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 d_files_to_copy[s_vfxqt_src] = s_vfxqt_dest
                 l_exec_nodes.append('MOV_H264_WRITE')
             
-            if not dpx_delivery:
-                os.write(fh_nukepy, "nuke.toNode('DPX_WRITE').knob('disable').setValue(True)\n")
+            if not exr_delivery:
+                os.write(fh_nukepy, "nuke.toNode('EXR_WRITE').knob('disable').setValue(True)\n")
                 b_deliver_cdl = False
             else:
-                d_files_to_copy[s_dpx_src] = s_dpx_dest
-                l_exec_nodes.append('DPX_WRITE')
+                d_files_to_copy[s_exr_src] = s_exr_dest
+                l_exec_nodes.append('EXR_WRITE')
 
             if not matte_delivery:
                 os.write(fh_nukepy, "nuke.toNode('TIFF_MATTE_WRITE').knob('disable').setValue(True)\n")
@@ -394,9 +450,9 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
             if vfxqt_delivery:
                 vfxname_se = etree.SubElement(new_submission, 'VFXQTFileName')
                 vfxname_se.text = os.path.basename(s_vfxqt_src)
-            if dpx_delivery:
-                dpx_fname_se = etree.SubElement(new_submission, 'DPXFileName')
-                dpx_fname_se.text = os.path.basename(s_dpx_src)
+            if exr_delivery:
+                exr_fname_se = etree.SubElement(new_submission, 'EXRFileName')
+                exr_fname_se.text = os.path.basename(s_exr_src)
             if matte_delivery:
                 matte_fname_se = etree.SubElement(new_submission, 'MatteFileName')
                 matte_fname_se.text = os.path.basename(s_matte_src)
@@ -422,11 +478,12 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
 
             d_files_to_copy[s_xml_src] = s_xml_dest
             
-            # copy CDL file if we are delivering DPX frames
+            # copy CDL file if we are delivering EXR frames
             if b_deliver_cdl:
                 d_files_to_copy[s_cdl_src] = s_cdl_dest
 
             # render all frames - in a background thread
+            # print s_nukepy
             threading.Thread(target=render_delivery_threaded, args=[s_nukepy, start_frame, end_frame, d_files_to_copy]).start()
 
         for all_nd in nuke.allNodes():
@@ -434,3 +491,30 @@ def send_for_review_darktower(cc=True, current_version_notes=None, b_method_avid
                 all_nd.knob('selected').setValue(True)
             else:
                 all_nd.knob('selected').setValue(False)
+
+def create_viewer_input():
+    for n in nuke.selectedNodes():
+        n['selected'].setValue(False)
+
+    grp = nuke.createNode("Group", inpanel=False)
+    grp.begin()
+    inp = nuke.createNode("Input", inpanel=False)
+    cs = nuke.createNode("OCIOColorSpace", inpanel=False)
+    cs['out_colorspace'].setValue("AlexaV3LogC")
+    cdl = nuke.createNode("OCIOCDLTransform", inpanel=False)
+    cdl['read_from_file'].setValue(True)
+    lut = nuke.createNode("OCIOFileTransform", inpanel=False)
+    out = nuke.createNode("Output", inpanel=False)
+    # set file paths
+    cdlfile = None
+    lutfile = None
+    try:
+        cdlfile = os.path.join("%s"%nuke.root().knob('txt_ih_shot_path').value(), "data", "cdl", "%s.ccc"%nuke.root().knob('txt_ih_shot').value())
+        lutfile = os.environ['IH_SHOW_CFG_LUT']
+        cdl['file'].setValue(cdlfile)
+        lut['file'].setValue(lutfile)
+    except:
+        print "Caught exception when trying to set .ccc and .cube file paths"
+    grp.end()
+    grp.setName("VIEWER_INPUT")
+    nuke.activeViewer().node().knob('viewerProcess').setValue('None')
