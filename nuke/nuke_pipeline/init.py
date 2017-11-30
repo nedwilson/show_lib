@@ -3,4 +3,4 @@
 import nuke
 
 # viewer process register
-nuke.ViewerProcess.register("Dark Tower Show LUT", nuke.Node, ("DarkTower_ShowLUT", ""))
+nuke.ViewerProcess.register("Spinel Show LUT", nuke.Node, ("Spinel_ShowLUT", ""))
