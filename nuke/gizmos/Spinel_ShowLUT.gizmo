@@ -1,0 +1,38 @@
+#! /Applications/Nuke8.0v5/Nuke8.0v5.app/Contents/MacOS/libnuke-8.0.v5.dylib -nx
+version 8.0 v5
+Gizmo {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 826
+  ypos -677
+ }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace2
+  xpos 826
+  ypos -637
+ }
+ OCIOCDLTransform {
+  read_from_file true
+  file "\[value root.txt_ih_shot_path]/data/cdl/\[value root.txt_ih_shot].ccc"
+  name OCIOCDLTransform2
+  label "CDL for \[value root.txt_ih_shot]"
+  xpos 826
+  ypos -613
+ }
+ OCIOFileTransform {
+  file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
+  version 2
+  name OCIOFileTransform2
+  xpos 826
+  ypos -581
+ }
+ Output {
+  name Output1
+  xpos 826
+  ypos -481
+ }
+end_group

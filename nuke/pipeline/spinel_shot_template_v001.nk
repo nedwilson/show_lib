@@ -1,0 +1,273 @@
+#! /Applications/Nuke11.0v3/Nuke11.0v3.app/Contents/MacOS/libnuke-11.0.3.dylib -nx
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3424 2202 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1001 1054" fps:"23.976" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"12:08:11:22" colorManagement:"Nuke"
+version 11.0 v3
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="23" w="2560" h="1345" screen="0">
+        <splitter orientation="2">
+            <split size="776"/>
+            <splitter orientation="1">
+                <split size="593"/>
+                <splitter orientation="2">
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.project.2">
+                        <page id="uk.co.thefoundry.project.2" layout="splitter(221,346)"/>
+                        <page id="uk.co.thefoundry.project.1" layout="splitter(160,470)"/>
+                    </dock>
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.spreadsheetview.1">
+                        <page id="uk.co.thefoundry.spreadsheetview.1"/>
+                    </dock>
+                </splitter>
+                <split size="45"/>
+                <dock id="" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1245"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                    <page id="Error Console.1"/>
+                </dock>
+                <split size="665"/>
+                <splitter orientation="2">
+                    <split size="776"/>
+                    <dock id="" activePageId="Properties.1">
+                        <page id="Properties.1"/>
+                        <page id="uk.co.thefoundry.clipeffects.1"/>
+                        <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                        <page id="uk.co.thefoundry.exportqueue.1"/>
+                        <page id="tk_multi_shotgunpanel_main"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="544"/>
+            <splitter orientation="1">
+                <split size="2560"/>
+                <dock id="" activePageId="uk.co.thefoundry.timeline.4">
+                    <page id="uk.co.thefoundry.timeline.4" layout="splitter(752,1804)"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+    <window x="2560" y="23" w="2560" h="1401" screen="1">
+        <splitter orientation="1">
+            <split size="1950"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="uk.co.thefoundry.sequenceviewer.6"/>
+                <page id="uk.co.thefoundry.viewer.4"/>
+                <page id="Viewer.1"/>
+            </dock>
+            <split size="606"/>
+            <splitter orientation="2">
+                <split size="695"/>
+                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
+                    <page id="uk.co.thefoundry.vectorscope.1"/>
+                </dock>
+                <split size="306"/>
+                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
+                    <page id="uk.co.thefoundry.waveformscope.1"/>
+                </dock>
+                <split size="292"/>
+                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
+                    <page id="uk.co.thefoundry.histogram.1"/>
+                </dock>
+                <split size="96"/>
+                <dock id="" activePageId="uk.co.thefoundry.monitorController.1">
+                    <page id="uk.co.thefoundry.monitorController.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/nuke_pipeline/spinel_shot_template_v001.nk
+ frame 1001
+ first_frame 1001
+ last_frame 1054
+ lock_range true
+ fps 23.97602463
+ format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ proxy_type scale
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+ onScriptLoad "if nuke.env\['LINUX']:\n  nuke.tcl('load ffmpegReader')\n  nuke.tcl('load ffmpegWriter')\nelse:\n  nuke.tcl('load movReader')\n  nuke.tcl('load movWriter')"
+ addUserKnob {20 studio l Studio}
+ addUserKnob {6 annotations_show l INVISIBLE t "Control whether annotations are visible." -STARTLINE +INVISIBLE}
+ annotations_show true
+ addUserKnob {1 timeline_write_node l "Timeline Write Node" t "The name of the Write node which should be used when showing the comp on the timeline."}
+ timeline_write_node Write_exr
+ addUserKnob {1 shot_guid l INVISIBLE t "This is used to identify the master track item within the script" +INVISIBLE}
+ shot_guid 4EAD4627-507D-4AD0-A397-99DF6988B349
+ addUserKnob {1 in_handle l INVISIBLE +INVISIBLE}
+ in_handle 0
+ addUserKnob {1 out_handle l INVISIBLE +INVISIBLE}
+ out_handle 0
+ addUserKnob {20 tab_inhouse l In-House}
+ addUserKnob {1 txt_ih_show l show}
+ txt_ih_show spinel
+ addUserKnob {1 txt_ih_show_path l "show path"}
+ txt_ih_show_path /Volumes/raid_vol01/shows/spinel
+ addUserKnob {1 txt_ih_seq l sequence}
+ txt_ih_seq HC019
+ addUserKnob {1 txt_ih_seq_path l "sequence path"}
+ txt_ih_seq_path /Volumes/raid_vol01/shows/spinel/HC019/
+ addUserKnob {1 txt_ih_shot l shot}
+ txt_ih_shot HC019_190
+ addUserKnob {1 txt_ih_shot_path l "shot path"}
+ txt_ih_shot_path /Volumes/raid_vol01/shows/spinel/HC019/HC019_190
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0xa09797ff
+ label <center>MAIN_PLATE
+ note_font_size 42
+ xpos -69
+ ypos -1023
+ bdwidth 373
+ bdheight 326
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ tile_color 0xa04040ff
+ label "<center>HC019_190\ncomp output"
+ note_font_size 42
+ xpos -94
+ ypos 495
+ bdwidth 411
+ bdheight 456
+ z_order 1
+}
+Group {
+ inputs 0
+ name VIEWER_INPUT
+ tile_color 0x5352ffff
+ note_font "Verdana Bold"
+ note_font_size 20
+ xpos -53
+ ypos 856
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 400
+  ypos -9
+ }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace1
+  xpos 400
+  ypos 15
+ }
+ OCIOCDLTransform {
+  slope {1.005399942 1.007099986 0.9875000119}
+  offset {0.01899999939 0.01899999939 0.01899999939}
+  power {1.032099962 1.032099962 1.032099962}
+  saturation 0.804799974
+  working_space linear
+  read_from_file true
+  file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/data/cdl/HC019_190.ccc
+  cccid 3467F1F8-51D9-4F17-A7DC-0295417947E3
+  name OCIOCDLTransform1
+  xpos 400
+  ypos 39
+ }
+ OCIOFileTransform {
+  file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
+  working_space linear
+  name OCIOFileTransform1
+  xpos 400
+  ypos 63
+ }
+ Output {
+  name Output1
+  xpos 400
+  ypos 87
+ }
+end_group
+Read {
+ inputs 0
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/plates/HC019_190_BS/HC019_190_BS.%04d.exr
+ format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ first 1001
+ last 1054
+ origfirst 1001
+ origlast 1054
+ origset true
+ colorspace linear
+ auto_alpha true
+ name Read1
+ label main_plate_ingested
+ xpos 80
+ ypos -907
+}
+set Na435d1b0 [stack 0]
+PostageStamp {
+ name PostageStamp1
+ label "MAIN PLATE"
+ xpos 201
+ ypos 640
+ hide_input true
+ postage_stamp true
+}
+Dot {
+ name Dot1
+ xpos 235
+ ypos 745
+}
+push $Na435d1b0
+Reformat {
+ format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ resize none
+ pbb true
+ name Reformat1
+ xpos 80
+ ypos 646
+}
+Crop {
+ box {0 0 3424 2202}
+ name Crop1
+ xpos 80
+ ypos 693
+}
+CopyMetaData {
+ inputs 2
+ mergeMode "Meta only"
+ name CopyMetaData1
+ xpos 80
+ ypos 742
+}
+Write {
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.####.exr
+ colorspace linear
+ file_type exr
+ metadata "all metadata"
+ create_directories true
+ first 1001
+ last 1054
+ name Write_exr
+ xpos 80
+ ypos 789
+}
+Viewer {
+ inputs 0
+ frame 1001
+ frame_range 1001-1054
+ fps 23.97602463
+ viewerProcess None
+ name Viewer1
+ xpos -53
+ ypos 798
+}

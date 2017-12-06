@@ -86,6 +86,8 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
                 # print "INFO: Rendering: Frame %d"%i_exr_frame
                 progress_bar.setMessage("Rendering: Frame %d" % i_exr_frame)
                 progress_bar.setProgress(int(f_progress * 50))
+            elif s_out.find("Rendered frame") > 1 and s_out.find(".mov") > -1:
+                pass
         except IOError:
             print "ERROR: IOError Caught!"
             var = traceback.format_exc()
@@ -137,7 +139,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
 
     del progress_bar
 
-def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):
+def `send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):`
     oglist = []
 
 
