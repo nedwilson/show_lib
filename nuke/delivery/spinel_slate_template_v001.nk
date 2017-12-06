@@ -11,11 +11,11 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
                 <split size="775"/>
-                <dock id="" activePageId="Viewer.1">
+                <dock id="" activePageId="Viewer.1" focus="true">
                     <page id="Viewer.1"/>
                 </dock>
                 <split size="545"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -27,6 +27,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <dock id="" activePageId="Properties.1">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="tk_multi_shotgunpanel_main"/>
             </dock>
         </splitter>
     </window>
@@ -34,8 +35,8 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/delivery/spinel_slate_template_v0001.nk
- frame 1001
+ name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/delivery/spinel_slate_template_v001.nk
+ frame 1000
  first_frame 1001
  last_frame 1133
  lock_range true
@@ -133,13 +134,13 @@ Dot {
  xpos 1718
  ypos -187
 }
-set Nef3d51d0 [stack 0]
+set Nf648c570 [stack 0]
 Dot {
  name Dot14
  xpos 1880
  ypos -187
 }
-set Nef3d7630 [stack 0]
+set Nf6482570 [stack 0]
 Dot {
  name Dot17
  xpos 2034
@@ -162,8 +163,8 @@ Constant {
  channels rgb
  format "640 316 0 0 640 316 1 "
  name Constant1
- xpos 2715
- ypos 438
+ xpos 2402
+ ypos 489
 }
 Text2 {
  font_size_toolbar 180
@@ -189,8 +190,8 @@ Text2 {
  animation_layers {{1 11 320 158 0 0 1 1 0 0 0 0}
    }
  name Text17
- xpos 2715
- ypos 510
+ xpos 2402
+ ypos 561
 }
 Invert {
  name Invert1
@@ -205,14 +206,14 @@ Transform {
  xpos 2402
  ypos 678
 }
-set Neb174980 [stack 0]
-push $Nef3d51d0
+set Nfc995f60 [stack 0]
+push $Nf648c570
 Dot {
  name Dot9
  xpos 1718
  ypos 126
 }
-set Neb17a990 [stack 0]
+set Nfc99e600 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  black_outside true
@@ -220,7 +221,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set Neb17cb20 [stack 0]
+set Nfc9a1ef0 [stack 0]
 Reformat {
  format "2100 1152 0 0 2100 1152 1 Spinel 2K Delivery (.sp2k)"
  resize none
@@ -240,7 +241,7 @@ Dot {
  xpos 1794
  ypos 584
 }
-push $Neb17a990
+push $Nfc99e600
 Dot {
  name Dot10
  xpos 1859
@@ -253,7 +254,7 @@ Switch {
  xpos 1825
  ypos 581
 }
-set Neb193180 [stack 0]
+set Nfc9c5280 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -289,7 +290,7 @@ Shuffle {
  xpos 2164
  ypos 613
 }
-set Nf0f55aa0 [stack 0]
+set Nfc9ec0e0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -307,7 +308,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\nFile Name:\t\[value root.ti_ih_file_name]\n\nVendor:\t\[value root.ti_ih_vendor]\n \nDate:\t\[date %m-%d-%Y] \n\nFrames:\t\[value root.first_frame]-\[value root.last_frame]\n\n\n\nShot Notes:\t\[value root.ti_ih_notes_1]\n\t\[value root.ti_ih_notes_2]\n\t\[value root.ti_ih_notes_3]\n\t\[value root.ti_ih_notes_4]\n\t\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 9 83 68 48 55 56 95 52 51 48 95 99 111 109 112 95 118 48 48 49 10 10 86 101 110 100 111 114 58 9 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 9 49 49 45 50 55 45 50 48 49 55 32 10 10 70 114 97 109 101 115 58 9 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 9 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 9 10 9 10 9 10 9}
+ old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 9 83 68 48 55 56 95 52 51 48 95 99 111 109 112 95 118 48 48 49 10 10 86 101 110 100 111 114 58 9 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 9 49 50 45 48 54 45 50 48 49 55 32 10 10 70 114 97 109 101 115 58 9 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 9 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 9 10 9 10 9 10 9}
    }
  old_expression_markers {{14 32 43 52 62 71 83 86 88 91 108 122 125 124 127 126 129 128 131 130}
    }
@@ -330,13 +331,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set Nf0f70c60 [stack 0]
+set Nf8debd70 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $Neb17cb20
+push $Nfc9a1ef0
 Dot {
  name Dot3
  xpos 1607
@@ -354,7 +355,7 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nf0f8a3a0 [stack 0]
+set N3418f60 [stack 0]
 Dot {
  name Dot12
  xpos 1100
@@ -417,7 +418,7 @@ OCIOCDLTransform {
 }
 Vectorfield {
  vfield_file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
- version 75
+ version 76
  file_type cube
  interpolation "cubic field"
  name Vectorfield3
@@ -456,6 +457,7 @@ Text2 {
  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
    }
  name Text7
+ selected true
  xpos 1066
  ypos 1079
 }
@@ -486,6 +488,7 @@ Text2 {
  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
    }
  name Text1
+ selected true
  xpos 1066
  ypos 1103
 }
@@ -516,6 +519,7 @@ Text2 {
  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
    }
  name Text8
+ selected true
  xpos 1066
  ypos 1127
 }
@@ -547,6 +551,7 @@ Text2 {
  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
    }
  name Text10
+ selected true
  xpos 1066
  ypos 1151
 }
@@ -578,6 +583,7 @@ Text2 {
  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
    }
  name Text11
+ selected true
  xpos 1066
  ypos 1175
 }
@@ -639,17 +645,7 @@ StickyNote {
  xpos 1682
  ypos -141
 }
-Read {
- inputs 0
- file /Volumes/raid_vol01/work/darktower/SHARED/img/dark_tower_logo_finals.jpeg
- format "640 316 0 0 640 316 1 "
- origset true
- auto_alpha true
- name Read4
- xpos 2402
- ypos 465
-}
-push $Nf0f70c60
+push $Nf8debd70
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -678,13 +674,13 @@ Text2 {
  xpos 2164
  ypos 789
 }
-push $Neb193180
+push $Nfc9c5280
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set Ndd9034a0 [stack 0]
+set N32c3780 [stack 0]
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 0 : 1"}}
@@ -732,13 +728,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $Neb174980
+push $Nfc995f60
 Dot {
  name Dot24
  xpos 2712
  ypos 681
 }
-push $Ndd9034a0
+push $N32c3780
 Dot {
  name Dot18
  xpos 2087
@@ -751,7 +747,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set Ne8c28630 [stack 0]
+set Nfcf6d3a0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -772,7 +768,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $Nf0f55aa0
+push $Nfc9ec0e0
 Dot {
  name Dot21
  xpos 2339
@@ -856,7 +852,7 @@ Text2 {
  xpos 2678
  ypos 1130
 }
-push $Ne8c28630
+push $Nfcf6d3a0
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 0 : 1"}}
@@ -908,14 +904,7 @@ Write {
  xpos 2053
  ypos 1634
 }
-CheckerBoard2 {
- inputs 0
- format "640 316 0 0 640 316 1 "
- name CheckerBoard1
- xpos 2544
- ypos 432
-}
-push $Nef3d7630
+push $Nf6482570
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  black_outside true
@@ -936,8 +925,8 @@ Dot {
  xpos 1880
  ypos -38
 }
-push $Nef3d51d0
-push $Nef3d51d0
+push $Nf648c570
+push $Nf648c570
 Dot {
  name Dot6
  xpos 1549
@@ -955,7 +944,7 @@ Switch {
  xpos 1684
  ypos 7
 }
-push $Neb17cb20
+push $Nfc9a1ef0
 Constant {
  inputs 0
  channels rgb
@@ -1008,7 +997,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nf0f8a3a0
+push $N3418f60
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1022,7 +1011,6 @@ Text2 {
    }
  font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 49
  font_size 45
  scale {1 1}
  cursor_initialised true
@@ -1066,7 +1054,7 @@ OCIOCDLTransform {
 }
 Vectorfield {
  vfield_file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
- version 76
+ version 77
  file_type cube
  interpolation "cubic field"
  name Vectorfield1
@@ -1128,7 +1116,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{49 49 45 50 55 45 50 48 49 55}
+ old_message {{49 50 45 48 54 45 50 48 49 55}
    }
  old_expression_markers {{0 9}
    }
@@ -1234,7 +1222,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 48 49}
+ old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 48 48}
    }
  old_expression_markers {{1 4 6 9 13 16}
    }
@@ -1288,12 +1276,14 @@ Write {
  mov64_b_frames 0
  checkHashOnRead false
  version 121
+ beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  xpos 1325
  ypos 1451
 }
 Viewer {
  inputs 2
+ frame 1000
  frame_range 1001-1133
  frame_increment 5
  colour_sample_bbox {0.493263036 0.1458699405 0.4938488603 0.1464557648}
