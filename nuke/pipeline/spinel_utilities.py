@@ -139,7 +139,7 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
 
     del progress_bar
 
-def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):`
+def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):
     oglist = []
 
 
