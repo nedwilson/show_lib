@@ -2,7 +2,7 @@
 version 11.0 v3
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="1680" h="950" screen="0">
+    <window x="0" y="23" w="1680" h="954" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
@@ -10,20 +10,20 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1017" stretch="1"/>
             <splitter orientation="2">
-                <split size="543"/>
+                <split size="545"/>
                 <dock id="" activePageId="Viewer.1">
                     <page id="Viewer.1"/>
                     <page id="Viewer.1"/>
                 </dock>
-                <split size="382"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <split size="384"/>
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
                 </dock>
             </splitter>
             <split size="615"/>
-            <dock id="" activePageId="Properties.1">
+            <dock id="" activePageId="Properties.1" focus="true">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
             </dock>
@@ -185,7 +185,7 @@ Transform {
  xpos 2402
  ypos 678
 }
-set N2a50a670 [stack 0]
+set N58d62e0 [stack 0]
 Dot {
  name Dot24
  xpos 2712
@@ -213,30 +213,29 @@ Reformat {
  format "2880 2160 0 0 2880 2160 2 SKY Delivery Resolution"
  resize none
  name Reformat8
- selected true
  xpos 1684
  ypos -210
 }
-set N2a0f2c60 [stack 0]
+set N59c0eb0 [stack 0]
 NoOp {
  name NoOp1
  label "DI RES"
  xpos 1686
  ypos 278
 }
-set N2a6062f0 [stack 0]
+set N59c8a80 [stack 0]
 Dot {
  name Dot5
  xpos 1859
  ypos 285
 }
-set N2a608610 [stack 0]
+set N59cada0 [stack 0]
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N2a60aa70 [stack 0]
+set N59cd200 [stack 0]
 Dot {
  name Dot18
  xpos 2087
@@ -249,7 +248,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N2a60f330 [stack 0]
+set N59d1ac0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -284,7 +283,7 @@ Shuffle {
  xpos 2164
  ypos 613
 }
-set N2a125950 [stack 0]
+set N58fac50 [stack 0]
 Dot {
  name Dot21
  xpos 2339
@@ -368,7 +367,7 @@ Text2 {
  xpos 2678
  ypos 1130
 }
-push $N2a60f330
+push $N59d1ac0
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 0 : 1"}}
@@ -423,7 +422,7 @@ NoOp {
  xpos 2945
  ypos -128
 }
-set N2a61eb00 [stack 0]
+set N59f6ab0 [stack 0]
 Reformat {
  type "to box"
  box_width 2397
@@ -449,7 +448,7 @@ NoOp {
  xpos 3024
  ypos 17
 }
-set N2a630420 [stack 0]
+set N5d0c590 [stack 0]
 Write {
  file seq0010_comp_v001/1920x1080_DNxHD/seq0010_comp_v001.mov
  colorspace "Output - Rec.709"
@@ -472,7 +471,7 @@ Write {
  xpos 3024
  ypos 127
 }
-push $N2a630420
+push $N5d0c590
 Write {
  file seq0010_comp_v001/1920x1080_H264/seq0010_comp_v001.m4v
  colorspace "Output - Rec.709"
@@ -496,7 +495,7 @@ Write {
  xpos 3155
  ypos 125
 }
-push $N2a61eb00
+push $N59f6ab0
 Reformat {
  box_width 2880
  box_height 2160
@@ -524,60 +523,8 @@ Write {
  xpos 2864
  ypos 126
 }
-Constant {
- inputs 0
- channels rgb
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Constant3
- xpos 1467
- ypos 870
-}
-Shuffle {
- alpha white
- name Shuffle4
- xpos 1467
- ypos 960
-}
-Reformat {
- inputs 0
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat4
- xpos 1613
- ypos 852
-}
-Rectangle {
- invert true
- area {0 942 1920 1080}
- name Rectangle1
- xpos 1613
- ypos 924
-}
-Rectangle {
- area {0 0 1920 138}
- color 0
- name Rectangle2
- xpos 1613
- ypos 963
-}
-Dot {
- name Dot1
- xpos 1647
- ypos 1011
-}
-Merge2 {
- inputs 2
- operation out
- name Merge16
- xpos 1467
- ypos 1008
-}
-Dot {
- name Dot11
- xpos 1501
- ypos 1083
-}
-push $N2a50a670
-push $N2a608610
+push $N58d62e0
+push $N59cada0
 Dot {
  name Dot4
  xpos 2008
@@ -597,7 +544,7 @@ Transform {
  xpos 1974
  ypos 652
 }
-push $N2a125950
+push $N58fac50
 Merge2 {
  inputs 2
  name Merge17
@@ -615,7 +562,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\nFile Name:   \[value root.ti_ih_file_name]\n\nArtist:           \[value root.ti_ih_vendor]\n \nDate:            \[date %m-%d-%Y] \n\nFrames:       \[value root.first_frame]-\[value root.last_frame]\n\n\n\nShot Notes:  \[value root.ti_ih_notes_1]\n                      \[value root.ti_ih_notes_2]\n                      \[value root.ti_ih_notes_3]\n                      \[value root.ti_ih_notes_4]\n                      \[value root.ti_ih_notes_5]"
- old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 32 32 32 101 110 100 48 48 51 48 95 99 111 109 112 95 118 56 48 49 10 10 65 114 116 105 115 116 58 32 32 32 32 32 32 32 32 32 32 32 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 32 32 32 32 32 32 32 32 32 32 32 32 49 50 45 48 53 45 50 48 49 55 32 10 10 70 114 97 109 101 115 58 32 32 32 32 32 32 32 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 32 32 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32}
+ old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 32 32 32 101 110 100 48 48 51 48 95 99 111 109 112 95 118 56 48 49 10 10 65 114 116 105 115 116 58 32 32 32 32 32 32 32 32 32 32 32 78 101 100 32 87 105 108 115 111 110 10 32 10 68 97 116 101 58 32 32 32 32 32 32 32 32 32 32 32 32 49 50 45 48 54 45 50 48 49 55 32 10 10 70 114 97 109 101 115 58 32 32 32 32 32 32 32 49 48 48 49 45 49 49 51 51 10 10 10 10 83 104 111 116 32 78 111 116 101 115 58 32 32 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32}
    }
  old_expression_markers {{16 32 53 62 83 92 110 113 115 118 136 150 174 173 197 196 220 219 243 242}
    }
@@ -639,13 +586,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N2a15d2b0 [stack 0]
+set N5d60290 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N2a6062f0
+push $N59c8a80
 Dot {
  name Dot3
  xpos 1607
@@ -663,283 +610,7 @@ Dot {
  xpos 1359
  ypos 463
 }
-set N2a665860 [stack 0]
-Text2 {
- font_size_toolbar 60
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\nFormat:        1920x1080 Quicktime DNxHD 115"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 70 111 114 109 97 116 58 32 32 32 32 32 32 32 32 49 57 50 48 120 49 48 56 48 32 81 117 105 99 107 116 105 109 101 32 68 78 120 72 68 32 49 49 53}
-   }
- box {576 230 2304 1350}
- transforms {{0 2}
-   }
- font_size_values {{0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60 20 60 21 60 22 60 23 60 24 60 25 60 26 60 27 60 28 60 29 60 30 60 31 60 32 60 33 60 34 60 35 60 36 60 37 60 38 60 39 60 40 60 41 60 42 60 43 60 44 60 45 60 46 60 47 60 48 60 49 60 50 60 51 60 52 60 53 60 54 60 55 60 0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60}
-   }
- cursor_position 56
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 60
- center {1440 1080}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{0 2160}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1440 1080 0 0 1 1 0 0 0 0}
-   }
- name Text4
- xpos 1325
- ypos 518
- lifetimeEnd 1133
-}
-Reformat {
- type "to box"
- box_width 2397
- box_height 2008
- box_fixed true
- box_pixel_aspect 2
- resize none
- filter Lanczos6
- name Reformat9
- xpos 1325
- ypos 589
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- black_outside true
- name Reformat10
- xpos 1325
- ypos 625
-}
-NoOp {
- name NoOp3
- label "EDITORIAL/VFX RES"
- xpos 1325
- ypos 670
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat1
- xpos 1325
- ypos 767
-}
-OCIOCDLTransform {
- slope {1 1 1}
- offset {0 0 0}
- power {1 1 1}
- working_space "ACES - ACEScct"
- read_from_file true
- name OCIOCDLTransform1
- xpos 1325
- ypos 866
-}
-OCIOFileTransform {
- file /Volumes/raid_vol01/shows/skyscraper/show/documents/Skyscraper_VFX_LUT_Package/ACEScct_Skyscraper_LMT_ACEScct.csp
- working_space "ACES - ACEScct"
- name OCIOFileTransform1
- xpos 1324
- ypos 917
-}
-Sharpen {
- amount 0.65
- name Sharpen3
- xpos 1324
- ypos 1007
- disable true
-}
-Merge2 {
- inputs 2
- mix {{"frame >= root.first_frame ? 1 : 0"}}
- name Merge1
- xpos 1325
- ypos 1080
- disable true
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_vendor]"
- old_message {{78 101 100 32 87 105 108 115 111 110}
-   }
- old_expression_markers {{0 9}
-   }
- box {16 1033 172 1064}
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {960 540}
- cursor_initialised true
- initial_cursor_position {{16 1064}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- name Text3
- xpos 1325
- ypos 1104
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[date %m-%d-%Y]"
- old_message {{49 50 45 48 52 45 50 48 49 55}
-   }
- old_expression_markers {{0 9}
-   }
- box {1748 1032 1905 1063}
- xjustify right
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {1050 576}
- cursor_initialised true
- initial_cursor_position {{1905 1063}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- name Text9
- xpos 1325
- ypos 1128
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_file_name]"
- old_message {{101 110 100 48 48 51 48 95 99 111 109 112 95 118 56 48 49}
-   }
- old_expression_markers {{0 16}
-   }
- box {16 16 490 47}
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
-   }
- cursor_position 28
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- name Text12
- xpos 1325
- ypos 1152
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_notes_1]"
- old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
-   }
- old_expression_markers {{0 14}
-   }
- box {380 16 1540 47}
- xjustify center
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- name Text13
- xpos 1325
- ypos 1176
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 48 49}
-   }
- old_expression_markers {{1 4 6 9 13 16}
-   }
- box {1430 16 1904 47}
- xjustify right
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- name Text14
- xpos 1325
- ypos 1200
-}
-set N2a1c6ee0 [stack 0]
-Write {
- file "\[file dirname \[value EXR_READ.file]]/../1920x1080_QuicktimeDNxHD115/\[lindex \[split \[file tail \[value EXR_READ.file]] \".\"] 0].mov"
- colorspace "Output - Rec.709"
- file_type mov
- meta_codec AVdn
- mov32_codec AVdn
- mov32_fps 23.976
- mov32_units Frames
- mov32_write_timecode true
- mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
- mov64_codec AVdn
- mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
- mov64_fps 23.976
- mov64_units Frames
- mov64_write_timecode true
- mov64_bitrate 20000
- mov64_bitrate_tolerance 40000000
- mov64_quality_min 2
- mov64_quality_max 31
- mov64_gop_size 12
- mov64_b_frames 0
- create_directories true
- checkHashOnRead false
- version 121
- in_colorspace "ACES - ACEScg"
- out_colorspace "ACES - ACEScg"
- name MOV_DNXHD_WRITE
- xpos 1325
- ypos 1451
-}
-push $N2a665860
+set N5d6f3d0 [stack 0]
 Dot {
  name Dot12
  xpos 1100
@@ -1208,7 +879,349 @@ Write {
  xpos 1066
  ypos 1480
 }
-push $N2a15d2b0
+Constant {
+ inputs 0
+ channels rgb
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Constant3
+ xpos 1467
+ ypos 870
+}
+Shuffle {
+ alpha white
+ name Shuffle4
+ xpos 1467
+ ypos 960
+}
+Reformat {
+ inputs 0
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Reformat4
+ xpos 1613
+ ypos 852
+}
+Rectangle {
+ invert true
+ area {0 942 1920 1080}
+ name Rectangle1
+ xpos 1613
+ ypos 924
+}
+Rectangle {
+ area {0 0 1920 138}
+ color 0
+ name Rectangle2
+ xpos 1613
+ ypos 963
+}
+Dot {
+ name Dot1
+ xpos 1647
+ ypos 1011
+}
+Merge2 {
+ inputs 2
+ operation out
+ name Merge16
+ xpos 1467
+ ypos 1008
+}
+Dot {
+ name Dot11
+ xpos 1501
+ ypos 1083
+}
+push $N5d6f3d0
+Text2 {
+ font_size_toolbar 60
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 0 : 1"}}
+ message "\n\n\n\n\n\n \n\n\n\n\nFormat:        1920x1080 Quicktime DNxHD 115"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 70 111 114 109 97 116 58 32 32 32 32 32 32 32 32 49 57 50 48 120 49 48 56 48 32 81 117 105 99 107 116 105 109 101 32 68 78 120 72 68 32 49 49 53}
+   }
+ box {576 230 2304 1350}
+ transforms {{0 2}
+   }
+ font_size_values {{0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60 20 60 21 60 22 60 23 60 24 60 25 60 26 60 27 60 28 60 29 60 30 60 31 60 32 60 33 60 34 60 35 60 36 60 37 60 38 60 39 60 40 60 41 60 42 60 43 60 44 60 45 60 46 60 47 60 48 60 49 60 50 60 51 60 52 60 53 60 54 60 55 60 0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60}
+   }
+ cursor_position 56
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 60
+ center {1440 1080}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 2160}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1440 1080 0 0 1 1 0 0 0 0}
+   }
+ name Text4
+ xpos 1325
+ ypos 518
+ lifetimeEnd 1133
+}
+Reformat {
+ type "to box"
+ box_width 2397
+ box_height 2008
+ box_fixed true
+ box_pixel_aspect 2
+ resize none
+ filter Lanczos6
+ name Reformat9
+ xpos 1325
+ ypos 589
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ black_outside true
+ name Reformat10
+ xpos 1325
+ ypos 625
+}
+NoOp {
+ name NoOp3
+ label "EDITORIAL/VFX RES"
+ xpos 1325
+ ypos 670
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Reformat1
+ xpos 1325
+ ypos 767
+}
+OCIOCDLTransform {
+ slope {1 1 1}
+ offset {0 0 0}
+ power {1 1 1}
+ working_space "ACES - ACEScct"
+ read_from_file true
+ name OCIOCDLTransform1
+ xpos 1325
+ ypos 866
+}
+OCIOFileTransform {
+ file /Volumes/raid_vol01/shows/skyscraper/show/documents/Skyscraper_VFX_LUT_Package/ACEScct_Skyscraper_LMT_ACEScct.csp
+ working_space "ACES - ACEScct"
+ name OCIOFileTransform1
+ xpos 1324
+ ypos 917
+}
+Sharpen {
+ amount 0.65
+ name Sharpen3
+ xpos 1324
+ ypos 1007
+ disable true
+}
+Merge2 {
+ inputs 2
+ mix {{"frame >= root.first_frame ? 1 : 0"}}
+ name Merge1
+ xpos 1325
+ ypos 1080
+ disable true
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_vendor]"
+ old_message {{78 101 100 32 87 105 108 115 111 110}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {16 1033 172 1064}
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {960 540}
+ cursor_initialised true
+ initial_cursor_position {{16 1064}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text3
+ xpos 1325
+ ypos 1104
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[date %m-%d-%Y]"
+ old_message {{49 50 45 48 54 45 50 48 49 55}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {1748 1032 1905 1063}
+ xjustify right
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {1050 576}
+ cursor_initialised true
+ initial_cursor_position {{1905 1063}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text9
+ xpos 1325
+ ypos 1128
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_file_name]"
+ old_message {{101 110 100 48 48 51 48 95 99 111 109 112 95 118 56 48 49}
+   }
+ old_expression_markers {{0 16}
+   }
+ box {16 16 490 47}
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
+   }
+ cursor_position 28
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text12
+ xpos 1325
+ ypos 1152
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_notes_1]"
+ old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
+   }
+ old_expression_markers {{0 14}
+   }
+ box {380 16 1540 47}
+ xjustify center
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text13
+ xpos 1325
+ ypos 1176
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
+ old_message {{40 49 48 48 49 45 49 49 51 51 41 32 32 49 48 48 49}
+   }
+ old_expression_markers {{1 4 6 9 13 16}
+   }
+ box {1430 16 1904 47}
+ xjustify right
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text14
+ xpos 1325
+ ypos 1200
+}
+set N5e64000 [stack 0]
+push $N59c0eb0
+Viewer {
+ inputs 2
+ frame_range 1001-1133
+ frame_increment 5
+ colour_sample_bbox {0.493263036 0.1458699405 0.4938488603 0.1464557648}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess "Rec.709 (ACES)"
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 2842
+ ypos 1192
+}
+push $N5e64000
+Write {
+ file "\[file dirname \[value EXR_READ.file]]/../1920x1080_QuicktimeDNxHD115/\[lindex \[split \[file tail \[value EXR_READ.file]] \".\"] 0].mov"
+ colorspace "Output - Rec.709"
+ file_type mov
+ meta_codec AVdn
+ mov32_codec AVdn
+ mov32_fps 23.976
+ mov32_units Frames
+ mov32_write_timecode true
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov64_codec AVdn
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
+ mov64_fps 23.976
+ mov64_units Frames
+ mov64_write_timecode true
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ create_directories true
+ checkHashOnRead false
+ version 121
+ beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
+ name MOV_DNXHD_WRITE
+ xpos 1325
+ ypos 1451
+}
+push $N5d60290
 Text2 {
  font_size_toolbar 60
  font_width_toolbar 100
@@ -1238,7 +1251,7 @@ Text2 {
  xpos 2164
  ypos 789
 }
-push $N2a60aa70
+push $N59cd200
 Merge2 {
  inputs 2
  mix {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1279,19 +1292,4 @@ Write {
  name EXR_WRITE
  xpos 1825
  ypos 1339
-}
-push $N2a1c6ee0
-push $N2a0f2c60
-Viewer {
- inputs 2
- frame_range 1001-1133
- frame_increment 5
- colour_sample_bbox {0.493263036 0.1458699405 0.4938488603 0.1464557648}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess "Rec.709 (ACES)"
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 2842
- ypos 1192
 }
