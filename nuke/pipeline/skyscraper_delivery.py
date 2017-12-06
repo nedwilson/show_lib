@@ -302,7 +302,7 @@ def deliver(f):
 
 
 
-        csvfile_path = os.path.join(delivery_path, "SPINEL_%s.csv"%delivery_directory)
+        csvfile_path = os.path.join(delivery_path, "SKY_%s.csv"%delivery_directory)
         csvfile_fh = open(csvfile_path, 'w')
         csvfile_dw = csv.DictWriter(csvfile_fh, headers)
         csvfile_dw.writeheader()
@@ -310,7 +310,7 @@ def deliver(f):
         csvfile_dw.writerows(rows)
         csvfile_fh.close()
         if g_write_ale:
-            alefile_path = os.path.join(delivery_path, "SPINEL_%s.ale"%delivery_directory)
+            alefile_path = os.path.join(delivery_path, "SKY_%s.ale"%delivery_directory)
             alefile_fh = open(alefile_path, 'w')
             alefile_w = ALEWriter(alefile_fh)
             alefile_w.write_header(['Name', 'Tracks', 'Start', 'End', 'Tape', 'ASC_SOP', 'ASC_SAT', 'frame_range'])

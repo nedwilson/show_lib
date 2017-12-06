@@ -1,0 +1,230 @@
+#! /Applications/Nuke11.0v3/Nuke11.0v3.app/Contents/MacOS/libnuke-11.0.3.dylib -nx
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/skyscraper/shots/cra/cra0500/renders/cra0500_comp_v801/2880x2160_EXR/cra0500_comp_v801.%04d.exr" format:"2880 2160 2" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1000 1080" fps:"23.976" colorspace:"default" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"00:00:00:00" colorManagement:"OCIO"
+version 11.0 v3
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="23" w="1680" h="950" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1017" stretch="1"/>
+            <splitter orientation="2">
+                <split size="543"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="382"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Volumes/raid_vol01/shows/skyscraper/SHARED/lib/nuke/pipeline/skyscraper_shot_template_v001.nk
+ frame 1001
+ first_frame 1000
+ last_frame 1080
+ lock_range true
+ format "2472 2070 0 0 2472 2070 2 SKY Working Resolution"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config aces_1.0.3
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT "ACES - ACEScg"
+ monitorLut "ACES/sRGB D60 sim."
+ int8Lut "Utility - sRGB - Texture"
+ int16Lut "Utility - sRGB - Texture"
+ logLut "Input - ARRI - V3 LogC (EI800) - Wide Gamut"
+ floatLut "ACES - ACES2065-1"
+ addUserKnob {20 tab_inhouse l In-House}
+ addUserKnob {1 txt_ih_show l show}
+ txt_ih_show skyscraper
+ addUserKnob {1 txt_ih_show_path l "show path"}
+ txt_ih_show_path /Volumes/raid_vol01/shows/skyscraper
+ addUserKnob {1 txt_ih_seq l sequence}
+ txt_ih_seq cra
+ addUserKnob {1 txt_ih_seq_path l "sequence path"}
+ txt_ih_seq_path /Volumes/raid_vol01/shows/skyscraper/shots/cra/
+ addUserKnob {1 txt_ih_shot l shot}
+ txt_ih_shot cra0500
+ addUserKnob {1 txt_ih_shot_path l "shot path"}
+ txt_ih_shot_path /Volumes/raid_vol01/shows/skyscraper/shots/cra/cra0500
+ addUserKnob {20 mariTab l Mari}
+ addUserKnob {20 studio l Studio}
+ addUserKnob {1 timeline_write_node l "timeline write node"}
+ timeline_write_node Write_exr
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0xaaaaaa00
+ label <center>cra0500_balls001_v001
+ note_font_size 42
+ xpos 1096
+ ypos -775
+ bdwidth 473
+ bdheight 364
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ tile_color 0x8e388e00
+ label "<center>cra0500\ncomp output"
+ note_font_size 42
+ xpos 1125
+ ypos 761
+ bdwidth 425
+ bdheight 425
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode3
+ tile_color 0x71c67100
+ label VIEWERS
+ note_font_size 42
+ xpos 700
+ ypos 901
+ bdwidth 188
+ bdheight 233
+}
+Read {
+ inputs 0
+ file /Volumes/raid_vol01/shows/skyscraper/shots/cra/cra0500/elements/cra0500_balls001_v001/2880x2160_EXR-ZIP/cra0500_balls001_v001.%04d.exr
+ format "2880 2160 0 0 2880 2160 2 Skyscraper Output"
+ first 1000
+ last 1080
+ origfirst 1000
+ origlast 1080
+ origset true
+ name Read1
+ xpos 1292
+ ypos -687
+}
+Sky_Reformat {
+ name Sky_Reformat1
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ xpos 1292
+ ypos -509
+ plate_camera "Alexa XT 4:3 Anamorphic"
+}
+set Nd796f200 [stack 0]
+PostageStamp {
+ name PostageStamp1
+ label "MAIN PLATE\nMETADATA SOURCE"
+ xpos 1133
+ ypos 948
+ hide_input true
+ postage_stamp true
+}
+Dot {
+ name Dot1
+ xpos 1167
+ ypos 1087
+}
+push $Nd796f200
+Reformat {
+ format "2472 2070 0 0 2472 2070 2 SKY Working Resolution"
+ pbb true
+ name Reformat1
+ xpos 1292
+ ypos 931
+}
+Crop {
+ box {0 0 2472 2070}
+ name Crop1
+ xpos 1292
+ ypos 977
+}
+Reformat {
+ format "2880 2160 0 0 2880 2160 2 SKY Delivery Resolution"
+ resize none
+ name Reformat8
+ selected true
+ xpos 1292
+ ypos 1013
+}
+set Ndf3e0e10 [stack 0]
+CopyMetaData {
+ inputs 2
+ mergeMode "Meta only"
+ name CopyMetaData1
+ xpos 1292
+ ypos 1084
+}
+Write {
+ file /Volumes/raid_vol01/shows/skyscraper/shots/cra/cra0500/renders/cra0500_comp_v801/2880x2160_EXR/cra0500_comp_v801.%04d.exr
+ file_type exr
+ name Write_exr
+ xpos 1292
+ ypos 1130
+}
+Group {
+ inputs 0
+ name VIEWER_INPUT
+ tile_color 0x5f7affff
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos 743
+ ypos 987
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 389
+  ypos 113
+ }
+ OCIOCDLTransform {
+  slope {1.004899979 1.004899979 1.004899979}
+  offset {-0.1000000015 -0.1000000015 -0.1000000015}
+  power {0.75 0.75 0.75}
+  working_space "ACES - ACEScct"
+  read_from_file true
+  file /Volumes/raid_vol01/shows/skyscraper/shots/cra/cra0500/elements/cra0500_plt001_v001/_Metadata/cra0500_plt001_v001.cc
+  name OCIOCDLTransform1
+  xpos 389
+  ypos 153
+ }
+ OCIOFileTransform {
+  file /Volumes/raid_vol01/shows/skyscraper/show/documents/Skyscraper_VFX_LUT_Package/ACEScct_Skyscraper_LMT_ACEScct.csp
+  working_space "ACES - ACEScct"
+  name OCIOFileTransform3
+  selected true
+  xpos 391
+  ypos 208
+ }
+ Output {
+  name Output1
+  xpos 391
+  ypos 308
+ }
+end_group
+push $Nd796f200
+push $Ndf3e0e10
+Viewer {
+ inputs 2
+ frame_range 1000-1001
+ frame_range_lock true
+ frame_increment 5
+ colour_sample_bbox {0.493263036 0.1458699405 0.4938488603 0.1464557648}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess "Rec.709 (ACES)"
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 743
+ ypos 1063
+}

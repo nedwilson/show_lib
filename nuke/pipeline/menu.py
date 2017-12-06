@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import datetime
+start_time = datetime.datetime.now()
 
 import nuke
 import skyscraper_delivery
@@ -24,10 +26,13 @@ except KeyError:
     
 menubar = nuke.menu("Nuke")
 m = menubar.addMenu("Skyscraper")
+m.addCommand("SKY Reformat", "nuke.createNode(\"Sky_Reformat\")")
+m.addCommand("New Shot", "new_shot()")
 n = m.addMenu("&Delivery")
 n.addCommand("Submit for Review", "send_for_review_skyscraper()")
 n.addCommand("Publish Delivery","nuke.message(skyscraper_delivery.deliver(nuke.getFilename(\"Pick The Folder To Deliver\", default=\"%s\")))"%g_delivery_folder)
 n = m.addMenu("Color")
 n.addCommand("Create Viewer Process", "create_viewer_input()", "alt+shift+v")
 
+print "INFO: skyscraper menu.py execution time: %s"%(datetime.datetime.now() - start_time)
 

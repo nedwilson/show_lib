@@ -13,6 +13,7 @@ import threading
 import glob
 import shutil
 import re
+import cdl_convert
 
 class SkyscraperNotesPanel(nukescripts.PythonPanel):
     def __init__(self):
@@ -24,9 +25,9 @@ class SkyscraperNotesPanel(nukescripts.PythonPanel):
         self.addKnob(self.cc_knob)
         self.avidqt_knob = nuke.Boolean_Knob('avidqt_', 'Avid QT', True)
         self.addKnob(self.avidqt_knob)
-        self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', False)
+        self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', True)
         self.addKnob(self.vfxqt_knob)
-        self.exr_knob = nuke.Boolean_Knob('exr_', 'EXR', True)
+        self.exr_knob = nuke.Boolean_Knob('exr_', 'EXR', False)
         self.addKnob(self.exr_knob)
         self.matte_knob = nuke.Boolean_Knob('matte_', 'Matte', False)
         self.addKnob(self.matte_knob)
@@ -37,11 +38,11 @@ def get_delivery_directory_skyscraper(str_path, b_istemp=False):
     if b_istemp:
         s_folder_contents = "MOV"
     tday = datetime.date.today().strftime('%Y%m%d')
-    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents)))
+    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*"%tday))
     noxl = ""
     max_dir = 0
     if len(matching_folders) == 0:
-        calc_folder = os.path.join(delivery_folder, "INH_%s_01_%s"%(tday, s_folder_contents))
+        calc_folder = os.path.join(delivery_folder, "INH_%s_01"%tday)
     else:
         for suspect_folder in matching_folders:
             csv_spreadsheet = glob.glob(os.path.join(suspect_folder, "*.csv"))
@@ -49,13 +50,13 @@ def get_delivery_directory_skyscraper(str_path, b_istemp=False):
             if len(excel_spreadsheet) == 0 and len(csv_spreadsheet) == 0 and os.path.exists(os.path.join(suspect_folder, ".delivery")):
                 noxl = suspect_folder
             else:
-                dir_number = int(os.path.basename(suspect_folder).split('_')[-2])
+                dir_number = int(os.path.basename(suspect_folder).split('_')[-1])
                 if dir_number > max_dir:
                     max_dir = dir_number
         if noxl != "":
             calc_folder = noxl
         else:
-            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d_%s" % (tday, max_dir + 1, s_folder_contents))
+            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d" % (tday, max_dir + 1))
     print "INFO: Returning delivery folder: %s"%calc_folder
     return calc_folder
 
@@ -137,7 +138,43 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
 
     del progress_bar
 
-def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):
+def get_cc_file_for_shot(m_shot):
+    cc_file = None
+    g_ih_show_code = os.environ['IH_SHOW_CODE']
+    g_ih_show_root = os.environ['IH_SHOW_ROOT']
+    g_ih_show_cfg_path = os.environ['IH_SHOW_CFG_PATH']
+    config = ConfigParser.ConfigParser()
+    config.read(g_ih_show_cfg_path)
+    g_main_plate = config.get(g_ih_show_code, 'main_plate')
+    g_shot_regexp = config.get(g_ih_show_code, 'shot_regexp')
+    g_seq_regexp = config.get(g_ih_show_code, 'sequence_regexp')
+    g_shot_dir = config.get(g_ih_show_code, 'shot_dir')
+    g_plates_dir = config.get(g_ih_show_code, "plates_dir")
+    matchobject = re.search(g_shot_regexp, m_shot)
+    # make sure this file matches the shot pattern
+    if not matchobject:
+        return cc_file
+    else:
+        shot = matchobject.group(0)
+        seq = re.search(g_seq_regexp, shot).group(0)
+
+    subbed_shot_dir = g_shot_dir.replace('/', os.path.sep).replace("SHOW_ROOT", g_ih_show_root).replace("SEQUENCE", seq).replace("SHOT", shot)
+    shot_dir = subbed_shot_dir
+    plates_dir = os.path.join(shot_dir, g_plates_dir)
+    mp_dir = None
+    for t_plate in glob.glob("%s%s%s*"%(plates_dir, os.path.sep, shot)):
+        if t_plate.find(g_main_plate) > -1:
+            mp_dir = t_plate
+    plate_basename = os.path.basename(mp_dir)
+    cc_file = os.path.join(mp_dir, "_Metadata", "%s.cc"%plate_basename)
+    if os.path.exists(cc_file):
+        print "INFO: Found CC file: %s"%cc_file
+    else:
+        print "INFO: Unable to find CC file at %s."%cc_file
+        cc_file = None
+    return cc_file
+
+def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=False, b_method_matte=False):
     oglist = []
 
 
@@ -201,9 +238,9 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
 
         # create the panel to ask for notes
         def_note_text = "For review"
-        path_dir_name = os.path.dirname(render_path)
+        path_dir_name = os.path.dirname(os.path.dirname(render_path))
         version_int = int(path_dir_name.split("_v")[-1])
-        if version_int == 1:
+        if version_int == 801:
             def_note_text = "Scan Verification."
 
         b_execute_overall = False
@@ -243,8 +280,8 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             # delivery template
             s_delivery_template = os.path.join(s_show_root, 'SHARED', 'lib', 'nuke', 'delivery', config.get(s_show, 'delivery_template'))
             s_filename = os.path.basename(render_path).split('.')[0]
-            s_shot = "%s_%s"%(s_filename.split('_')[0],s_filename.split('_')[1])
-            s_sequence = s_shot[0:5]
+            s_shot = s_filename.split('_')[0]
+            s_sequence = s_shot[0:3]
             # allow version number to have arbitrary text after it, such as "_matte" or "_temp"
             s_version = s_filename.split('_v')[-1].split('_')[0]
             s_artist_name = "%s"%user_full_name()
@@ -270,17 +307,20 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             d_files_to_copy = {}
             b_deliver_cdl = True
             
-            s_avidqt_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "mov"])
-            s_vfxqt_src = '.'.join(["%s_h264"%os.path.splitext(render_path)[0].split('.')[0], "mov"])
+            # comp render dir
+            comp_render_dir = os.path.sep.join(render_path.split(os.path.sep)[0:-2])
+            
+            s_avidqt_src = os.path.join(comp_render_dir, "1920x1080_QuicktimeDNxHD115", "%s.mov"%s_filename)
+            s_vfxqt_src = os.path.join(comp_render_dir, "1920x1080_QuicktimeH264", "%s.m4v"%s_filename)
             s_exr_src = os.path.join(os.path.dirname(render_path), "%s.*.exr"%s_filename)
             s_matte_src = os.path.join(os.path.dirname(render_path), "%s_matte.*.tif"%s_filename)
             s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_src = os.path.join(s_shot_path, "data", "cdl", "%s.cdl"%s_shot)
+            s_cdl_src = get_cc_file_for_shot(s_shot)
             if not os.path.exists(s_cdl_src):
-                print "WARNING: Unable to locate CDL file at: %s"%s_cdl_src
+                print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
                 b_deliver_cdl = False
             
             # open up the cdl and extract the cccid
@@ -288,7 +328,10 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             cccid_re_str = r'<ColorCorrection id="([A-Za-z0-9-_]+)">'
             cccid_re = re.compile(cccid_re_str)
             cccid_match = cccid_re.search(cdltext)
-            s_cccid = cccid_match.group(1)
+            if cccid_match:
+                s_cccid = cccid_match.group(1)
+            else:
+                s_cccid = os.path.basename(s_cdl_src).split('.')[0]
             
             # slope
             slope_re_str = r'<Slope>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Slope>'
@@ -321,10 +364,10 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             saturation = saturation_match.group(1)
 
             
-            s_avidqt_dest = os.path.join(s_delivery_package_full, "AVID", "%s.mov"%s_filename)
-            s_vfxqt_dest = os.path.join(s_delivery_package_full, "VFX", "%s_h264.mov"%s_filename)
-            s_exr_dest = os.path.join(s_delivery_package_full, "EXR", s_filename, s_format)
-            s_matte_dest = os.path.join(s_delivery_package_full, "TIF", "%s_matte"%s_filename, s_format)
+            s_avidqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeDNxHD115", "%s.mov"%s_filename)
+            s_vfxqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeH264", "%s.m4v"%s_filename)
+            s_exr_dest = os.path.join(s_delivery_package_full, s_filename, "2880x2160_EXR-ZIP")
+            s_matte_dest = os.path.join(s_delivery_package_full, s_filename, "2880x2160_TIFF")
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
             s_cdl_dest = os.path.join(s_exr_dest, "%s.cdl"%s_shot)
@@ -499,22 +542,270 @@ def create_viewer_input():
     grp = nuke.createNode("Group", inpanel=False)
     grp.begin()
     inp = nuke.createNode("Input", inpanel=False)
-    cs = nuke.createNode("OCIOColorSpace", inpanel=False)
-    cs['out_colorspace'].setValue("AlexaV3LogC")
     cdl = nuke.createNode("OCIOCDLTransform", inpanel=False)
     cdl['read_from_file'].setValue(True)
+    cdl['working_space'].setValue("ACES - ACEScct")
     lut = nuke.createNode("OCIOFileTransform", inpanel=False)
+    lut['working_space'].setValue("ACES - ACEScct")
     out = nuke.createNode("Output", inpanel=False)
     # set file paths
     cdlfile = None
     lutfile = None
+    shot = None
     try:
-        cdlfile = os.path.join("%s"%nuke.root().knob('txt_ih_shot_path').value(), "data", "cdl", "%s.ccc"%nuke.root().knob('txt_ih_shot').value())
+        shot = nuke.root().knob('txt_ih_shot').value()
+        ccfile = os.path.join("%s"%nuke.root().knob('txt_ih_shot_path').value(), "elements", "%s_plt001_v001"%shot, "_Metadata", "%s_plt001_v001.cc"%shot)
         lutfile = os.environ['IH_SHOW_CFG_LUT']
-        cdl['file'].setValue(cdlfile)
+        cdl['file'].setValue(ccfile)
         lut['file'].setValue(lutfile)
     except:
-        print "Caught exception when trying to set .ccc and .cube file paths"
+        print "Caught exception when trying to set .cc and .csp file paths"
     grp.end()
     grp.setName("VIEWER_INPUT")
-    nuke.activeViewer().node().knob('viewerProcess').setValue('None')
+    nuke.activeViewer().node().knob('viewerProcess').setValue('Rec.709 (ACES)')
+
+def img_seq_builder(m_srcpath, g_dict_img_seq, g_shot_regexp, g_imgseq_regexp):
+    file_basename = os.path.basename(m_srcpath)
+    shot = None
+    seq = None
+    file_array = file_basename.split('.')
+
+    matchobject = re.search(g_shot_regexp, file_basename)
+    # make sure this file matches the shot pattern
+    if not matchobject:
+        return
+    else:
+        shot = matchobject.groupdict()['shot']
+        seq = matchobject.groupdict()['sequence']
+
+    subbed_shot_dir = os.path.sep.join(m_srcpath.split(os.path.sep)[0:-4])
+
+    # only deal with EXR files for now
+    if file_array[-1] == 'exr':
+        dest_dir = os.path.dirname(m_srcpath)
+        dest_file = m_srcpath
+        
+        # part of an image sequence?
+        matchobject = re.search(g_imgseq_regexp, dest_file)
+        if matchobject:
+            img_seq_gd = matchobject.groupdict()
+            if not g_dict_img_seq.get(subbed_shot_dir):
+                g_dict_img_seq[subbed_shot_dir] = { img_seq_gd['base'] : { 'frames' : [img_seq_gd['frame']], 'ext' : img_seq_gd['ext']} }
+            else:
+                if not g_dict_img_seq[subbed_shot_dir].get(img_seq_gd['base']):
+                    g_dict_img_seq[subbed_shot_dir][img_seq_gd['base']] = { 'frames' : [img_seq_gd['frame']], 'ext' : img_seq_gd['ext']}
+                else:
+                    g_dict_img_seq[subbed_shot_dir][img_seq_gd['base']]['frames'].append(img_seq_gd['frame'])
+
+def new_shot():
+    g_ih_show_code = None
+    g_ih_show_root = None
+    g_ih_show_cfg_path = None
+    g_shot_regexp = None
+    g_seq_regexp = None
+    g_shot_dir = None
+    g_show_file_operation = None
+    g_imgseq_regexp = None
+    g_shot_scripts_dir = None
+    g_shot_script_start = None
+    g_shot_template = None
+
+    try:
+        g_ih_show_code = os.environ['IH_SHOW_CODE']
+        g_ih_show_root = os.environ['IH_SHOW_ROOT']
+        g_ih_show_cfg_path = os.environ['IH_SHOW_CFG_PATH']
+        config = ConfigParser.ConfigParser()
+        config.read(g_ih_show_cfg_path)
+        g_shot_regexp = config.get(g_ih_show_code, 'shot_regexp')
+        g_seq_regexp = config.get(g_ih_show_code, 'sequence_regexp')
+        g_shot_dir = config.get(g_ih_show_code, 'shot_dir')
+        g_show_file_operation = config.get(g_ih_show_code, 'show_file_operation')
+        g_imgseq_regexp = config.get(g_ih_show_code, 'imgseq_regexp')
+        g_shot_scripts_dir = config.get(g_ih_show_code, 'shot_scripts_dir')
+        g_shot_comp_render_dir = config.get(g_ih_show_code, 'shot_comp_render_dir')
+        g_shot_script_start = config.get(g_ih_show_code, 'shot_script_start')
+        g_write_extension = config.get(g_ih_show_code, 'write_extension')
+        g_write_frame_format = config.get(g_ih_show_code, 'write_frame_format')
+        g_write_fps = config.get(g_ih_show_code, 'write_fps')
+        g_shot_template = config.get('shot_template', sys.platform)
+        print "Successfully loaded show-specific config file for %s."%g_ih_show_code
+    except:
+        nuke.message("An unknown error has occured while trying to load the show configuration file.")
+        return
+
+    # ask the user to pick a shot
+    shot_dir = nuke.getFilename("Select a new shot directory:", default=os.path.join(os.environ['IH_SHOW_ROOT'], "shots", ""))
+    shot = None
+    seq = None
+    version = 801
+    # do some basic validation to be sure this is a shot directory
+    matchobject = re.search(g_shot_regexp, shot_dir)
+    # make sure this file matches the shot pattern
+    if not matchobject:
+        nuke.message("The directory chosen, %s, does not appear to be a shot directory."%shot_dir)
+        return
+    else:
+        shot = matchobject.groupdict()['shot']
+        seq = matchobject.groupdict()['sequence']
+
+    subbed_seq_dir = g_shot_dir.replace('/', os.path.sep).replace("SHOW_ROOT", g_ih_show_root).replace("SEQUENCE", seq).replace("SHOT", '')
+    subbed_shot_dir = g_shot_dir.replace('/', os.path.sep).replace("SHOW_ROOT", g_ih_show_root).replace("SEQUENCE", seq).replace("SHOT", shot)
+    shot_dir = subbed_shot_dir
+        
+    print "INFO: Beginning Nuke script process for %s."%shot
+
+    nuke_script_starter = g_shot_script_start.format(**matchobject.groupdict())
+    full_nuke_script_path = os.path.join(subbed_shot_dir, g_shot_scripts_dir, "%s.nk"%nuke_script_starter)
+    max_version = 801
+    if os.path.exists(full_nuke_script_path):
+        print "INFO: Nuke script already exists at %s."%full_nuke_script_path
+        nuke_scripts = glob.glob(full_nuke_script_path.replace("801", "*"))
+        pattern = re.compile("_v([0-9]{3}).nk$")
+        for file in nuke_scripts:
+            mo = pattern.search(file)
+            if mo:
+                cver = int(mo.group(1))
+                if cver > max_version:
+                    max_version = cver
+        max_version = max_version + 1
+        b_overwrite = nuke.ask("Nuke scripts already exist for this shot, with the highest version being v%d. Would you like to start with v%d?"%(max_version - 1, max_version))
+        if not b_overwrite:
+            print "INFO: User opted to not make a new version of an existing shot."
+            return
+    else:
+        print "INFO: Creating new Nuke script at %s!"%full_nuke_script_path
+
+    nuke_script_starter = nuke_script_starter.replace("801", "%d"%max_version)
+    full_nuke_script_path = full_nuke_script_path.replace("801", "%d"%max_version)
+    
+    comp_render_dir_dict = { 'pathsep' : os.path.sep, 'compdir' : nuke_script_starter }
+    comp_write_path = os.path.join(shot_dir, g_shot_comp_render_dir.format(**comp_render_dir_dict), "%s.%s.%s"%(nuke_script_starter, g_write_frame_format, g_write_extension))
+    
+    # convert all of the CDL files first.
+    plates_dir = os.path.join(shot_dir, "elements")
+    main_plate = None
+    available_plates = glob.glob(os.path.join(plates_dir, "%s_*"%shot))
+    main_cc_file = None
+    for plate in available_plates:
+        plate_base = os.path.basename(plate)
+        cc_file_candidate = os.path.join(plate, "_Metadata", "%s.cc"%plate_base)
+        # make the .cc file if it can't be found
+        if not os.path.exists(cc_file_candidate):
+            cdl_convert.reset_all()
+            ccc = cdl_convert.parse_cdl(os.path.join(plate, "_Metadata", "%s.cdl"%plate_base))
+            cc = ccc.color_decisions[0].cc
+            cc.id=plate_base
+            cc.determine_dest('cc',os.path.join(plate, "_Metadata"))
+            cdl_convert.write_cc(cc)
+        if plate.find("plt001") > -1:
+            main_plate = plate_base
+            main_cc_file = cc_file_candidate
+    
+    # retrieve the image sequences from the plates directory
+    g_dict_img_seq = {}
+    
+    for dirname, subdirlist, filelist in os.walk(plates_dir):
+        for fname in filelist:
+            img_seq_builder(os.path.join(dirname, fname), g_dict_img_seq, g_shot_regexp, g_imgseq_regexp)
+
+    nuke.scriptOpen(g_shot_template)
+    bd_node = nuke.toNode("BackdropNode1")
+    bd_node_w = nuke.toNode("BackdropNode2")
+    main_read = nuke.toNode("Read1")
+    main_write = nuke.toNode("Write_exr")
+    main_cdl = nuke.toNode("VIEWER_INPUT.OCIOCDLTransform1")
+    plates = g_dict_img_seq[shot_dir].keys()
+    # handle the main plate
+    mainplate_dict = None
+    mainplate_name = None
+    for t_plate in plates:
+        if t_plate.find("_plt001_") > -1:
+            mainplate_dict = g_dict_img_seq[shot_dir][t_plate]
+            mainplate_name = t_plate
+            plates.remove(t_plate)
+            
+    mainplate_ext = mainplate_dict['ext']
+    mainplate_frames = sorted(mainplate_dict['frames'])
+    # these scans appear to have a slate frame... yuck.
+    mainplate_first = int(mainplate_frames[0])
+    if mainplate_first == 1000:
+        mainplate_first = 1001
+    mainplate_last = int(mainplate_frames[-1])
+
+    # set the values in the template
+    bd_node.knob('label').setValue("<center>%s"%os.path.basename(mainplate_name))
+    main_read.knob('file').setValue("%s.%s.%s"%(mainplate_name, g_write_frame_format, mainplate_ext))
+    main_read.knob('first').setValue(mainplate_first)
+    main_read.knob('last').setValue(mainplate_last)
+    main_read.knob('origfirst').setValue(mainplate_first)
+    main_read.knob('origlast').setValue(mainplate_last)
+    nuke.root().knob('first_frame').setValue(mainplate_first)
+    nuke.root().knob('last_frame').setValue(mainplate_last)
+    nuke.root().knob('txt_ih_show').setValue(g_ih_show_code)
+    nuke.root().knob('txt_ih_show_path').setValue(g_ih_show_root)
+    nuke.root().knob('txt_ih_seq').setValue(seq)
+    nuke.root().knob('txt_ih_seq_path').setValue(subbed_seq_dir)
+    nuke.root().knob('txt_ih_shot').setValue(shot)
+    nuke.root().knob('txt_ih_shot_path').setValue(subbed_shot_dir)
+    main_cdl.knob('file').setValue(main_cc_file)
+    main_write.knob('file').setValue(comp_write_path)
+    bd_node_w.knob('label').setValue("<center>%s\ncomp output"%shot)
+
+    # bring in any additional plates
+    if len(plates) > 0:
+        last_read = main_read
+        last_read_xpos = 1292
+        last_bd_xpos = 1096
+        last_sr_xpos = 1292
+        last_bd = bd_node
+        for addlplate in plates:
+            newplate_dict = g_dict_img_seq[shot_dir][addlplate]
+            newplate_ext = newplate_dict['ext']
+            newplate_frames = sorted(newplate_dict['frames'])
+            newplate_first = int(newplate_frames[0])
+            newplate_last = int(newplate_frames[-1])
+            # copy/paste read and backdrop
+            new_read = nuke.createNode("Read")
+            new_bd = nuke.createNode("BackdropNode")
+            new_sr = nuke.createNode("Sky_Reformat")
+            new_sr.connectInput(0, new_read)
+            
+            new_bd.knob('note_font_size').setValue(42)
+            new_bd.knob('bdwidth').setValue(473)
+            new_bd.knob('bdheight').setValue(364)
+        
+        
+            new_bd_xpos = last_bd_xpos + 500
+            new_read_xpos = last_read_xpos + 500
+            new_sr_xpos = last_sr_xpos + 500
+            
+            new_bd.knob('xpos').setValue(new_bd_xpos)
+            new_bd.knob('ypos').setValue(-775)
+            new_read.knob('xpos').setValue(new_read_xpos)
+            new_read.knob('ypos').setValue(-687)
+            new_sr.knob('xpos').setValue(new_sr_xpos)
+            new_sr.knob('ypos').setValue(-509)
+            
+            newplate_dict = g_dict_img_seq[shot_dir][addlplate]
+            newplate_ext = newplate_dict['ext']
+            newplate_frames = sorted(newplate_dict['frames'])
+            newplate_first = int(newplate_frames[0])
+            newplate_last = int(newplate_frames[-1])
+        
+            new_bd.knob('label').setValue("<center>%s"%os.path.basename(addlplate))
+            new_read.knob('file').setValue("%s.%s.%s"%(addlplate, g_write_frame_format, newplate_ext))
+            new_read.knob('first').setValue(newplate_first)
+            new_read.knob('last').setValue(newplate_last)
+            new_read.knob('origfirst').setValue(newplate_first)
+            new_read.knob('origlast').setValue(newplate_last)
+        
+            last_read = new_read
+            last_read_xpos = new_read_xpos
+            last_bd = new_bd
+            last_bd_xpos = new_bd_xpos
+            last_sr_xpos = new_sr_xpos
+        
+    # that should do it!
+    nuke.scriptSaveAs(full_nuke_script_path)
+    print "INFO: Successfully wrote out Nuke script at %s!"%full_nuke_script_path
+    
