@@ -1,0 +1,697 @@
+#! /Applications/Nuke11.0v3/Nuke11.0v3.app/Contents/MacOS/libnuke-11.0.3.dylib -nx
+version 11.0 v3
+Gizmo {
+ tile_color 0xff9e3aff
+ note_font "Verdana Bold"
+ note_font_size 12
+ addUserKnob {20 Camera}
+ addUserKnob {41 plate_camera l "Plate Camera" T Switch1.plate_camera}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x8e374fff
+  label "Anamorphic cameras input"
+  note_font_size 42
+  xpos 503
+  ypos -424
+  bdwidth 732
+  bdheight 371
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x58aa4aff
+  label "Spherical cameras input"
+  note_font_size 42
+  xpos 1307
+  ypos -422
+  bdwidth 1265
+  bdheight 365
+ }
+ Input {
+  inputs 0
+  name plate
+  xpos 1435
+  ypos -806
+ }
+ Dot {
+  name Dot1
+  xpos 1469
+  ypos -721
+ }
+set N9e53a140 [stack 0]
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat64
+  xpos 2449
+  ypos -252
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat65
+  xpos 2449
+  ypos -228
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop24
+  xpos 2444
+  ypos -199
+ }
+ NoOp {
+  name NoOp27
+  label "Mohoc\nVFX WORKING AREA/RES"
+  xpos 2449
+  ypos -166
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat62
+  xpos 2329
+  ypos -240
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat63
+  xpos 2329
+  ypos -216
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop23
+  xpos 2331
+  ypos -193
+ }
+ NoOp {
+  name NoOp26
+  label "GoPro_2.7k\nVFX WORKING AREA/RES"
+  xpos 2330
+  ypos -169
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat74
+  xpos 2210
+  ypos -267
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat75
+  xpos 2210
+  ypos -243
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop28
+  xpos 2210
+  ypos -205
+ }
+ NoOp {
+  name NoOp31
+  label "GoPro\nVFX WORKING AREA/RES"
+  xpos 2209
+  ypos -166
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 3840
+  box_height 1528
+  box_fixed true
+  filter Lanczos6
+  pbb true
+  name Reformat58
+  xpos 2089
+  ypos -263
+ }
+ Reformat {
+  type "to box"
+  box_width 3648
+  box_height 1528
+  box_fixed true
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat59
+  xpos 2089
+  ypos -239
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat60
+  xpos 2089
+  ypos -215
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat61
+  xpos 2089
+  ypos -191
+ }
+ Crop {
+  box {0 0 2472 2070}
+  name Crop22
+  xpos 2089
+  ypos -167
+ }
+ NoOp {
+  name NoOp25
+  label "Sony_A7s\nVFX WORKING AREA/RES"
+  xpos 2089
+  ypos -134
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat56
+  xpos 1957
+  ypos -237
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat57
+  xpos 1957
+  ypos -213
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop21
+  xpos 1956
+  ypos -178
+ }
+ NoOp {
+  name NoOp24
+  label "Alexa_XT_OG_Spherical\nVFX WORKING AREA/RES"
+  xpos 1955
+  ypos -154
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat72
+  xpos 1808
+  ypos -239
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat73
+  xpos 1808
+  ypos -215
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop27
+  xpos 1808
+  ypos -191
+ }
+ NoOp {
+  name NoOp30
+  label "Alexa_Mini_OG_Spherical\nVFX WORKING AREA/RES"
+  xpos 1807
+  ypos -155
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 6560
+  box_height 2556
+  box_fixed true
+  filter Lanczos6
+  pbb true
+  name Reformat50
+  xpos 1678
+  ypos -281
+ }
+ Reformat {
+  type "to box"
+  box_width 6100
+  box_height 2556
+  box_fixed true
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat51
+  xpos 1678
+  ypos -257
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat52
+  xpos 1678
+  ypos -226
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat53
+  xpos 1678
+  ypos -202
+ }
+ Crop {
+  box {0 0 2472 2070}
+  name Crop19
+  xpos 1679
+  ypos -180
+ }
+ NoOp {
+  name NoOp22
+  label "Alexa_65\nVFX WORKING AREA/RES"
+  xpos 1678
+  ypos -156
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat54
+  xpos 1568
+  ypos -249
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat55
+  xpos 1568
+  ypos -225
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop20
+  xpos 1571
+  ypos -191
+ }
+ NoOp {
+  name NoOp23
+  label "iPhone_UHD\nVFX WORKING AREA/RES"
+  xpos 1571
+  ypos -162
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat48
+  xpos 1435
+  ypos -244
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat49
+  xpos 1435
+  ypos -220
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop18
+  xpos 1435
+  ypos -190
+ }
+ NoOp {
+  name NoOp21
+  label "iPhone_HD\nVFX WORKING AREA/RES"
+  xpos 1440
+  ypos -163
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat46
+  xpos 1317
+  ypos -248
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat47
+  xpos 1317
+  ypos -215
+ }
+ Crop {
+  box {36 0 2436 2070}
+  name Crop17
+  xpos 1317
+  ypos -191
+ }
+ NoOp {
+  name NoOp20
+  label "Lumix\nVFX WORKING AREA/RES"
+  xpos 1320
+  ypos -155
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2628
+  box_height 2202
+  box_fixed true
+  box_pixel_aspect 2
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat39
+  xpos 1116
+  ypos -255
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  resize fit
+  filter Lanczos6
+  pbb true
+  name Reformat42
+  xpos 1116
+  ypos -231
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat45
+  xpos 1116
+  ypos -207
+ }
+ Crop {
+  box {0 29 2472 2041}
+  name Crop16
+  xpos 1116
+  ypos -183
+ }
+ NoOp {
+  name NoOp19
+  label "Alexa_Mini_OG_Anamorphic\nVFX WORKING AREA/RES"
+  xpos 1119
+  ypos -154
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2623
+  box_height 2198
+  box_fixed true
+  box_pixel_aspect 2
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat22
+  xpos 923
+  ypos -282
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  resize fit
+  filter Lanczos6
+  pbb true
+  name Reformat29
+  xpos 923
+  ypos -258
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat32
+  xpos 923
+  ypos -234
+ }
+ Crop {
+  box {0 29 2472 2041}
+  name Crop13
+  xpos 923
+  ypos -196
+ }
+ NoOp {
+  name NoOp18
+  label "Alexa_XT_OG_Anamorphic\nVFX WORKING AREA/RES"
+  xpos 926
+  ypos -152
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2880
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat69
+  xpos 720
+  ypos -254
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat70
+  xpos 720
+  ypos -230
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat71
+  xpos 720
+  ypos -206
+ }
+ Crop {
+  box {0 0 2472 2070}
+  name Crop26
+  xpos 718
+  ypos -182
+ }
+ NoOp {
+  name NoOp29
+  label "Alexa_Mini_4x3_Anamorphic\nVFX WORKING AREA/RES"
+  xpos 723
+  ypos -157
+ }
+push $N9e53a140
+ Reformat {
+  type "to box"
+  box_width 2880
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  filter Lanczos6
+  pbb true
+  name Reformat66
+  xpos 569
+  ypos -252
+ }
+ Reformat {
+  type "to box"
+  box_width 2397
+  box_height 2008
+  box_fixed true
+  box_pixel_aspect 2
+  resize height
+  filter Lanczos6
+  pbb true
+  name Reformat67
+  xpos 569
+  ypos -228
+ }
+ Reformat {
+  type "to box"
+  box_width 2472
+  box_height 2070
+  box_fixed true
+  box_pixel_aspect 2
+  resize none
+  filter Lanczos6
+  pbb true
+  name Reformat68
+  xpos 569
+  ypos -204
+ }
+ Crop {
+  box {0 0 2472 2070}
+  name Crop25
+  xpos 569
+  ypos -173
+ }
+ NoOp {
+  name NoOp28
+  label "Alexa_XT_4x3_Anamorphic\nVFX WORKING AREA/RES"
+  xpos 572
+  ypos -136
+ }
+push $N9e53a140
+ NoOp {
+  name NoOp1
+  label "No Reformat"
+  xpos 355
+  ypos -130
+ }
+ Switch {
+  inputs 15
+  which {{plate_camera}}
+  name Switch1
+  selected true
+  xpos 1509
+  ypos 680
+  addUserKnob {20 User}
+  addUserKnob {4 plate_camera l "Plate Camera" M {"Unknown Format" "Alexa XT 4:3 Anamorphic" "Alexa Mini 4:3 Anamorphic" "Alexa XT OG Anamorphic" "Alexa Mini OG Anamorphic" Lumix "iPhone HD" "iPhone UHD" "Alexa 65" "Alexa Mini OG Spherical" "Alexa XT OG Spherical" "Sony A7s" GoPro "GoPro 2.7k" Mohoc "" "" "" ""}}
+ }
+ Output {
+  name Output1
+  xpos 1509
+  ypos 749
+ }
+end_group
