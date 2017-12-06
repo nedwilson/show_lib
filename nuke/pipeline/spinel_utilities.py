@@ -70,24 +70,24 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
     s_cmd = "%s -i -V 2 -c 2G -t %s" % (s_nuke_exe_path, s_pyscript)
     s_err_ar = []
     f_progress = 0.0
+    frame_match_txt = r'^Rendered frame (?P<frameno>[0-9]{1,}) of (?P<filebase>[a-zA-Z0-9-_]+)\.mov\.$'
+    frame_match_re = re.compile(frame_match_txt)
     print "INFO: Beginning: %s" % s_cmd
     proc = subprocess.Popen(s_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    progress_bar.setMessage("Beginning Render.")
     while proc.poll() is None:
         try:
             s_out = proc.stdout.readline()
             s_err_ar.append(s_out.rstrip())
-            if s_out.find(".exr took") > -1 or s_out.find(".tif took") > -1:
-                s_line_ar = s_out.split(" ")
-                s_exr_frame = s_line_ar[1].split('.')[-2]
+            matchobject = frame_match_re.search(s_out)
+            if matchobject:
+                s_exr_frame = matchobject.groupdict()['frameno']
+                s_file_name = matchobject.groupdict()['filebase']
                 i_exr_frame = int(s_exr_frame)
-            
                 f_duration = float(end_frame - start_frame + 1)
                 f_progress = (float(i_exr_frame) - float(start_frame) + 1.0)/f_duration
-                # print "INFO: Rendering: Frame %d"%i_exr_frame
-                progress_bar.setMessage("Rendering: Frame %d" % i_exr_frame)
+                progress_bar.setMessage("Rendering frame %d of %s..."%(i_exr_frame,s_file_name))
                 progress_bar.setProgress(int(f_progress * 50))
-            elif s_out.find("Rendered frame") > 1 and s_out.find(".mov") > -1:
-                pass
         except IOError:
             print "ERROR: IOError Caught!"
             var = traceback.format_exc()
