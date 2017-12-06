@@ -71,21 +71,23 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
     s_cmd = "%s -i -V 2 -c 2G -t %s" % (s_nuke_exe_path, s_pyscript)
     s_err_ar = []
     f_progress = 0.0
+    frame_match_txt = r'^Rendered frame (?P<frameno>[0-9]{1,}) of (?P<filebase>[a-zA-Z0-9-_]+)\.mov\.$'
+    frame_match_re = re.compile(frame_match_txt)
     print "INFO: Beginning: %s" % s_cmd
     proc = subprocess.Popen(s_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    progress_bar.setMessage("Beginning Render.")
     while proc.poll() is None:
         try:
             s_out = proc.stdout.readline()
             s_err_ar.append(s_out.rstrip())
-            if s_out.find(".exr took") > -1 or s_out.find(".tif took") > -1:
-                s_line_ar = s_out.split(" ")
-                s_exr_frame = s_line_ar[1].split('.')[-2]
+            matchobject = frame_match_re.search(s_out)
+            if matchobject:
+                s_exr_frame = matchobject.groupdict()['frameno']
+                s_file_name = matchobject.groupdict()['filebase']
                 i_exr_frame = int(s_exr_frame)
-            
                 f_duration = float(end_frame - start_frame + 1)
                 f_progress = (float(i_exr_frame) - float(start_frame) + 1.0)/f_duration
-                # print "INFO: Rendering: Frame %d"%i_exr_frame
-                progress_bar.setMessage("Rendering: Frame %d" % i_exr_frame)
+                progress_bar.setMessage("Rendering frame %d of %s..."%(i_exr_frame,s_file_name))
                 progress_bar.setProgress(int(f_progress * 50))
         except IOError:
             print "ERROR: IOError Caught!"
@@ -651,6 +653,12 @@ def new_shot():
     subbed_seq_dir = g_shot_dir.replace('/', os.path.sep).replace("SHOW_ROOT", g_ih_show_root).replace("SEQUENCE", seq).replace("SHOT", '')
     subbed_shot_dir = g_shot_dir.replace('/', os.path.sep).replace("SHOW_ROOT", g_ih_show_root).replace("SEQUENCE", seq).replace("SHOT", shot)
     shot_dir = subbed_shot_dir
+
+    plates_dir = os.path.join(shot_dir, "elements")
+    available_plates = glob.glob(os.path.join(plates_dir, "%s_*"%shot))
+    if len(available_plates) == 0:
+        nuke.critical("Shot %s does not contain any plates in the elements directory! Exiting."%shot)
+        return
         
     print "INFO: Beginning Nuke script process for %s."%shot
 
@@ -682,9 +690,7 @@ def new_shot():
     comp_write_path = os.path.join(shot_dir, g_shot_comp_render_dir.format(**comp_render_dir_dict), "%s.%s.%s"%(nuke_script_starter, g_write_frame_format, g_write_extension))
     
     # convert all of the CDL files first.
-    plates_dir = os.path.join(shot_dir, "elements")
     main_plate = None
-    available_plates = glob.glob(os.path.join(plates_dir, "%s_*"%shot))
     main_cc_file = None
     for plate in available_plates:
         plate_base = os.path.basename(plate)
