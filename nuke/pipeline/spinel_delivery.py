@@ -15,6 +15,9 @@ import copy
 import shutil
 import smtplib
 import ConfigParser
+import db_access as DB
+
+ihdb = DB.DBAccessGlobals.get_db_access()
 
 # mime/multipart stuff
 from email.mime.text import MIMEText
@@ -155,9 +158,11 @@ def deliver(f):
     if os.path.exists(delivery_path):
         delivery_directory = os.path.split(delivery_path)[-1]
         xmlfile_list = glob.glob(os.path.join(delivery_path, ".delivery", "*.xml"))
-        headers = ['Submission', 'Submission Date', 'Vendor', 'Submission Type', 'Asset Name', 'Asset Detail', 'Shot Number', 'Version', 'Filetype', 'Filename', 'FirstFrame', 'LastFrame', 'Submitted For', 'Vendor Comments', 'Client Feedback']
+        # headers = ['Submission', 'Submission Date', 'Vendor', 'Submission Type', 'Asset Name', 'Asset Detail', 'VFX ID', 'Version', 'File Type', 'Filename', 'FirstFrame', 'LastFrame', 'Submitted For', 'Shot Notes', 'Client Feedback']
+        headers = ['Submission Date', 'VFX ID', 'Filename', 'File Type', 'Submitted For', 'Shot Notes']
         rows = []
         ale_rows = []
+        dbversions = []
         for xmlfile in sorted(xmlfile_list):
             isdpx = False
             isexr = False
@@ -171,23 +176,24 @@ def deliver(f):
             shot = ""
             start = ""
             end = ""
+            xml_base = os.path.basename(xmlfile).split('.')[0]
             tree = ET.parse(xmlfile)
             root = tree.getroot()
-            rowdict['Submission'] = delivery_directory
+#             rowdict['Submission'] = delivery_directory
             rowdict['Submission Date'] = datetime.date.today().strftime('%m/%d/%Y')
-            rowdict['Vendor'] = 'INH'
-            rowdict['Submission Type'] = 'SHOT'
-            rowdict['Asset Name'] = ''
-            rowdict['Asset Detail'] = ''
+#             rowdict['Vendor'] = 'INH'
+#             rowdict['Submission Type'] = 'SHOT'
+#             rowdict['Asset Name'] = ''
+#             rowdict['Asset Detail'] = ''
             if xmlfile.find("_pkg") != -1:
                 rowdict['Submitted For'] = 'For Archive'
                 for child in root:
                     if child.tag == 'Shot':
                         nukescript = child.text
                         rowdict['Filename'] = nukescript
-                        rowdict['Shot Number'] = '_'.join(nukescript.split("_")[0:2])
+                        rowdict['VFX ID'] = '_'.join(nukescript.split("_")[0:2])
                         email_list.append(os.path.join(delivery_path, "%s"%rowdict['Filename']))
-                rowdict['Vendor Comments'] = ""
+                rowdict['Shot Notes'] = ""
                 rows.append(rowdict)
             else:
                 rowdict['Submitted For'] = 'TEMP'
@@ -195,11 +201,19 @@ def deliver(f):
                 for child in root:
                     if child.tag == 'Shot':
                         shot = child.text
-                        rowdict['Shot Number'] = child.text
+                        rowdict['VFX ID'] = shot
+                        # fetch an object from the database for this version
+                        dbshot = ihdb.fetch_shot(shot)
+                        dbversion = ihdb.fetch_version(xml_base, dbshot)
+                        if dbversion:
+                            print "Located version %s in database with id %d."%(xml_base, dbversion.g_dbid)
+                            dbversions.append(dbversion)
+                        else:
+                            print "ERROR: Unable to locate version in database with name %s!"%xml_base
                     elif child.tag == 'AvidQTFileName':
                         rowdict['Filename'] = child.text
-                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
-                        rowdict['Filetype'] = 'MOV'
+#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        rowdict['File Type'] = 'MOV'
                         # email_list.append(rowdict['Filename'])
                         ale_row_single['Name'] = child.text
                         ale_row_single['Tape'] = os.path.splitext(child.text)[0]
@@ -209,14 +223,14 @@ def deliver(f):
                         exrfilename = child.text
                         # email_list.append(dpxfilename)
                         rowdict['Submitted For'] = 'REVIEW'
-                        rowdict['Filetype'] = 'EXR'
-                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        rowdict['File Type'] = 'EXR'
+#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         isexr = True
                     elif child.tag == 'MatteFileName':
                         mattefilename = child.text
                         # email_list.append(dpxfilename)
-                        rowdict['Filetype'] = 'TIF'
-                        rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        rowdict['File Type'] = 'TIF'
+#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         if not rowdict['Submitted For'] == 'REVIEW':
                             rowdict['Submitted For'] = 'MATTE'
                         ismatte = True
@@ -231,12 +245,12 @@ def deliver(f):
                         ale_row_single['End'] = child.text
                     elif child.tag == 'StartFrame':
                         start = child.text
-                        rowdict['FirstFrame'] = start
+#                         rowdict['FirstFrame'] = start
                     elif child.tag == 'EndFrame':
                         end = child.text
-                        rowdict['LastFrame'] = end
+#                         rowdict['LastFrame'] = end
                     elif child.tag == 'SubmissionNotes':
-                        rowdict['Vendor Comments'] = child.text
+                        rowdict['Shot Notes'] = child.text
 #                     elif child.tag == 'Hours':
 #                         rowdict['Hours'] = child.text
 #                     elif child.tag == 'Artist':
@@ -258,7 +272,7 @@ def deliver(f):
 #                     vfxdict['Hours']=''
 #                     rows.append(vfxdict)
 
-                rowdict['Client Feedback'] = ''
+#                 rowdict['Client Feedback'] = ''
                 email_list.append(rowdict['Filename'])
                 rows.append(rowdict)
                 ale_row_single['frame_range'] = "%s-%s"%(start, end)
@@ -323,8 +337,15 @@ def deliver(f):
 #         for xml_file in xml_files:
 #             shutil.move(xml_file, os.path.join(hidden_xml_dir, os.path.basename(xml_file)))
 #        we aren't sending email right now since no internet access.
+        
+        # create a playlist in the database based on this submission
+        dbplaylist = ihdb.fetch_playlist(delivery_directory)
+        if not dbplaylist:
+            dbplaylist = DB.Playlist(delivery_directory, [], -1)
+        dbplaylist.g_playlist_versions = dbversions
+        ihdb.create_playlist(dbplaylist)
+        print "Created playlist %s in database."%(delivery_directory)
         return send_email(delivery_path,email_list)
-
 
 if not sys.platform == "linux2":
     import Tkinter as tk

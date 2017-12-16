@@ -13,6 +13,7 @@ import threading
 import glob
 import shutil
 import re
+import db_access as DB
 
 class SpinelNotesPanel(nukescripts.PythonPanel):
     def __init__(self):
@@ -59,7 +60,7 @@ def get_delivery_directory_spinel(str_path, b_istemp=False):
     print "INFO: Returning delivery folder: %s"%calc_folder
     return calc_folder
 
-def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_filelist):
+def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, end_frame, md_filelist):
     progress_bar = nuke.ProgressTask("Building Delivery")
     progress_bar.setMessage("Initializing...")
     progress_bar.setProgress(0)
@@ -106,11 +107,16 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
         nuke.critical(s_errmsg)
     else:
         print "INFO: Successfully completed delivery render."
-        
+
+    mov_file = d_db_thread_helper['mov_src']
+    thumb_file = d_db_thread_helper['exr_src'].replace('*', '%04d'%int(((int(end_frame) - int(start_frame))/2) + int(start_frame)))
+    src_imgseq_path = d_db_thread_helper['exr_src'].replace('*', '%04d')
+            
     # copy the files
     d_expanded_list = {}
     for s_src in md_filelist:
         if s_src.find('*') != -1:
+            src_imgseq_path = s_src.replace('*', '%04d')
             l_imgseq = glob.glob(s_src)
             for s_img in l_imgseq:
                 d_expanded_list[s_img] = os.path.join(md_filelist[s_src], os.path.basename(s_img))
@@ -129,11 +135,56 @@ def render_delivery_threaded(ms_python_script, start_frame, end_frame, md_fileli
             f_progress = float(i_count)/float(i_len)
             progress_bar.setProgress(50 + int(f_progress * 50))
     except:
-#         e_type = sys.exc_info()[0]
-#         e_msg = sys.exc_info()[1]
-#         e_traceback = sys.exc_info()[2]
         nuke.critical(traceback.format_exc())
     else:
+        # add a new version to the database
+        progress_bar.setProgress(99)
+        progress_bar.setMessage("Creating new Version record in the database...")
+        
+        # initialize the DB connection
+        sgdb = DB.DBAccessGlobals.get_db_access()
+        
+        # fetch the shot
+        dbshot = sgdb.fetch_shot(d_db_thread_helper['shot'])
+        
+        # fetch the artist
+        dbartist = sgdb.fetch_artist(user_full_name())
+        
+        # fetch a list of tasks for the shot
+        dbtasks = sgdb.fetch_tasks_for_shot(dbshot)
+        # To-do: add task creation functionality here
+        # For now, just use tasks[0]
+        dbtask = DB.Task("Blank Task", dbartist, dbshot, -1)
+        if len(dbtasks) > 0:
+            dbtask = dbtasks[0]
+        
+        # create a thumbnail
+        thumb_file_gen = create_thumbnail(thumb_file)
+        
+        # does the version already exist?
+        dbversion = sgdb.fetch_version(os.path.basename(thumb_file).split('.')[0], dbshot)
+        
+        # clean up notes
+        l_notes = d_db_thread_helper['notes']
+        clean_notes = []
+        for l_note in l_notes:
+            if len(l_note) > 0:
+                clean_notes.append(l_note)
+        if not dbversion:
+            dbversion = DB.Version(os.path.basename(thumb_file).split('.')[0], 
+                                     -1, 
+                                     '\n'.join(clean_notes), 
+                                     int(start_frame), 
+                                     int(end_frame), 
+                                     int(end_frame) - int(start_frame) + 1, 
+                                     src_imgseq_path, 
+                                     mov_file,
+                                     dbshot,
+                                     dbartist,
+                                     dbtask)
+            sgdb.create_version(dbversion)
+        sgdb.upload_thumbnail('Version', dbversion, thumb_file_gen)
+        print "Successfully created version %s in database with DBID %d."%(dbversion.g_version_code, int(dbversion.g_dbid))
         progress_bar.setProgress(100)
         progress_bar.setMessage("Done!")
 
@@ -278,6 +329,12 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             s_matte_src = os.path.join(os.path.dirname(render_path), "%s_matte.*.tif"%s_filename)
             s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
+            d_db_thread_helper = {}
+            d_db_thread_helper['exr_src'] = s_exr_src
+            d_db_thread_helper['mov_src'] = s_avidqt_src
+            d_db_thread_helper['shot'] = s_shot
+            d_db_thread_helper['notes'] = l_notes
+                        
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
             s_cdl_src = os.path.join(s_shot_path, "data", "cdl", "%s.cdl"%s_shot)
@@ -486,7 +543,7 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
 
             # render all frames - in a background thread
             # print s_nukepy
-            threading.Thread(target=render_delivery_threaded, args=[s_nukepy, start_frame, end_frame, d_files_to_copy]).start()
+            threading.Thread(target=render_delivery_threaded, args=[s_nukepy, d_db_thread_helper, start_frame, end_frame, d_files_to_copy]).start()
 
         for all_nd in nuke.allNodes():
             if all_nd in oglist:

@@ -1,0 +1,266 @@
+#! /Applications/Nuke11.1v1/Nuke11.1v1.app/Contents/MacOS/libnuke-11.1.1.dylib -nx
+#write_info THUMB_WRITE file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/thumbnails/HC019_030_comp_v002_thumb.%04d.png" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1001 1402" fps:"23.976" colorspace:"rec709" datatype:"8 bit" transfer:"unknown" views:"main" timecode:"10:36:58:11" colorManagement:"OCIO"
+version 11.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="23" w="2560" h="1345" screen="0">
+        <splitter orientation="2">
+            <split size="776"/>
+            <splitter orientation="1">
+                <split size="593"/>
+                <splitter orientation="2">
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.project.2">
+                        <page id="uk.co.thefoundry.project.2" layout="splitter(221,346)"/>
+                        <page id="uk.co.thefoundry.project.1" layout="splitter(160,470)"/>
+                    </dock>
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.spreadsheetview.1">
+                        <page id="uk.co.thefoundry.spreadsheetview.1"/>
+                    </dock>
+                </splitter>
+                <split size="45"/>
+                <dock id="" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1245"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                    <page id="Error Console.1"/>
+                </dock>
+                <split size="665"/>
+                <splitter orientation="2">
+                    <split size="776"/>
+                    <dock id="" activePageId="Properties.1">
+                        <page id="Properties.1"/>
+                        <page id="uk.co.thefoundry.clipeffects.1"/>
+                        <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                        <page id="uk.co.thefoundry.exportqueue.1"/>
+                        <page id="tk_multi_shotgunpanel_main"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="544"/>
+            <splitter orientation="1">
+                <split size="2560"/>
+                <dock id="" activePageId="uk.co.thefoundry.timeline.4">
+                    <page id="uk.co.thefoundry.timeline.4" layout="splitter(752,1804)"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+    <window x="2560" y="23" w="2560" h="1401" screen="1">
+        <splitter orientation="1">
+            <split size="1950"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="uk.co.thefoundry.sequenceviewer.6"/>
+                <page id="Viewer.1"/>
+                <page id="uk.co.thefoundry.viewer.4"/>
+            </dock>
+            <split size="606"/>
+            <splitter orientation="2">
+                <split size="695"/>
+                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
+                    <page id="uk.co.thefoundry.vectorscope.1"/>
+                </dock>
+                <split size="306"/>
+                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
+                    <page id="uk.co.thefoundry.waveformscope.1"/>
+                </dock>
+                <split size="292"/>
+                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
+                    <page id="uk.co.thefoundry.histogram.1"/>
+                </dock>
+                <split size="96"/>
+                <dock id="" activePageId="uk.co.thefoundry.monitorController.1">
+                    <page id="uk.co.thefoundry.monitorController.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/pipeline/spinel_thumb_template_v001.nk
+ frame 1001
+ first_frame 1001
+ last_frame 1402
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Read {
+ inputs 0
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_030/pix/comp/HC019_030_comp_v002/HC019_030_comp_v002.%04d.exr
+ format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ first 1009
+ last 1165
+ origfirst 1001
+ origlast 1173
+ origset true
+ colorspace linear
+ auto_alpha true
+ name SRC_READ
+ xpos 297
+ ypos -655
+}
+OCIOColorSpace {
+ in_colorspace linear
+ out_colorspace AlexaV3LogC
+ name OCIOColorSpace1
+ xpos 297
+ ypos -565
+}
+OCIOCDLTransform {
+ slope {1 1 1}
+ offset {0 0 0}
+ power {1 1 1}
+ saturation 0.804799974
+ working_space linear
+ read_from_file true
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/cdl/HC019_030_GS.ccc
+ cccid FBE49CF4-F220-4EFF-A214-7F87EE3F6E01
+ name OCIOCDLTransform1
+ xpos 297
+ ypos -541
+}
+OCIOFileTransform {
+ file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
+ working_space linear
+ name OCIOFileTransform1
+ xpos 297
+ ypos -517
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ black_outside true
+ name Reformat1
+ xpos 297
+ ypos -493
+}
+Text2 {
+ font_size_toolbar 200
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity 0.25
+ message "IN HOUSE VFX"
+ old_message {{73 78 32 72 79 85 83 69 32 86 70 88}
+   }
+ box {100 300 1820 780}
+ xjustify center
+ yjustify center
+ transforms {{0 2}
+   }
+ font_size_values {{0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200 0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 200
+ center {960 540}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{945 598}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ xpos 297
+ ypos -461
+}
+Rectangle {
+ opacity 0.5
+ area {0 0 1920 131}
+ color 0
+ name Rectangle1
+ xpos 297
+ ypos -437
+}
+Rectangle {
+ opacity 0.5
+ area {0 949 1920 1080}
+ color 0
+ name Rectangle2
+ xpos 297
+ ypos -413
+}
+Rectangle {
+ area {0 129 1920 133}
+ name Rectangle3
+ xpos 297
+ ypos -389
+}
+Rectangle {
+ area {0 947 1920 951}
+ name Rectangle4
+ xpos 297
+ ypos -365
+}
+Text2 {
+ font_size_toolbar 80
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity 0.5
+ message "Property of Lionsgate"
+ old_message {{80 114 111 112 101 114 116 121 32 111 102 32 76 105 111 110 115 103 97 116 101}
+   }
+ box {20 140 1900 540}
+ xjustify right
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 10 80 11 80 12 80 13 80 14 80 15 80 16 80 17 80 18 80 19 80 20 80 0 90 1 90 2 90 3 90 4 90 5 90 6 90 7 90 8 90 9 90 10 90 11 90 12 90 13 90 14 90 15 90 16 90 17 90 18 90 19 90 20 90}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 80
+ center {960 540}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{1907.5 144.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ name Text2
+ xpos 297
+ ypos -341
+}
+Remove {
+ operation keep
+ channels rgb
+ name Remove1
+ xpos 297
+ ypos -317
+}
+Write {
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/thumbnails/HC019_030_comp_v002_thumb.%04d.png
+ colorspace rec709
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name THUMB_WRITE
+ xpos 297
+ ypos -293
+}
+Viewer {
+ inputs 0
+ frame 1001
+ frame_range 1001-1402
+ frame_increment 16
+ masking_ratio 4:3
+ name Viewer1
+ xpos -40
+ ypos -9
+}
