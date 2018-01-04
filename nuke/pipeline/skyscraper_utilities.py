@@ -167,13 +167,16 @@ def get_cc_file_for_shot(m_shot):
     for t_plate in glob.glob("%s%s%s*"%(plates_dir, os.path.sep, shot)):
         if t_plate.find(g_main_plate) > -1:
             mp_dir = t_plate
-    plate_basename = os.path.basename(mp_dir)
-    cc_file = os.path.join(mp_dir, "_Metadata", "%s.cc"%plate_basename)
-    if os.path.exists(cc_file):
-        print "INFO: Found CC file: %s"%cc_file
+    if mp_dir:
+        plate_basename = os.path.basename(mp_dir)
+        cc_file = os.path.join(mp_dir, "_Metadata", "%s.cc"%plate_basename)
+        if os.path.exists(cc_file):
+            print "INFO: Found CC file: %s"%cc_file
+        else:
+            print "INFO: Unable to find CC file at %s."%cc_file
+            cc_file = None
     else:
-        print "INFO: Unable to find CC file at %s."%cc_file
-        cc_file = None
+        print "INFO: Shot doesn't have any main plate directory in %s."%plates_dir
     return cc_file
 
 def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=False, b_method_matte=False):
@@ -321,50 +324,55 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
             s_cdl_src = get_cc_file_for_shot(s_shot)
+            if not s_cdl_src:
+                print "WARNING: get_cc_file_for_shot() returned NoneType. Unable to find .CC file."
+                b_deliver_cdl = False
+                cc_delivery = False
             if not os.path.exists(s_cdl_src):
                 print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
+                cc_delivery = False
                 b_deliver_cdl = False
             
             # open up the cdl and extract the cccid
-            cdltext = open(s_cdl_src, 'r').read()
-            cccid_re_str = r'<ColorCorrection id="([A-Za-z0-9-_]+)">'
-            cccid_re = re.compile(cccid_re_str)
-            cccid_match = cccid_re.search(cdltext)
-            if cccid_match:
-                s_cccid = cccid_match.group(1)
-            else:
-                s_cccid = os.path.basename(s_cdl_src).split('.')[0]
+            if cc_delivery:
+                cdltext = open(s_cdl_src, 'r').read()
+                cccid_re_str = r'<ColorCorrection id="([A-Za-z0-9-_]+)">'
+                cccid_re = re.compile(cccid_re_str)
+                cccid_match = cccid_re.search(cdltext)
+                if cccid_match:
+                    s_cccid = cccid_match.group(1)
+                else:
+                    s_cccid = os.path.basename(s_cdl_src).split('.')[0]
             
-            # slope
-            slope_re_str = r'<Slope>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Slope>'
-            slope_re = re.compile(slope_re_str)
-            slope_match = slope_re.search(cdltext)
-            slope_r = slope_match.group(1)
-            slope_g = slope_match.group(2)
-            slope_b = slope_match.group(3)
+                # slope
+                slope_re_str = r'<Slope>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Slope>'
+                slope_re = re.compile(slope_re_str)
+                slope_match = slope_re.search(cdltext)
+                slope_r = slope_match.group(1)
+                slope_g = slope_match.group(2)
+                slope_b = slope_match.group(3)
 
-            # offset
-            offset_re_str = r'<Offset>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Offset>'
-            offset_re = re.compile(offset_re_str)
-            offset_match = offset_re.search(cdltext)
-            offset_r = offset_match.group(1)
-            offset_g = offset_match.group(2)
-            offset_b = offset_match.group(3)
+                # offset
+                offset_re_str = r'<Offset>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Offset>'
+                offset_re = re.compile(offset_re_str)
+                offset_match = offset_re.search(cdltext)
+                offset_r = offset_match.group(1)
+                offset_g = offset_match.group(2)
+                offset_b = offset_match.group(3)
             
-            # power
-            power_re_str = r'<Power>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Power>'
-            power_re = re.compile(power_re_str)
-            power_match = power_re.search(cdltext)
-            power_r = power_match.group(1)
-            power_g = power_match.group(2)
-            power_b = power_match.group(3)
+                # power
+                power_re_str = r'<Power>([0-9.-]+) ([0-9.-]+) ([0-9.-]+)</Power>'
+                power_re = re.compile(power_re_str)
+                power_match = power_re.search(cdltext)
+                power_r = power_match.group(1)
+                power_g = power_match.group(2)
+                power_b = power_match.group(3)
             
-            # saturation
-            saturation_re_str = r'<Saturation>([0-9.-]+)</Saturation>'
-            saturation_re = re.compile(saturation_re_str)
-            saturation_match = saturation_re.search(cdltext)
-            saturation = saturation_match.group(1)
-
+                # saturation
+                saturation_re_str = r'<Saturation>([0-9.-]+)</Saturation>'
+                saturation_re = re.compile(saturation_re_str)
+                saturation_match = saturation_re.search(cdltext)
+                saturation = saturation_match.group(1)
             
             s_avidqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeDNxHD115", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeH264", "%s.m4v"%s_filename)
@@ -756,13 +764,33 @@ def new_shot():
     main_cdl.knob('file').setValue(main_cc_file)
     main_write.knob('file').setValue(comp_write_path)
     bd_node_w.knob('label').setValue("<center>%s\ncomp output"%shot)
+    
+    # set the format of the script based on the main plate
+    # requested by Holly 12/12/17
+    read_node = main_read
+    read_fmt = read_node.format()
+    format_name = read_fmt.name()
+    if not format_name:
+        read_fmt.setName("%s Format"%read_node.name())
+        format_name = read_fmt.name()
+        format_string = "{wide} {high} 0 0 {wide} {high} {pixelaspect} {name}"
+        format_dict = {}
+        format_dict['wide'] = read_fmt.width()
+        format_dict['high'] = read_fmt.height()
+        format_dict['pixelaspect'] = read_fmt.pixelAspect()
+        format_dict['name'] = read_fmt.name()
+        str_fmt_rep = format_string.format(**format_dict)
+        nuke.addFormat(str_fmt_rep)
+
+    root = nuke.root()
+    root['format'].setValue(format_name)
 
     # bring in any additional plates
     if len(plates) > 0:
         last_read = main_read
         last_read_xpos = 1292
         last_bd_xpos = 1096
-        last_sr_xpos = 1292
+        # last_sr_xpos = 1292
         last_bd = bd_node
         for addlplate in plates:
             newplate_dict = g_dict_img_seq[shot_dir][addlplate]
@@ -773,8 +801,8 @@ def new_shot():
             # copy/paste read and backdrop
             new_read = nuke.createNode("Read")
             new_bd = nuke.createNode("BackdropNode")
-            new_sr = nuke.createNode("Sky_Reformat")
-            new_sr.connectInput(0, new_read)
+            # new_sr = nuke.createNode("Sky_Reformat")
+            # new_sr.connectInput(0, new_read)
             
             new_bd.knob('note_font_size').setValue(42)
             new_bd.knob('bdwidth').setValue(473)
@@ -783,14 +811,14 @@ def new_shot():
         
             new_bd_xpos = last_bd_xpos + 500
             new_read_xpos = last_read_xpos + 500
-            new_sr_xpos = last_sr_xpos + 500
+            # new_sr_xpos = last_sr_xpos + 500
             
             new_bd.knob('xpos').setValue(new_bd_xpos)
             new_bd.knob('ypos').setValue(-775)
             new_read.knob('xpos').setValue(new_read_xpos)
             new_read.knob('ypos').setValue(-687)
-            new_sr.knob('xpos').setValue(new_sr_xpos)
-            new_sr.knob('ypos').setValue(-509)
+            # new_sr.knob('xpos').setValue(new_sr_xpos)
+            # new_sr.knob('ypos').setValue(-509)
             
             newplate_dict = g_dict_img_seq[shot_dir][addlplate]
             newplate_ext = newplate_dict['ext']
@@ -809,7 +837,7 @@ def new_shot():
             last_read_xpos = new_read_xpos
             last_bd = new_bd
             last_bd_xpos = new_bd_xpos
-            last_sr_xpos = new_sr_xpos
+            # last_sr_xpos = new_sr_xpos
         
     # that should do it!
     nuke.scriptSaveAs(full_nuke_script_path)
