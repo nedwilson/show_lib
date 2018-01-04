@@ -431,12 +431,10 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             os.write(fh_nukepy, "nd_root.knob('txt_ih_shot_path').setValue(\"%s\")\n"%s_shot_path)
 
             if not cc_delivery:
-                os.write(fh_nukepy, "nuke.toNode('Colorspace1').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('disable').setValue(True)\n")
-                os.write(fh_nukepy, "nuke.toNode('Vectorfield3').knob('disable').setValue(True)\n")
-                os.write(fh_nukepy, "nuke.toNode('Colorspace3').knob('disable').setValue(True)\n")
+                os.write(fh_nukepy, "nuke.toNode('OCIOFileTransform1').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('disable').setValue(True)\n")
-                os.write(fh_nukepy, "nuke.toNode('Vectorfield1').knob('disable').setValue(True)\n")
+                os.write(fh_nukepy, "nuke.toNode('OCIOFileTransform2').knob('disable').setValue(True)\n")
             else:
                 # hard code cdl values because fuck nuke
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('file').setValue(\"%s\")\n"%s_cdl_src)
