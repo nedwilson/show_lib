@@ -328,10 +328,11 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
                 print "WARNING: get_cc_file_for_shot() returned NoneType. Unable to find .CC file."
                 b_deliver_cdl = False
                 cc_delivery = False
-            if not os.path.exists(s_cdl_src):
-                print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
-                cc_delivery = False
-                b_deliver_cdl = False
+            else:
+                if not os.path.exists(s_cdl_src):
+                    print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
+                    cc_delivery = False
+                    b_deliver_cdl = False
             
             # open up the cdl and extract the cccid
             if cc_delivery:
