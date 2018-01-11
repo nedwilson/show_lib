@@ -155,6 +155,7 @@ def deliver(f):
     if os.path.exists(delivery_path):
         delivery_directory = os.path.split(delivery_path)[-1]
         xmlfile_list = glob.glob(os.path.join(delivery_path, ".delivery", "*.xml"))
+        xmlfile_list = xmlfile_list+(glob.glob(os.path.join(delivery_path, "*", "_Metadata", "*.xml")))
         headers = ['Submission', 'Submission Date', 'Vendor', 'Submission Type', 'Asset Name', 'Asset Detail', 'Shot Number', 'Version', 'Filetype', 'Filename', 'FirstFrame', 'LastFrame', 'Submitted For', 'Vendor Comments', 'Client Feedback']
         rows = []
         ale_rows = []
@@ -264,13 +265,13 @@ def deliver(f):
                 ale_row_single['frame_range'] = "%s-%s"%(start, end)
                 # Let's try and open the CDL for this shot... hopefully it exists
                 # First, let's try Gastown
-                sequence = shot[0:5]
+                sequence = shot[0:3]
                 slope = ["1.0","1.0","1.0"]
                 offset = ["0.0","0.0","0.0"]
                 power = ["1.0","1.0","1.0"]
                 saturation = "1.0"
                 first_cdl_path = os.path.join(os.environ['IH_SHOW_ROOT'], sequence, shot, "data", "cdl", "%s.cdl"%shot)
-                second_cdl_path = os.path.join(os.environ['IH_SHOW_ROOT'], sequence, shot, "data", "cdl", "%s.cdl"%shot)
+                second_cdl_path = os.path.join(os.path.dirname(xmlfile), "%s.cc"%os.path.basename(xmlfile))
                 cdl_path = ""
                 # print first_cdl_path
                 if os.path.exists(first_cdl_path):
