@@ -319,7 +319,14 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             s_vfxqt_src = os.path.join(comp_render_dir, "1920x1080_QuicktimeH264", "%s.m4v"%s_filename)
             s_exr_src = os.path.join(os.path.dirname(render_path), "%s.*.exr"%s_filename)
             s_matte_src = os.path.join(os.path.dirname(render_path), "%s_matte.*.tif"%s_filename)
-            s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
+            
+            # create XML file in metadata dir
+            s_xml_src = os.path.join(comp_render_dir, "_Metadata", "%s.xml"%s_filename)
+            s_metadata_dir = os.path.dirname(s_xml_src)
+            if not os.path.exists(s_metadata_dir):
+                os.makedirs(s_metadata_dir)
+                
+            # s_xml_src = '.'.join([os.path.splitext(render_path)[0].split('.')[0], "xml"])
             
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
@@ -381,8 +388,8 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             s_matte_dest = os.path.join(s_delivery_package_full, s_filename, "2880x2160_TIFF")
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_dest = os.path.join(s_exr_dest, "%s.cdl"%s_shot)
-            s_xml_dest = os.path.join(s_delivery_package_full, ".delivery", "%s.xml"%s_filename)
+            s_cdl_dest = os.path.join(s_delivery_package_full, s_filename, "_Metadata", "%s.cdl"%s_filename)
+            s_xml_dest = os.path.join(s_delivery_package_full, s_filename, "_Metadata", "%s.xml"%s_filename)
             
             # print out python script to a temp file
             fh_nukepy, s_nukepy = tempfile.mkstemp(suffix='.py')
