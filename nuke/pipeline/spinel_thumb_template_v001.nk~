@@ -1,6 +1,6 @@
-#! /Applications/Nuke11.1v2/Nuke11.1v2.app/Contents/MacOS/libnuke-11.1.2.dylib -nx
-#write_info THUMB_WRITE file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/thumbnails/HC019_030_comp_v002_thumb.%04d.png" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1001 1402" fps:"23.976" colorspace:"raw" datatype:"8 bit" transfer:"unknown" views:"main" timecode:"00:09:31:09" colorManagement:"OCIO"
-version 11.1 v2
+#! /Applications/Nuke11.1v1/Nuke11.1v1.app/Contents/MacOS/libnuke-11.1.1.dylib -nx
+#write_info THUMB_WRITE file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/thumbnails/HC019_030_comp_v002_thumb.%04d.png" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1001 1402" fps:"23.976" colorspace:"raw" datatype:"8 bit" transfer:"unknown" views:"main" timecode:"10:36:58:11" colorManagement:"OCIO"
+version 11.1 v1
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
     <window x="0" y="23" w="2560" h="1345" screen="0">
@@ -11,7 +11,11 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="1324"/>
+                <split size="775"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="545"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
@@ -24,31 +28,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <dock id="" activePageId="Properties.1">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
-                <page id="tk_multi_shotgunpanel_main"/>
             </dock>
-        </splitter>
-    </window>
-    <window x="2560" y="0" w="2560" h="1424" screen="1">
-        <splitter orientation="1">
-            <split size="1937"/>
-            <dock id="" activePageId="Viewer.1">
-                <page id="Viewer.1"/>
-            </dock>
-            <split size="619"/>
-            <splitter orientation="2">
-                <split size="556"/>
-                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
-                    <page id="uk.co.thefoundry.vectorscope.1"/>
-                </dock>
-                <split size="453"/>
-                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
-                    <page id="uk.co.thefoundry.waveformscope.1"/>
-                </dock>
-                <split size="407"/>
-                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
-                    <page id="uk.co.thefoundry.histogram.1"/>
-                </dock>
-            </splitter>
         </splitter>
     </window>
 </layout>
@@ -74,26 +54,18 @@ Root {
 }
 Read {
  inputs 0
- file /Volumes/raid_vol01/shows/spinel/CB054/CB054_100/pix/plates/CB054_100_stock_27442945_retime.mov
- format "3840 2160 0 0 3840 2160 1 UHD_4K"
- last 829
- origlast 829
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_030/pix/comp/HC019_030_comp_v002/HC019_030_comp_v002.%04d.exr
+ format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ first 1009
+ last 1165
+ origfirst 1001
+ origlast 1173
  origset true
- colorspace rec709
+ colorspace linear
  auto_alpha true
- mov64_decode_video_levels "Video Range"
- mov32_codec {{0} "Apple ProRes 4444 (appl - ap4h)"}
- mov32_pixel_format {{0} "default (RGBA  16-bit (b64a))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 (v408)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCrA 32-bit 444 Float (r4fl)" "YCbCr  16-bit 444 (y416)"}
  name SRC_READ
  xpos 297
- ypos -693
-}
-TimeOffset {
- time_offset 1000
- time ""
- name TimeOffset1
- xpos 297
- ypos -603
+ ypos -655
 }
 OCIOColorSpace {
  in_colorspace linear
@@ -103,14 +75,14 @@ OCIOColorSpace {
  ypos -565
 }
 OCIOCDLTransform {
- slope {1.22891295 1.224565983 1.220217943}
- offset {-0.01615592092 -0.01645592041 -0.01315591019}
- power {1.139999986 1.127583981 1.110201001}
- saturation 0.8000000119
+ slope {1 1 1}
+ offset {0 0 0}
+ power {1 1 1}
+ saturation 0.804799974
  working_space linear
  read_from_file true
- file /Volumes/raid_vol01/shows/spinel/CB054/CB054_100/data/cdl/CB054_100.ccc
- cccid CB054_100_stock_27442945_retime
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_030/data/cdl/HC019_030_GS.ccc
+ cccid FBE49CF4-F220-4EFF-A214-7F87EE3F6E01
  name OCIOCDLTransform1
  xpos 297
  ypos -541

@@ -161,16 +161,17 @@ def deliver(f):
         # headers = ['Submission', 'Submission Date', 'Vendor', 'Submission Type', 'Asset Name', 'Asset Detail', 'VFX ID', 'Version', 'File Type', 'Filename', 'FirstFrame', 'LastFrame', 'Submitted For', 'Shot Notes', 'Client Feedback']
         headers = ['Submission Date', 'VFX ID', 'Filename', 'File Type', 'Submitted For', 'Shot Notes']
         rows = []
+        exr_rows = []
+        matte_rows = []
         ale_rows = []
         dbversions = []
         for xmlfile in sorted(xmlfile_list):
-            isdpx = False
             isexr = False
             ismatte = False
             dpxfilename = ""
             exrfilename = ""
             rowdict = {}
-            dpxdict = {}
+            mattedict = {}
             exrdict = {}
             ale_row_single = {}
             shot = ""
@@ -179,12 +180,12 @@ def deliver(f):
             xml_base = os.path.basename(xmlfile).split('.')[0]
             tree = ET.parse(xmlfile)
             root = tree.getroot()
-#             rowdict['Submission'] = delivery_directory
+            # rowdict['Submission'] = delivery_directory
             rowdict['Submission Date'] = datetime.date.today().strftime('%m/%d/%Y')
-#             rowdict['Vendor'] = 'INH'
-#             rowdict['Submission Type'] = 'SHOT'
-#             rowdict['Asset Name'] = ''
-#             rowdict['Asset Detail'] = ''
+            # rowdict['Vendor'] = 'INH'
+            # rowdict['Submission Type'] = 'SHOT'
+            # rowdict['Asset Name'] = ''
+            # rowdict['Asset Detail'] = ''
             if xmlfile.find("_pkg") != -1:
                 rowdict['Submitted For'] = 'For Archive'
                 for child in root:
@@ -212,68 +213,57 @@ def deliver(f):
                             print "ERROR: Unable to locate version in database with name %s!"%xml_base
                     elif child.tag == 'AvidQTFileName':
                         rowdict['Filename'] = child.text
-#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        # rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]000
                         rowdict['File Type'] = 'MOV'
-                        # email_list.append(rowdict['Filename'])
+                        email_list.append(rowdict['Filename'])
                         ale_row_single['Name'] = child.text
                         ale_row_single['Tape'] = os.path.splitext(child.text)[0]
                         if 'matte' in child.text:
                             ismatte=True
                     elif child.tag == 'EXRFileName':
                         exrfilename = child.text
-                        # email_list.append(dpxfilename)
+                        email_list.append(exrfilename)
                         rowdict['Submitted For'] = 'REVIEW'
-                        rowdict['File Type'] = 'EXR'
-#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        # rowdict['File Type'] = 'EXR'
+                        # rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
                         isexr = True
                     elif child.tag == 'MatteFileName':
                         mattefilename = child.text
-                        # email_list.append(dpxfilename)
-                        rowdict['File Type'] = 'TIF'
-#                         rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
-                        if not rowdict['Submitted For'] == 'REVIEW':
-                            rowdict['Submitted For'] = 'MATTE'
+                        email_list.append(mattefilename)
+                        # rowdict['File Type'] = 'TIF'
+                        # rowdict['Version'] = child.text.split('.')[0].split('_v')[-1].split('_')[0]
+                        # if not rowdict['Submitted For'] == 'REVIEW':
+                        #    rowdict['Submitted For'] = 'MATTE'
                         ismatte = True
-#                     elif child.tag == 'EXRFileName':
-#                         exrfilename = '.'.join([child.text.split('.')[0], 'exr'])
-#                         email_list.append(exrfilename)
-#                         rowdict['Version'] = child.text.split('.')[0].split('_')[-1]
-#                         isexr = True
                     elif child.tag == 'StartTimeCode':
                         ale_row_single['Start'] = child.text
                     elif child.tag == 'EndTimeCode':
                         ale_row_single['End'] = child.text
                     elif child.tag == 'StartFrame':
                         start = child.text
-#                         rowdict['FirstFrame'] = start
                     elif child.tag == 'EndFrame':
                         end = child.text
-#                         rowdict['LastFrame'] = end
                     elif child.tag == 'SubmissionNotes':
                         rowdict['Shot Notes'] = child.text
-#                     elif child.tag == 'Hours':
-#                         rowdict['Hours'] = child.text
-#                     elif child.tag == 'Artist':
-#                         rowdict['Artist'] = child.text
-#                 rowdict['Frames'] = int(end) - int(start) + 1
+                    # elif child.tag == 'Artist':
+                    #     rowdict['Artist'] = child.text
+                # rowdict['Frames'] = int(end) - int(start) + 1
+                # if isexr:
+                #     rowdict['Filename'] = "%s.%s-%s.exr"%(exrfilename.split('.')[0], start, end)
+                # if ismatte:
+                #     rowdict['Filename'] = "%s.%s-%s.tif"%(mattefilename.split('.')[0], start, end)
                 if isexr:
-                    rowdict['Filename'] = "%s.%s-%s.exr"%(exrfilename.split('.')[0], start, end)
+                    exrdict = copy.deepcopy(rowdict)
+                    exrdict['Filename'] = exrfilename.replace('*', '%s-%s#'%(start, end))
+                    exrdict['File Type'] = 'EXR'
+                    exr_rows.append(exrdict)
                 if ismatte:
-                    rowdict['Filename'] = "%s.%s-%s.tif"%(mattefilename.split('.')[0], start, end)
-#                 if isexr:
-#                     exrdict = copy.deepcopy(rowdict)
-#                     exrdict['Filename'] = exrfilename
-#                     exrdict['Hours']=''
-#                     rows.append(exrdict)
-                #add _vfx qt to export
-#                 if not ismatte:
-#                     vfxdict = copy.deepcopy(rowdict)
-#                     vfxdict['Filename']= vfxdict['Filename'].replace(".mov","_vfx.mov")
-#                     vfxdict['Hours']=''
-#                     rows.append(vfxdict)
+                    mattedict = copy.deepcopy(rowdict)
+                    mattedict['Filename']= mattefilename.replace('*', '%s-%s#'%(start, end))
+                    mattedict['File Type'] = 'TIF'
+                    matte_rows.append(mattedict)
 
-#                 rowdict['Client Feedback'] = ''
-                email_list.append(rowdict['Filename'])
+                # email_list.append(rowdict['Filename'])
                 rows.append(rowdict)
                 ale_row_single['frame_range'] = "%s-%s"%(start, end)
                 # Let's try and open the CDL for this shot... hopefully it exists
@@ -316,13 +306,30 @@ def deliver(f):
 
 
 
-        csvfile_path = os.path.join(delivery_path, "SPINEL_%s.csv"%delivery_directory)
+        csvfile_path = os.path.join(delivery_path, "SPINEL_%s_MOV.csv"%delivery_directory)
         csvfile_fh = open(csvfile_path, 'w')
         csvfile_dw = csv.DictWriter(csvfile_fh, headers)
         csvfile_dw.writeheader()
-
         csvfile_dw.writerows(rows)
         csvfile_fh.close()
+
+        if len(exr_rows) > 0:
+            exrcsvfile_path = os.path.join(delivery_path, "SPINEL_%s_EXR.csv"%delivery_directory)
+            exrcsvfile_fh = open(exrcsvfile_path, 'w')
+            exrcsvfile_dw = csv.DictWriter(exrcsvfile_fh, headers)
+            exrcsvfile_dw.writeheader()
+            exrcsvfile_dw.writerows(exr_rows)
+            exrcsvfile_fh.close()
+
+        if len(matte_rows) > 0:
+            mattecsvfile_path = os.path.join(delivery_path, "SPINEL_%s_MATTE.csv"%delivery_directory)
+            mattecsvfile_fh = open(mattecsvfile_path, 'w')
+            mattecsvfile_dw = csv.DictWriter(mattecsvfile_fh, headers)
+            mattecsvfile_dw.writeheader()
+            mattecsvfile_dw.writerows(matte_rows)
+            mattecsvfile_fh.close()
+        
+        
         if g_write_ale:
             alefile_path = os.path.join(delivery_path, "SPINEL_%s.ale"%delivery_directory)
             alefile_fh = open(alefile_path, 'w')

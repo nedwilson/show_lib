@@ -1,41 +1,91 @@
-#! /Applications/Nuke11.1v1/Nuke11.1v1.app/Contents/MacOS/libnuke-11.1.1.dylib -nx
-#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3424 2202 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"23.976" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"12:08:11:22" colorManagement:"Nuke"
-version 11.1 v1
+#! /Applications/Nuke11.0v3/Nuke11.0v3.app/Contents/MacOS/libnuke-11.0.3.dylib -nx
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3424 2202 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1001 1054" fps:"23.976" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"12:08:11:22" colorManagement:"Nuke"
+version 11.0 v3
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
     <window x="0" y="23" w="2560" h="1345" screen="0">
-        <splitter orientation="1">
-            <split size="40"/>
-            <dock id="" hideTitles="1" activePageId="Toolbar.1">
-                <page id="Toolbar.1"/>
-            </dock>
-            <split size="1897" stretch="1"/>
-            <splitter orientation="2">
-                <split size="775"/>
-                <dock id="" activePageId="Viewer.1">
-                    <page id="Viewer.1"/>
+        <splitter orientation="2">
+            <split size="776"/>
+            <splitter orientation="1">
+                <split size="593"/>
+                <splitter orientation="2">
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.project.2">
+                        <page id="uk.co.thefoundry.project.2" layout="splitter(221,346)"/>
+                        <page id="uk.co.thefoundry.project.1" layout="splitter(160,470)"/>
+                    </dock>
+                    <split size="386"/>
+                    <dock id="" activePageId="uk.co.thefoundry.spreadsheetview.1">
+                        <page id="uk.co.thefoundry.spreadsheetview.1"/>
+                    </dock>
+                </splitter>
+                <split size="45"/>
+                <dock id="" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
                 </dock>
-                <split size="545"/>
+                <split size="1245"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
-                    <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
+                    <page id="Curve Editor.1"/>
                     <page id="uk.co.thefoundry.scripteditor.1"/>
                     <page id="Error Console.1"/>
                 </dock>
+                <split size="665"/>
+                <splitter orientation="2">
+                    <split size="776"/>
+                    <dock id="" activePageId="Properties.1">
+                        <page id="Properties.1"/>
+                        <page id="uk.co.thefoundry.clipeffects.1"/>
+                        <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                        <page id="uk.co.thefoundry.exportqueue.1"/>
+                        <page id="tk_multi_shotgunpanel_main"/>
+                    </dock>
+                </splitter>
             </splitter>
-            <split size="615"/>
-            <dock id="" activePageId="Properties.1">
-                <page id="Properties.1"/>
-                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            <split size="544"/>
+            <splitter orientation="1">
+                <split size="2560"/>
+                <dock id="" activePageId="uk.co.thefoundry.timeline.4">
+                    <page id="uk.co.thefoundry.timeline.4" layout="splitter(752,1804)"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+    <window x="2560" y="23" w="2560" h="1401" screen="1">
+        <splitter orientation="1">
+            <split size="1950"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="uk.co.thefoundry.sequenceviewer.6"/>
+                <page id="uk.co.thefoundry.viewer.4"/>
+                <page id="Viewer.1"/>
             </dock>
+            <split size="606"/>
+            <splitter orientation="2">
+                <split size="695"/>
+                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
+                    <page id="uk.co.thefoundry.vectorscope.1"/>
+                </dock>
+                <split size="306"/>
+                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
+                    <page id="uk.co.thefoundry.waveformscope.1"/>
+                </dock>
+                <split size="292"/>
+                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
+                    <page id="uk.co.thefoundry.histogram.1"/>
+                </dock>
+                <split size="96"/>
+                <dock id="" activePageId="uk.co.thefoundry.monitorController.1">
+                    <page id="uk.co.thefoundry.monitorController.1"/>
+                </dock>
+            </splitter>
         </splitter>
     </window>
 </layout>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/pipeline/spinel_shot_template_v001.nk
+ name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/nuke_pipeline/spinel_shot_template_v001.nk
  frame 1001
  first_frame 1001
  last_frame 1054
@@ -103,7 +153,7 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold"
+ note_font "Verdana Bold"
  note_font_size 20
  xpos -53
  ypos 856
@@ -147,15 +197,6 @@ Group {
   ypos 87
  }
 end_group
-Viewer {
- inputs 0
- frame_range 1001-1054
- fps 23.97602463
- viewerProcess None
- name Viewer1
- xpos -53
- ypos 798
-}
 Read {
  inputs 0
  file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/plates/HC019_190_BS/HC019_190_BS.%04d.exr
@@ -172,7 +213,7 @@ Read {
  xpos 80
  ypos -907
 }
-set N89f676f0 [stack 0]
+set Na435d1b0 [stack 0]
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
@@ -186,7 +227,7 @@ Dot {
  xpos 235
  ypos 745
 }
-push $N89f676f0
+push $Na435d1b0
 Reformat {
  format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
  resize none
@@ -209,7 +250,6 @@ CopyMetaData {
  ypos 742
 }
 Write {
- channels rgba
  file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.####.exr
  colorspace linear
  file_type exr
@@ -218,7 +258,16 @@ Write {
  first 1001
  last 1054
  name Write_exr
- selected true
  xpos 80
  ypos 789
+}
+Viewer {
+ inputs 0
+ frame 1001
+ frame_range 1001-1054
+ fps 23.97602463
+ viewerProcess None
+ name Viewer1
+ xpos -53
+ ypos 798
 }

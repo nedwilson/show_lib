@@ -14,6 +14,7 @@ import glob
 import shutil
 import re
 import db_access as DB
+import sgtk
 
 class SpinelNotesPanel(nukescripts.PythonPanel):
     def __init__(self):
@@ -25,24 +26,29 @@ class SpinelNotesPanel(nukescripts.PythonPanel):
         self.addKnob(self.cc_knob)
         self.avidqt_knob = nuke.Boolean_Knob('avidqt_', 'Avid QT', True)
         self.addKnob(self.avidqt_knob)
-        self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', False)
-        self.addKnob(self.vfxqt_knob)
+        # self.vfxqt_knob = nuke.Boolean_Knob('vfxqt_', 'VFX QT', False)
+        # self.addKnob(self.vfxqt_knob)
+        self.burnin_knob = nuke.Boolean_Knob('burnin_', 'QT Burnin', True)
+        self.addKnob(self.burnin_knob)
         self.exr_knob = nuke.Boolean_Knob('exr_', 'EXR', True)
+        self.exr_knob.setFlag(nuke.STARTLINE)
         self.addKnob(self.exr_knob)
         self.matte_knob = nuke.Boolean_Knob('matte_', 'Matte', False)
         self.addKnob(self.matte_knob)
+        self.export_knob = nuke.Boolean_Knob('export_', 'Export', False)
+        self.addKnob(self.export_knob)
 
 def get_delivery_directory_spinel(str_path, b_istemp=False):
     delivery_folder = str_path
-    s_folder_contents = "EXR"
-    if b_istemp:
-        s_folder_contents = "MOV"
+    # s_folder_contents = "EXR"
+    # if b_istemp:
+    #     s_folder_contents = "MOV"
     tday = datetime.date.today().strftime('%Y%m%d')
-    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*_%s"%(tday, s_folder_contents)))
+    matching_folders = glob.glob(os.path.join(delivery_folder, "INH_%s_*"%(tday)))
     noxl = ""
     max_dir = 0
     if len(matching_folders) == 0:
-        calc_folder = os.path.join(delivery_folder, "INH_%s_01_%s"%(tday, s_folder_contents))
+        calc_folder = os.path.join(delivery_folder, "INH_%s_01"%(tday))
     else:
         for suspect_folder in matching_folders:
             csv_spreadsheet = glob.glob(os.path.join(suspect_folder, "*.csv"))
@@ -50,13 +56,13 @@ def get_delivery_directory_spinel(str_path, b_istemp=False):
             if len(excel_spreadsheet) == 0 and len(csv_spreadsheet) == 0 and os.path.exists(os.path.join(suspect_folder, ".delivery")):
                 noxl = suspect_folder
             else:
-                dir_number = int(os.path.basename(suspect_folder).split('_')[-2])
+                dir_number = int(os.path.basename(suspect_folder).split('_')[-1])
                 if dir_number > max_dir:
                     max_dir = dir_number
         if noxl != "":
             calc_folder = noxl
         else:
-            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d_%s" % (tday, max_dir + 1, s_folder_contents))
+            calc_folder = os.path.join(delivery_folder, "INH_%s_%02d" % (tday, max_dir + 1))
     print "INFO: Returning delivery folder: %s"%calc_folder
     return calc_folder
 
@@ -88,7 +94,7 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
                 f_duration = float(end_frame - start_frame + 1)
                 f_progress = (float(i_exr_frame) - float(start_frame) + 1.0)/f_duration
                 progress_bar.setMessage("Rendering frame %d of %s..."%(i_exr_frame,s_file_name))
-                progress_bar.setProgress(int(f_progress * 50))
+                progress_bar.setProgress(int(f_progress * 98))
         except IOError:
             print "ERROR: IOError Caught!"
             var = traceback.format_exc()
@@ -97,8 +103,16 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
         s_errmsg = ""
         s_err = '\n'.join(s_err_ar)
         l_err_verbose = []
+        b_intrace = False
         for err_line in s_err_ar:
+            if len(err_line) == 0:
+                b_intrace = False
+                continue
+            if err_line.find("Traceback") != -1:
+                b_intrace = True
             if err_line.find("ERROR") != -1:
+                b_intrace = True
+            if b_intrace:
                 l_err_verbose.append(err_line)
         if s_err.find("FOUNDRY LICENSE ERROR REPORT") != -1:
             s_errmsg = "Unable to obtain a license for Nuke! Package execution fails, will not proceed!"
@@ -133,7 +147,7 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
                 os.makedirs(os.path.dirname(d_expanded_list[source_file]))
             shutil.copy(source_file, d_expanded_list[source_file])
             f_progress = float(i_count)/float(i_len)
-            progress_bar.setProgress(50 + int(f_progress * 50))
+            progress_bar.setProgress(98 + int(f_progress * 98))
     except:
         nuke.critical(traceback.format_exc())
     else:
@@ -145,16 +159,18 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
         sgdb = DB.DBAccessGlobals.get_db_access()
         
         # fetch the shot
+        print "Thread: %s Fetching shot from database for %s"%(threading.current_thread().getName(), d_db_thread_helper['shot'])
         dbshot = sgdb.fetch_shot(d_db_thread_helper['shot'])
         
         # fetch the artist
+        print "Thread: %s Fetching artist from database for %s"%(threading.current_thread().getName(), user_full_name())
         dbartist = sgdb.fetch_artist(user_full_name())
         
         # fetch a list of tasks for the shot
         dbtasks = sgdb.fetch_tasks_for_shot(dbshot)
         # To-do: add task creation functionality here
         # For now, just use tasks[0]
-        dbtask = DB.Task("Blank Task", dbartist, dbshot, -1)
+        dbtask = DB.Task("Blank Task", dbartist, 'wtg', dbshot, -1)
         if len(dbtasks) > 0:
             dbtask = dbtasks[0]
         
@@ -162,6 +178,7 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
         thumb_file_gen = create_thumbnail(thumb_file)
         
         # does the version already exist?
+        print "Thread: %s Fetching version for %s, for shot %s"%(threading.current_thread().getName(), os.path.basename(thumb_file).split('.')[0], d_db_thread_helper['shot'])
         dbversion = sgdb.fetch_version(os.path.basename(thumb_file).split('.')[0], dbshot)
         
         # clean up notes
@@ -184,15 +201,36 @@ def render_delivery_threaded(ms_python_script, d_db_thread_helper, start_frame, 
                                      dbtask)
             sgdb.create_version(dbversion)
         sgdb.upload_thumbnail('Version', dbversion, thumb_file_gen)
+        sgdb.upload_thumbnail('Shot', dbshot, thumb_file_gen)
+        dbtask.g_status = 'rev'
+        sgdb.update_task_status(dbtask)
         print "Successfully created version %s in database with DBID %d."%(dbversion.g_version_code, int(dbversion.g_dbid))
+        progress_bar.setMessage("Publishing Nuke Script and EXR Frames to Shotgun...")
+        # set shotgun authentication
+        auth_user = sgtk.get_authenticated_user()
+        if auth_user == None:
+            sa = sgtk.authentication.ShotgunAuthenticator()
+            user = sa.create_script_user(api_script='spinel_api_access', api_key='0554a1b0a4251fc84e14b78028666c4485aa873bc671246b28a914552aec1032', host='https://qppe.shotgunstudio.com')
+            sgtk.set_authenticated_user(user)
+        
+        # retrieve Shotgun Toolkit object
+        tk = sgtk.sgtk_from_entity('Task', int(dbtask.g_dbid))
+        # grab context for published version
+        context = tk.context_from_entity('Task', int(dbtask.g_dbid))
+        sg_publish_name = os.path.basename(thumb_file).split('.')[0].split('_v')[0]
+        sg_publish_ver = int(os.path.basename(thumb_file).split('.')[0].split('_v')[1])
+        dbpublishexr = sgtk.util.register_publish(tk, context, src_imgseq_path, sg_publish_name, sg_publish_ver, comment = '\n'.join(clean_notes), published_file_type = 'EXR Image Sequence')
+        sgdb.upload_thumbnail('PublishedFile', dbtask, thumb_file_gen, altid = dbpublishexr['id'])
+        dbpublishnk = sgtk.util.register_publish(tk, context, nuke.root().name(), sg_publish_name, sg_publish_ver, comment = '\n'.join(clean_notes), published_file_type = 'Nuke Script')
+        sgdb.upload_thumbnail('PublishedFile', dbtask, thumb_file_gen, altid = dbpublishnk['id'])
         progress_bar.setProgress(100)
         progress_bar.setMessage("Done!")
 
     del progress_bar
 
-def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_vfxqt=True, b_method_exr=True, b_method_matte=False):
+def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=True, b_method_burnin=True, b_method_exr=True, b_method_matte=False, b_method_artist=None):
     oglist = []
-
+    vfxqt_delivery = False
 
     for nd in nuke.selectedNodes():
         nd.knob('selected').setValue(False)
@@ -200,6 +238,9 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
 
     start_frame = nuke.root().knob('first_frame').value()
     end_frame = nuke.root().knob('last_frame').value()
+    
+    global_width = nuke.root().knob('format').value().width()
+    global_height = nuke.root().knob('format').value().height()
 
     for und in oglist:
         created_list = []
@@ -218,11 +259,15 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             render_path = und.knob('file').value()
             start_frame = und.knob('first').value()
             end_frame = und.knob('last').value()
+            global_width = und.knob('format').value().width()
+            global_height = und.knob('format').value().height()
             md_host_name = und.metadata('exr/nuke/input/hostname')
             startNode = und
         elif und.Class() == "Write":
             print "INFO: Located Write Node."
             und.knob('selected').setValue(True)
+            global_width = und.knob('format').value().width()
+            global_height = und.knob('format').value().height()
             new_read = read_from_write()
             render_path = new_read.knob('file').value()
             start_frame = new_read.knob('first').value()
@@ -261,11 +306,13 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
 
         b_execute_overall = False
         cc_delivery = False
+        burnin_delivery = False
+        export_delivery = False
 
         if current_version_notes is not None:
             cvn_txt = current_version_notes
             avidqt_delivery = b_method_avidqt
-            vfxqt_delivery = b_method_vfxqt
+            burnin_delivery = b_method_burnin
             exr_delivery = b_method_exr
             matte_delivery = b_method_matte
             cc_delivery = cc
@@ -277,9 +324,10 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
                 cvn_txt = pnl.knobs()['cvn_'].value()
                 cc_delivery = pnl.knobs()['cc_'].value()
                 avidqt_delivery = pnl.knobs()['avidqt_'].value()
-                vfxqt_delivery = pnl.knobs()['vfxqt_'].value()
+                burnin_delivery = pnl.knobs()['burnin_'].value()
                 exr_delivery = pnl.knobs()['exr_'].value()
                 matte_delivery = pnl.knobs()['matte_'].value()
+                export_delivery = pnl.knobs()['export_'].value()
                 b_execute_overall = True
 
         if b_execute_overall:
@@ -293,6 +341,9 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
                 s_delivery_folder = config.get(s_show, 'delivery_folder_win32')
             else:
                 s_delivery_folder = config.get(s_show, 'delivery_folder')
+                
+            # project FPS
+            s_project_fps = config.get(s_show, 'write_fps')
             # delivery template
             s_delivery_template = os.path.join(s_show_root, 'SHARED', 'lib', 'nuke', 'delivery', config.get(s_show, 'delivery_template'))
             s_filename = os.path.basename(render_path).split('.')[0]
@@ -300,8 +351,16 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             s_sequence = s_shot[0:5]
             # allow version number to have arbitrary text after it, such as "_matte" or "_temp"
             s_version = s_filename.split('_v')[-1].split('_')[0]
-            s_artist_name = "%s"%user_full_name()
+            s_artist_name = None
+            if b_method_artist == None:
+                s_artist_name = "%s"%user_full_name()
+            else:
+                s_artist_name = b_method_artist
+            # this will vary based on camera format, so, pull the default from the config file, and then try and get the right one from the read node
             s_format = config.get(s_show, 'delivery_resolution')
+            tmp_width = startNode.knob('format').value().width()
+            tmp_height = startNode.knob('format').value().height()
+            s_format = "%sx%s"%(tmp_width, tmp_height)
             
             # notes
             l_notes = ["", "", "", "", ""]
@@ -337,9 +396,9 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
                         
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_src = os.path.join(s_shot_path, "data", "cdl", "%s.cdl"%s_shot)
+            s_cdl_src = os.path.join(s_shot_path, "data", "cdl", "%s.ccc"%s_shot)
             if not os.path.exists(s_cdl_src):
-                print "WARNING: Unable to locate CDL file at: %s"%s_cdl_src
+                print "WARNING: Unable to locate CCC file at: %s"%s_cdl_src
                 b_deliver_cdl = False
             
             # open up the cdl and extract the cccid
@@ -382,11 +441,11 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             
             s_avidqt_dest = os.path.join(s_delivery_package_full, "AVID", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, "VFX", "%s_h264.mov"%s_filename)
-            s_exr_dest = os.path.join(s_delivery_package_full, "EXR", s_filename, s_format)
-            s_matte_dest = os.path.join(s_delivery_package_full, "TIF", "%s_matte"%s_filename, s_format)
+            s_exr_dest = os.path.join(s_delivery_package_full, s_filename, s_format)
+            s_matte_dest = os.path.join(s_delivery_package_full, "%s_matte"%s_filename, s_format)
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_dest = os.path.join(s_exr_dest, "%s.cdl"%s_shot)
+            s_cdl_dest = os.path.join(s_delivery_package_full, "support_files", "%s.ccc"%s_shot)
             s_xml_dest = os.path.join(s_delivery_package_full, ".delivery", "%s.xml"%s_filename)
             
             # print out python script to a temp file
@@ -406,6 +465,12 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             os.write(fh_nukepy, "nd_root.knob('first_frame').setValue(%d)\n"%start_frame)
             os.write(fh_nukepy, "nd_root.knob('last_frame').setValue(%d)\n"%end_frame)
             
+            # set the format in both the read node and the project settings
+            fstring = '%d %d Submission Format'%(tmp_width, tmp_height)
+            os.write(fh_nukepy, "fobj = nuke.addFormat('%s')\n"%fstring)
+            os.write(fh_nukepy, "nuke.root().knob('format').setValue(fobj)\n")
+            os.write(fh_nukepy, "nuke.root().knob('format').setValue(fobj)\n")
+
             # allow user to disable color correction, usually for temps
             if not cc_delivery:
                 os.write(fh_nukepy, "nd_root.knob('nocc').setValue(True)\n")
@@ -415,17 +480,19 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             os.write(fh_nukepy, "nd_read.knob('file').setValue(\"%s\")\n"%render_path)
             os.write(fh_nukepy, "nd_read.knob('first').setValue(%d)\n"%start_frame)
             os.write(fh_nukepy, "nd_read.knob('last').setValue(%d)\n"%end_frame)
+            os.write(fh_nukepy, "nd_read.knob('format').setValue(fobj)\n")
+
             os.write(fh_nukepy, "nd_root.knob('ti_ih_file_name').setValue(\"%s\")\n"%s_filename)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_sequence').setValue(\"%s\")\n"%s_sequence)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_shot').setValue(\"%s\")\n"%s_shot)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_version').setValue(\"%s\")\n"%s_version)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_vendor').setValue(\"%s\")\n"%s_artist_name)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_format').setValue(\"%s\")\n"%s_format)
-            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_1').setValue(\"%s\")\n"%l_notes[0])
-            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_2').setValue(\"%s\")\n"%l_notes[1])
-            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_3').setValue(\"%s\")\n"%l_notes[2])
-            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_4').setValue(\"%s\")\n"%l_notes[3])
-            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_5').setValue(\"%s\")\n"%l_notes[4])
+            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_1').setValue(\"%s\")\n"%l_notes[0].replace(r'"', r'\"'))
+            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_2').setValue(\"%s\")\n"%l_notes[1].replace(r'"', r'\"'))
+            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_3').setValue(\"%s\")\n"%l_notes[2].replace(r'"', r'\"'))
+            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_4').setValue(\"%s\")\n"%l_notes[3].replace(r'"', r'\"'))
+            os.write(fh_nukepy, "nd_root.knob('ti_ih_notes_5').setValue(\"%s\")\n"%l_notes[4].replace(r'"', r'\"'))
             os.write(fh_nukepy, "nd_root.knob('ti_ih_delivery_folder').setValue(\"%s\")\n"%s_delivery_folder)
             os.write(fh_nukepy, "nd_root.knob('ti_ih_delivery_package').setValue(\"%s\")\n"%s_delivery_package)
             os.write(fh_nukepy, "nd_root.knob('txt_ih_show').setValue(\"%s\")\n"%s_show)
@@ -434,6 +501,16 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
             os.write(fh_nukepy, "nd_root.knob('txt_ih_seq_path').setValue(\"%s\")\n"%s_seq_path)
             os.write(fh_nukepy, "nd_root.knob('txt_ih_shot').setValue(\"%s\")\n"%s_shot)
             os.write(fh_nukepy, "nd_root.knob('txt_ih_shot_path').setValue(\"%s\")\n"%s_shot_path)
+            # encode with plate timecode
+            os.write(fh_nukepy, "nuke.toNode('AddTimeCode1').knob('startcode').setValue(\"%s\")\n"%first_frame_tc_str)
+            os.write(fh_nukepy, "nuke.toNode('AddTimeCode1').knob('frame').setValue(%s)\n"%start_frame)
+            os.write(fh_nukepy, "nuke.toNode('AddTimeCode1').knob('fps').setValue(%s)\n"%s_project_fps)
+
+            if not burnin_delivery:
+                os.write(fh_nukepy, "nd_root.knob('noburnin').setValue(True)\n")
+
+            if export_delivery:
+                os.write(fh_nukepy, "nd_root.knob('exportburnin').setValue(True)\n")
 
             if not cc_delivery:
                 os.write(fh_nukepy, "nuke.toNode('Colorspace1').knob('disable').setValue(True)\n")
@@ -461,35 +538,45 @@ def send_for_review_spinel(cc=True, current_version_notes=None, b_method_avidqt=
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('saturation').setValue(%s)\n"%saturation)
             
             l_exec_nodes = []
+            s_exr_node = None
             
             if not avidqt_delivery:
                 os.write(fh_nukepy, "nuke.toNode('MOV_DNXHD_WRITE').knob('disable').setValue(True)\n")
             else:
-                d_files_to_copy[s_avidqt_src] = s_avidqt_dest
+                # d_files_to_copy[s_avidqt_src] = s_avidqt_dest
                 l_exec_nodes.append('MOV_DNXHD_WRITE')
             
             if not vfxqt_delivery:
                 os.write(fh_nukepy, "nuke.toNode('MOV_H264_WRITE').knob('disable').setValue(True)\n")
             else:
-                d_files_to_copy[s_vfxqt_src] = s_vfxqt_dest
+                # d_files_to_copy[s_vfxqt_src] = s_vfxqt_dest
                 l_exec_nodes.append('MOV_H264_WRITE')
+
+            if not export_delivery:
+                os.write(fh_nukepy, "nuke.toNode('MOV_DNXHD_EXPORT_WRITE').knob('disable').setValue(True)\n")
+            else:
+                # d_files_to_copy[s_vfxqt_src] = s_vfxqt_dest
+                l_exec_nodes.append('MOV_DNXHD_EXPORT_WRITE')
             
             if not exr_delivery:
                 os.write(fh_nukepy, "nuke.toNode('EXR_WRITE').knob('disable').setValue(True)\n")
                 b_deliver_cdl = False
             else:
-                d_files_to_copy[s_exr_src] = s_exr_dest
+                # d_files_to_copy[s_exr_src] = s_exr_dest
                 l_exec_nodes.append('EXR_WRITE')
+                # s_exr_node = 'EXR_WRITE'
 
             if not matte_delivery:
                 os.write(fh_nukepy, "nuke.toNode('TIFF_MATTE_WRITE').knob('disable').setValue(True)\n")
             else:
-                d_files_to_copy[s_matte_src] = s_matte_dest
+                # d_files_to_copy[s_matte_src] = s_matte_dest
                 l_exec_nodes.append('TIFF_MATTE_WRITE')
             
             s_exec_nodes = (', '.join('nuke.toNode("' + write_node + '")' for write_node in l_exec_nodes))
             os.write(fh_nukepy, "print \"INFO: About to execute render...\"\n")
             os.write(fh_nukepy, "try:\n")
+            # if s_exr_node:
+            #     os.write(fh_nukepy, "    nuke.execute(nuke.toNode(\"%s\"),%d,%d,1,)\n"%(s_exr_node, start_frame - 1, start_frame - 1))
             if len(l_exec_nodes) == 1:
                 os.write(fh_nukepy, "    nuke.execute(nuke.toNode(\"%s\"),%d,%d,1,)\n"%(l_exec_nodes[0], start_frame - 1, end_frame))
             else:
