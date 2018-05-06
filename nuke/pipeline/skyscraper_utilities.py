@@ -174,7 +174,6 @@ def get_cc_file_for_shot(m_shot):
             print "INFO: Found CC file: %s"%cc_file
         else:
             print "INFO: Unable to find CC file at %s."%cc_file
-            cc_file = None
     else:
         print "INFO: Shot doesn't have any main plate directory in %s."%plates_dir
     return cc_file
@@ -330,20 +329,42 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
-            s_cdl_src = get_cc_file_for_shot(s_shot)
-            if not s_cdl_src:
+            s_cc_src = get_cc_file_for_shot(s_shot)
+            b_use_generic_cdl = False
+            
+            if not s_cc_src:
                 print "WARNING: get_cc_file_for_shot() returned NoneType. Unable to find .CC file."
-                b_deliver_cdl = False
-                cc_delivery = False
+                user_ask_message = "A failure has occurred while trying to determine the .CC file for this shot. Usually, this occurs if the shot name doesn't match the pattern for the show. Proceed with Generic CDL values?"
+                nask_result = nuke.ask(user_ask_message)
+                if not nask_result:
+                    print "ERROR: Unable to determine a CC file for this shot, user requested exit of routine."
+                    return
+                else:
+                    b_use_generic_cdl = True
+                # b_deliver_cdl = False
+                # cc_delivery = False
             else:
-                if not os.path.exists(s_cdl_src):
+                if not os.path.exists(s_cc_src):
                     print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
-                    cc_delivery = False
-                    b_deliver_cdl = False
+                    user_ask_message = "This script is trying to find a valid .CC file in location %s, but no file exists. Proceed with generic CDL values?"
+                    nask_result = nuke.ask(user_ask_message)
+                    if not nask_result:
+                        print "ERROR: No CC file exists, user requested exit of routine."
+                        return
+                    else:
+                        b_use_generic_cdl = True
+                    # cc_delivery = False
+                    # b_deliver_cdl = False
+                else:
+                    s_cdl_src = s_cc_src.replace('.cc', '.cdl')
+                    b_cdl_exists = True
+                                    
+            if not os.path.exists(s_cdl_src):
+                b_cdl_exists = False
             
             # open up the cdl and extract the cccid
-            if cc_delivery:
-                cdltext = open(s_cdl_src, 'r').read()
+            if cc_delivery and not b_use_generic_cdl:
+                cdltext = open(s_cc_src, 'r').read()
                 cccid_re_str = r'<ColorCorrection id="([A-Za-z0-9-_]+)">'
                 cccid_re = re.compile(cccid_re_str)
                 cccid_match = cccid_re.search(cdltext)
@@ -381,6 +402,18 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
                 saturation_re = re.compile(saturation_re_str)
                 saturation_match = saturation_re.search(cdltext)
                 saturation = saturation_match.group(1)
+            else:
+                s_cccid = ""
+                slope_r = 1.0
+                slope_g = 1.0
+                slope_b = 1.0
+                offset_r = 0.0
+                offset_g = 0.0
+                offset_b = 0.0
+                power_r = 1.0
+                power_g = 1.0
+                power_b = 1.0
+                saturation = 1.0
             
             s_avidqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeDNxHD115", "%s.mov"%s_filename)
             s_vfxqt_dest = os.path.join(s_delivery_package_full, s_filename, "1920x1080_QuicktimeH264", "%s.m4v"%s_filename)
@@ -388,6 +421,7 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             s_matte_dest = os.path.join(s_delivery_package_full, s_filename, "2880x2160_TIFF")
             # copy CDL file into destination folder
             # requested by production on 11/01/2016
+            s_cc_dest = os.path.join(s_delivery_package_full, s_filename, "_Metadata", "%s.cc"%s_filename)
             s_cdl_dest = os.path.join(s_delivery_package_full, s_filename, "_Metadata", "%s.cdl"%s_filename)
             s_xml_dest = os.path.join(s_delivery_package_full, s_filename, "_Metadata", "%s.xml"%s_filename)
             
@@ -443,7 +477,7 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform2').knob('disable').setValue(True)\n")
                 os.write(fh_nukepy, "nuke.toNode('OCIOFileTransform2').knob('disable').setValue(True)\n")
             else:
-                # hard code cdl values because fuck nuke
+                # hard code cdl values because Nuke has issues reading in values from a file
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('file').setValue(\"%s\")\n"%s_cdl_src)
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('cccid').setValue(\"%s\")\n"%s_cccid)
                 os.write(fh_nukepy, "nuke.toNode('OCIOCDLTransform1').knob('read_from_file').setValue(False)\n")
@@ -476,7 +510,7 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             
             if not exr_delivery:
                 os.write(fh_nukepy, "nuke.toNode('EXR_WRITE').knob('disable').setValue(True)\n")
-                b_deliver_cdl = False
+                # b_deliver_cdl = False
             else:
                 d_files_to_copy[s_exr_src] = s_exr_dest
                 l_exec_nodes.append('EXR_WRITE')
@@ -538,9 +572,15 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
             d_files_to_copy[s_xml_src] = s_xml_dest
             
             # copy CDL file if we are delivering EXR frames
-            if b_deliver_cdl:
+            if b_deliver_cdl and not b_use_generic_cdl:
+                print "INFO: b_deliver_cdl is True."
+                print "INFO: copying %s to %s."%(s_cc_src, s_cc_dest)
+                d_files_to_copy[s_cc_src] = s_cc_dest
+            if b_cdl_exists and not b_use_generic_cdl:
+                print "INFO: b_cdl_exists is True."
+                print "INFO: copying %s to %s."%(s_cdl_src, s_cdl_dest)
                 d_files_to_copy[s_cdl_src] = s_cdl_dest
-
+            
             # render all frames - in a background thread
             # print s_nukepy
             threading.Thread(target=render_delivery_threaded, args=[s_nukepy, start_frame, end_frame, d_files_to_copy]).start()
