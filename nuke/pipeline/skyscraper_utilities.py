@@ -345,8 +345,8 @@ def send_for_review_skyscraper(cc=True, current_version_notes=None, b_method_avi
                 # cc_delivery = False
             else:
                 if not os.path.exists(s_cc_src):
-                    print "WARNING: Unable to locate CC file at: %s"%s_cdl_src
-                    user_ask_message = "This script is trying to find a valid .CC file in location %s, but no file exists. Proceed with generic CDL values?"
+                    print "WARNING: Unable to locate CC file at: %s"%s_cc_src
+                    user_ask_message = "This script is trying to find a valid .CC file in location %s, but no file exists. Proceed with generic CDL values?"%s_cc_src
                     nask_result = nuke.ask(user_ask_message)
                     if not nask_result:
                         print "ERROR: No CC file exists, user requested exit of routine."
