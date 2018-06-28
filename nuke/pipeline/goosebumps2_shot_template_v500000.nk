@@ -1,33 +1,26 @@
-#! /Applications/Nuke11.1v1/Nuke11.1v1.app/Contents/MacOS/libnuke-11.1.1.dylib -nx
-#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3424 2202 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"23.976" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"12:08:11:22" colorManagement:"Nuke"
-version 11.1 v1
+#! /Applications/Nuke11.1v3/Nuke11.1v3.app/Contents/MacOS/libnuke-11.1.3.dylib -nx
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"2048 1152 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 11.1 v3
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="2560" h="1345" screen="0">
-        <splitter orientation="1">
-            <split size="40"/>
-            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+    <window x="0" y="23" w="2560" h="1315" screen="0">
+        <splitter orientation="2">
+            <split size="77"/>
+            <dock id="" activePageId="Toolbar.1">
                 <page id="Toolbar.1"/>
             </dock>
-            <split size="1897" stretch="1"/>
-            <splitter orientation="2">
-                <split size="775"/>
-                <dock id="" activePageId="Viewer.1">
-                    <page id="Viewer.1"/>
-                </dock>
-                <split size="545"/>
-                <dock id="" activePageId="DAG.1" focus="true">
-                    <page id="DAG.1"/>
-                    <page id="Curve Editor.1"/>
-                    <page id="DopeSheet.1"/>
-                    <page id="uk.co.thefoundry.scripteditor.1"/>
-                    <page id="Error Console.1"/>
-                </dock>
-            </splitter>
-            <split size="615"/>
-            <dock id="" activePageId="Properties.1">
-                <page id="Properties.1"/>
-                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            <split size="1213"/>
+            <dock id="" activePageId="DAG.1">
+                <page id="DAG.1"/>
+                <page id="Curve Editor.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="2561" y="23" w="2546" h="1380" screen="1">
+        <splitter orientation="2">
+            <split size="1380"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
             </dock>
         </splitter>
     </window>
@@ -35,13 +28,13 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/shows/spinel/SHARED/lib/nuke/pipeline/spinel_shot_template_v001.nk
+ name /Volumes/raid_vol01/shows/goosebumps2/SHARED/lib/nuke/pipeline/goosebumps2_shot_template_v500000.nk
  frame 1001
  first_frame 1001
  last_frame 1054
  lock_range true
- fps 23.97602463
- format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ fps 23.976
+ format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  proxy_type scale
  colorManagement Nuke
  workingSpaceLUT linear
@@ -51,6 +44,7 @@ Root {
  logLut Cineon
  floatLut linear
  onScriptLoad "if nuke.env\['LINUX']:\n  nuke.tcl('load ffmpegReader')\n  nuke.tcl('load ffmpegWriter')\nelse:\n  nuke.tcl('load movReader')\n  nuke.tcl('load movWriter')"
+ free_type_font_path /Volumes/raid_vol01/shows/escaperoom/SHARED/lib/fonts/
  addUserKnob {20 studio l Studio}
  addUserKnob {6 annotations_show l INVISIBLE t "Control whether annotations are visible." -STARTLINE +INVISIBLE}
  annotations_show true
@@ -64,17 +58,17 @@ Root {
  out_handle 0
  addUserKnob {20 tab_inhouse l In-House}
  addUserKnob {1 txt_ih_show l show}
- txt_ih_show spinel
+ txt_ih_show escaperoom
  addUserKnob {1 txt_ih_show_path l "show path"}
- txt_ih_show_path /Volumes/raid_vol01/shows/spinel
+ txt_ih_show_path /Volumes/raid_vol01/shows/escaperoom
  addUserKnob {1 txt_ih_seq l sequence}
- txt_ih_seq HC019
+ txt_ih_seq bx
  addUserKnob {1 txt_ih_seq_path l "sequence path"}
- txt_ih_seq_path /Volumes/raid_vol01/shows/spinel/HC019/
+ txt_ih_seq_path /Volumes/raid_vol01/shows/escaperoom/bx/
  addUserKnob {1 txt_ih_shot l shot}
- txt_ih_shot HC019_190
+ txt_ih_shot bx_011_020
  addUserKnob {1 txt_ih_shot_path l "shot path"}
- txt_ih_shot_path /Volumes/raid_vol01/shows/spinel/HC019/HC019_190
+ txt_ih_shot_path /Volumes/raid_vol01/shows/escaperoom/bx/bx_011_020
 }
 BackdropNode {
  inputs 0
@@ -82,8 +76,8 @@ BackdropNode {
  tile_color 0xa09797ff
  label <center>MAIN_PLATE
  note_font_size 42
- xpos -69
- ypos -1023
+ xpos -76
+ ypos -1027
  bdwidth 373
  bdheight 326
 }
@@ -93,8 +87,8 @@ BackdropNode {
  tile_color 0xa04040ff
  label "<center>HC019_190\ncomp output"
  note_font_size 42
- xpos -94
- ypos 495
+ xpos -95
+ ypos 492
  bdwidth 411
  bdheight 456
  z_order 1
@@ -103,10 +97,10 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
- xpos -53
- ypos 856
+ xpos -40
+ ypos 850
 }
  Input {
   inputs 0
@@ -114,32 +108,28 @@ Group {
   xpos 400
   ypos -9
  }
- OCIOColorSpace {
-  in_colorspace linear
-  out_colorspace AlexaV3LogC
-  name OCIOColorSpace1
-  xpos 400
-  ypos 15
- }
  OCIOCDLTransform {
   slope {1.005399942 1.007099986 0.9875000119}
   offset {0.01899999939 0.01899999939 0.01899999939}
   power {1.032099962 1.032099962 1.032099962}
   saturation 0.804799974
-  working_space linear
+  working_space AlexaV3LogC
   read_from_file true
   file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/data/cdl/HC019_190.ccc
   cccid 3467F1F8-51D9-4F17-A7DC-0295417947E3
   name OCIOCDLTransform1
   xpos 400
-  ypos 39
+  ypos 21
  }
- OCIOFileTransform {
-  file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
-  working_space linear
-  name OCIOFileTransform1
+ Vectorfield {
+  vfield_file /Volumes/raid_vol01/shows/goosebumps2/SHARED/lut/AS03_ALCAWG_to_bt1886_super.cube
+  version 8
+  file_type cube
+  colorspaceIn AlexaV3LogC
+  colorspaceOut sRGB
+  name Vectorfield1
   xpos 400
-  ypos 63
+  ypos 48
  }
  Output {
   name Output1
@@ -147,78 +137,76 @@ Group {
   ypos 87
  }
 end_group
-Viewer {
- inputs 0
- frame_range 1001-1054
- fps 23.97602463
- viewerProcess None
- name Viewer1
- xpos -53
- ypos 798
-}
 Read {
  inputs 0
- file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/plates/HC019_190_BS/HC019_190_BS.%04d.exr
+ file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/plates/HC019_190_BS/HC019_190_BS.%04d.dpx
  format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
  first 1001
  last 1054
  origfirst 1001
  origlast 1054
  origset true
- colorspace linear
+ colorspace AlexaV3LogC
  auto_alpha true
  name Read1
  label main_plate_ingested
- xpos 80
- ypos -907
+ xpos 70
+ ypos -911
 }
-set N89f676f0 [stack 0]
+set N99ec09d0 [stack 0]
+Reformat {
+ format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ pbb true
+ name Reformat1
+ xpos 70
+ ypos 639
+}
+Crop {
+ box {0 0 2048 1152}
+ name Crop1
+ xpos 70
+ ypos 685
+}
+set N8bf02e70 [stack 0]
+Viewer {
+ frame_range 1001-1054
+ fps 23.97602463
+ name Viewer1
+ xpos -40
+ ypos 807
+}
+push $N99ec09d0
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
- xpos 201
- ypos 640
+ xpos 180
+ ypos 635
  hide_input true
  postage_stamp true
 }
 Dot {
  name Dot1
- xpos 235
- ypos 745
+ xpos 214
+ ypos 738
 }
-push $N89f676f0
-Reformat {
- format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
- resize none
- pbb true
- name Reformat1
- xpos 80
- ypos 646
-}
-Crop {
- box {0 0 3424 2202}
- name Crop1
- xpos 80
- ypos 693
-}
+push $N8bf02e70
 CopyMetaData {
  inputs 2
  mergeMode "Meta only"
  name CopyMetaData1
- xpos 80
- ypos 742
+ xpos 70
+ ypos 735
 }
 Write {
  channels rgba
  file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.####.exr
  colorspace linear
  file_type exr
- metadata "all metadata"
  create_directories true
  first 1001
  last 1054
  name Write_exr
  selected true
- xpos 80
- ypos 789
+ xpos 70
+ ypos 799
 }

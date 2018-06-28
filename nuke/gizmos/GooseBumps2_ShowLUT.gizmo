@@ -1,5 +1,5 @@
-#! /Applications/Nuke8.0v5/Nuke8.0v5.app/Contents/MacOS/libnuke-8.0.v5.dylib -nx
-version 8.0 v5
+#! /Applications/Nuke11.1v3/Nuke11.1v3.app/Contents/MacOS/libnuke-11.1.3.dylib -nx
+version 11.1 v3
 Gizmo {
 }
  Input {
@@ -8,14 +8,8 @@ Gizmo {
   xpos 826
   ypos -677
  }
- OCIOColorSpace {
-  in_colorspace linear
-  out_colorspace AlexaV3LogC
-  name OCIOColorSpace2
-  xpos 826
-  ypos -637
- }
  OCIOCDLTransform {
+  working_space linear
   read_from_file true
   file "\[value root.txt_ih_shot_path]/data/cdl/\[value root.txt_ih_shot].ccc"
   name OCIOCDLTransform2
@@ -24,9 +18,11 @@ Gizmo {
   ypos -613
  }
  OCIOFileTransform {
-  file /Volumes/raid_vol01/shows/spinel/SHARED/lut/FotokemSpinel_showLUT.cube
+  file /Volumes/raid_vol01-1/shows/goosebumps2/SHARED/lut/AS03_ALCAWG_to_sRGB_super.cube
   version 2
+  working_space linear
   name OCIOFileTransform2
+  selected true
   xpos 826
   ypos -581
  }
