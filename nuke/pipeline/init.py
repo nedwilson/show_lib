@@ -3,4 +3,4 @@
 import nuke
 
 # viewer process register
-nuke.ViewerProcess.register("Spinel Show LUT", nuke.Node, ("Spinel_ShowLUT", ""))
+# nuke.ViewerProcess.register("EscapeRoom Show LUT", nuke.Node, ("EscapeRoom_ShowLUT", ""))
