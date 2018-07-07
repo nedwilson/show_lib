@@ -22,12 +22,12 @@ except KeyError:
     
 
     
-menubar = nuke.menu("Nuke")
-m = menubar.addMenu("Goosebumps 2")
-n = m.addMenu("&Delivery")
-n.addCommand("Submit for Review", "send_for_review_goosebumps2()")
-n.addCommand("Publish Delivery","nuke.message(goosebumps2_delivery.deliver(nuke.getFilename(\"Pick The Folder To Deliver\", default=\"%s\")))"%g_delivery_folder)
-n = m.addMenu("Color")
-n.addCommand("Create Viewer Process", "create_viewer_input()", "alt+shift+v")
+#menubar = nuke.menu("Nuke")
+#m = menubar.addMenu("Goosebumps 2")
+#n = m.addMenu("&Delivery")
+#n.addCommand("Submit for Review", "send_for_review_goosebumps2()")
+#n.addCommand("Publish Delivery","nuke.message(goosebumps2_delivery.deliver(nuke.getFilename(\"Pick The Folder To Deliver\", default=\"%s\")))"%g_delivery_folder)
+#n = m.addMenu("Color")
+#n.addCommand("Create Viewer Process", "create_viewer_input()", "alt+shift+v")
 
 
