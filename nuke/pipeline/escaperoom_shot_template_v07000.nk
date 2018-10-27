@@ -1,9 +1,9 @@
-#! /Applications/Nuke11.1v3/Nuke11.1v3.app/Contents/MacOS/libnuke-11.1.3.dylib -nx
+#! /Applications/Nuke11.1v4/Nuke11.1v4.app/Contents/MacOS/libnuke-11.1.4.dylib -nx
 #write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"2048 1152 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
-version 11.1 v3
+version 11.1 v4
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="2560" h="1345" screen="0">
+    <window x="0" y="23" w="2560" h="1315" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
@@ -11,51 +11,36 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="1324"/>
-                <dock id="" activePageId="DAG.1">
+                <split size="1294"/>
+                <dock id="" activePageId="DAG.2" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
                     <page id="uk.co.thefoundry.scripteditor.1"/>
                     <page id="Error Console.1"/>
+                    <page id="DAG.2"/>
                 </dock>
             </splitter>
             <split size="615"/>
             <dock id="" activePageId="Properties.1">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
-                <page id="tk_multi_shotgunpanel_main"/>
             </dock>
         </splitter>
     </window>
     <window x="2560" y="0" w="2560" h="1424" screen="1">
-        <splitter orientation="1">
-            <split size="1937"/>
+        <splitter orientation="2">
+            <split size="1424"/>
             <dock id="" activePageId="Viewer.1">
                 <page id="Viewer.1"/>
             </dock>
-            <split size="619"/>
-            <splitter orientation="2">
-                <split size="556"/>
-                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
-                    <page id="uk.co.thefoundry.vectorscope.1"/>
-                </dock>
-                <split size="453"/>
-                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
-                    <page id="uk.co.thefoundry.waveformscope.1"/>
-                </dock>
-                <split size="407"/>
-                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
-                    <page id="uk.co.thefoundry.histogram.1"/>
-                </dock>
-            </splitter>
         </splitter>
     </window>
 </layout>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/shows/escaperoom/SHARED/lib/nuke/pipeline/escaperoom_shot_template_v07001.nk
+ name /Volumes/raid_vol01/shows/escaperoom/SHARED/lib/nuke/pipeline/escaperoom_shot_template_v07000.nk
  frame 1001
  first_frame 1001
  last_frame 1054
@@ -124,8 +109,9 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
+ selected true
  xpos -40
  ypos 850
 }
@@ -145,22 +131,21 @@ Group {
   file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/data/cdl/HC019_190.ccc
   cccid 3467F1F8-51D9-4F17-A7DC-0295417947E3
   name OCIOCDLTransform1
-  selected true
   xpos 400
-  ypos 21
+  ypos 79
  }
  Vectorfield {
   vfield_file /Volumes/raid_vol01/shows/escaperoom/SHARED/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_davinci3d.cube
-  version 3
+  version 5
   file_type cube
   name Vectorfield1
   xpos 400
-  ypos 49
+  ypos 107
  }
  Output {
   name Output1
   xpos 400
-  ypos 87
+  ypos 145
  }
 end_group
 Read {
@@ -172,14 +157,14 @@ Read {
  origfirst 1001
  origlast 1054
  origset true
- colorspace linear
+ colorspace AlexaV3LogC
  auto_alpha true
  name Read1
  label main_plate_ingested
  xpos 70
  ypos -911
 }
-set Nf6cc31f0 [stack 0]
+set N66b52830 [stack 0]
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
@@ -193,7 +178,7 @@ Dot {
  xpos 214
  ypos 738
 }
-push $Nf6cc31f0
+push $N66b52830
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  pbb true
@@ -207,7 +192,7 @@ Crop {
  xpos 70
  ypos 685
 }
-set Nf6e75600 [stack 0]
+set N66ba3ad0 [stack 0]
 CopyMetaData {
  inputs 2
  mergeMode "Meta only"
@@ -228,7 +213,7 @@ Write {
  xpos 70
  ypos 798
 }
-push $Nf6e75600
+push $N66ba3ad0
 Viewer {
  frame_range 1001-1054
  fps 23.97602463
