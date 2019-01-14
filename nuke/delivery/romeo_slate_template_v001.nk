@@ -1,8 +1,8 @@
-#! /Applications/Nuke11.1v4/Nuke11.1v4.app/Contents/MacOS/libnuke-11.1.4.dylib -nx
-version 11.1 v4
+#! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
+version 11.3 v1
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="2560" h="1345" screen="0">
+    <window x="0" y="23" w="2560" h="1315" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
@@ -10,7 +10,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="1324"/>
+                <split size="1294"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
@@ -23,44 +23,28 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <dock id="" activePageId="Properties.1">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
-                <page id="tk_multi_shotgunpanel_main"/>
             </dock>
         </splitter>
     </window>
-    <window x="2560" y="0" w="2560" h="1424" screen="1">
-        <splitter orientation="1">
-            <split size="1937"/>
+    <window x="2560" y="23" w="2560" h="1401" screen="1">
+        <splitter orientation="2">
+            <split size="1401"/>
             <dock id="" activePageId="Viewer.1">
                 <page id="Viewer.1"/>
             </dock>
-            <split size="619"/>
-            <splitter orientation="2">
-                <split size="556"/>
-                <dock id="" activePageId="uk.co.thefoundry.vectorscope.1">
-                    <page id="uk.co.thefoundry.vectorscope.1"/>
-                </dock>
-                <split size="453"/>
-                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
-                    <page id="uk.co.thefoundry.waveformscope.1"/>
-                </dock>
-                <split size="407"/>
-                <dock id="" activePageId="uk.co.thefoundry.histogram.1">
-                    <page id="uk.co.thefoundry.histogram.1"/>
-                </dock>
-            </splitter>
         </splitter>
     </window>
 </layout>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/shows/escaperoom/SHARED/lib/nuke/delivery/escaperoom_slate_template_v001.nk
- frame 1001
+ name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v001.nk
+ frame 1000
  first_frame 1001
  last_frame 1163
  lock_range true
  fps 23.976
- format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
  colorManagement Nuke
@@ -94,24 +78,25 @@ Root {
  addUserKnob {20 endGroup n -1}
  addUserKnob {20 tab_inhouse l In-House}
  addUserKnob {6 nocc l "no color correction" +STARTLINE}
+ nocc true
  addUserKnob {6 noburnin l "no quicktime burn-in" +STARTLINE}
  addUserKnob {6 exportburnin l "add export burn-in" +STARTLINE}
  addUserKnob {1 ti_ih_show_name l "show name"}
- ti_ih_show_name "Escape Room"
+ ti_ih_show_name Romeo
  addUserKnob {1 ti_ih_file_name l "file name"}
- ti_ih_file_name bx_011_020_comp_v07001
+ ti_ih_file_name 015_TOW_0010_comp_v001
  addUserKnob {1 ti_ih_sequence l sequence}
- ti_ih_sequence bx
+ ti_ih_sequence TOW
  addUserKnob {1 ti_ih_shot l shot -STARTLINE}
- ti_ih_shot bx_011_020
+ ti_ih_shot 015_TOW_0010
  addUserKnob {1 ti_ih_version l version -STARTLINE}
- ti_ih_version 07001
+ ti_ih_version 001
  addUserKnob {1 ti_ih_vendor l vendor}
  ti_ih_vendor "Ned Wilson"
  addUserKnob {1 export_label l "export label"}
  export_label "In-House VFX"
  addUserKnob {1 ti_ih_format l format}
- ti_ih_format 2048x1152
+ ti_ih_format 3272x1768
  addUserKnob {1 ti_submission_reason l "submission reason"}
  ti_submission_reason "For Final"
  addUserKnob {1 ti_ih_notes_1 l "notes line 1"}
@@ -121,30 +106,31 @@ Root {
  addUserKnob {1 ti_ih_notes_4 l "notes line 4"}
  addUserKnob {1 ti_ih_notes_5 l "notes line 5"}
  addUserKnob {1 ti_ih_delivery_folder l "delivery folder"}
- ti_ih_delivery_folder /Volumes/raid_vol01/shows/escaperoom/SHARED/outgoing
+ ti_ih_delivery_folder /Volumes/romeo_primary/SHOTS/SHARED/outgoing
  addUserKnob {1 ti_ih_delivery_package l "delivery package"}
- ti_ih_delivery_package ER_ESC_101_QT
+ ti_ih_delivery_package From_INH_20190114_A
  addUserKnob {1 txt_ih_show l show}
- txt_ih_show escaperoom
+ txt_ih_show romeo
  addUserKnob {1 txt_ih_show_path l "show path"}
- txt_ih_show_path /Volumes/raid_vol01/shows/escaperoom
+ txt_ih_show_path /Volumes/romeo_primary/SHOTS
  addUserKnob {1 txt_ih_seq l sequence}
- txt_ih_seq bx
+ txt_ih_seq TOW
  addUserKnob {1 txt_ih_seq_path l "sequence path"}
- txt_ih_seq_path /Volumes/raid_vol01/shows/escaperoom/bx/
+ txt_ih_seq_path /Volumes/romeo_primary/SHOTS/TOW/
  addUserKnob {1 txt_ih_shot l shot}
- txt_ih_shot bx_011_020
+ txt_ih_shot 015_TOW_0010
  addUserKnob {1 txt_ih_shot_path l "shot path"}
- txt_ih_shot_path /Volumes/raid_vol01/shows/escaperoom/bx/bx_011_020
+ txt_ih_shot_path /Volumes/romeo_primary/SHOTS/TOW/015_TOW_0010
 }
 Read {
  inputs 0
- file "\[value root.txt_ih_show_path]/SHARED/pix/misc/ER_LowRes_Logo.png"
- format "407 72 0 0 407 72 1 "
+ file_type png
+ file /Volumes/romeo_primary/ARTDEPT/Graphics/SHOW_LOGO/Romeo_ShowLogo_Final_WhiteonBlack.png
+ format "4667 1444 0 0 4667 1444 1 "
  origset true
  name Read2
  xpos 2402
- ypos 342
+ ypos 346
 }
 Reformat {
  format "1280 632 0 0 1280 632 1 Weird"
@@ -160,11 +146,11 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N30c01160 [stack 0]
+set Na7418040 [stack 0]
 Read {
  inputs 0
  file FILE_PATH
- format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
  first 1001
  last 1057
  origfirst 1001
@@ -191,7 +177,7 @@ Dot {
  xpos 1718
  ypos 126
 }
-set N30c276e0 [stack 0]
+set Nb2c0c970 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  black_outside true
@@ -199,7 +185,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set N30c2b3b0 [stack 0]
+set Nb2c0ee90 [stack 0]
 Reformat {
  format "2100 1152 0 0 2100 1152 1 Spinel 2K Delivery (.sp2k)"
  resize none
@@ -219,7 +205,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $N30c276e0
+push $Nb2c0c970
 Dot {
  name Dot10
  xpos 1859
@@ -232,7 +218,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set N30c4eee0 [stack 0]
+set Nb2c252f0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -273,7 +259,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N30c82880 [stack 0]
+set Na8ace6d0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -319,7 +305,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 98 120 95 48 49 49 95 48 50 48 95 99 111 109 112 95 118 48 55 48 48 49 10 10 78 101 100 32 87 105 108 115 111 110 10 32 10 48 52 45 51 48 45 50 48 49 56 32 10 10 49 48 48 49 45 49 49 54 51 10 10 10 10 10 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 10 10 10}
+ old_message {{10 10 10 48 49 53 95 84 79 87 95 48 48 49 48 95 99 111 109 112 95 118 48 48 49 10 10 78 101 100 32 87 105 108 115 111 110 10 32 10 48 49 45 49 52 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 54 51 10 10 10 10 10 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 10 10 10}
    }
  old_expression_markers {{3 24 27 36 40 49 53 56 58 61 67 81 83 82 84 83 85 84 86 85}
    }
@@ -344,13 +330,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N30cc2ed0 [stack 0]
+set Nafa50630 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\n\n\n \n\n\n\n\n\[value EXR_READ.format.width]x\[value EXR_READ.format.height] EXR"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 50 48 52 56 120 49 49 53 50 32 69 88 82}
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 51 50 55 50 120 49 55 54 56 32 69 88 82}
    }
  old_expression_markers {{12 15 17 20}
    }
@@ -359,7 +345,6 @@ Text2 {
    }
  font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 71
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 2
  font_size 45
@@ -387,13 +372,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N30c4eee0
+push $Nb2c252f0
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N30d0c840 [stack 0]
+set Nafa7db90 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -401,29 +386,12 @@ Switch {
  xpos 1825
  ypos 837
 }
-AddTimeCode {
- startcode 01:02:03:04
- fps 23.976
- metafps false
- frame 1001
- useFrame true
- name AddTimeCode1
- xpos 1825
- ypos 878
- disable true
-}
-Colorspace {
- colorspace_in AlexaV3LogC
- name Colorspace1
- xpos 1825
- ypos 930
-}
-set N30d1edc0 [stack 0]
 Write {
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]/\[value root.ti_ih_format]/\[value root.ti_ih_file_name].%04d.exr"
  colorspace linear
  file_type exr
  compression "PIZ Wavelet (32 scanlines)"
+ first_part rgba
  version 89
  in_colorspace linear
  out_colorspace linear
@@ -432,13 +400,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $N30c01160
+push $Na7418040
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $N30d0c840
+push $Nafa7db90
 Dot {
  name Dot18
  xpos 2087
@@ -452,7 +420,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N30d50c40 [stack 0]
+set Nafc39740 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -473,7 +441,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $N30c82880
+push $Na8ace6d0
 Dot {
  name Dot21
  xpos 2339
@@ -601,7 +569,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N30d50c40
+push $Nafc39740
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -625,65 +593,13 @@ Write {
  xpos 2053
  ypos 1635
 }
-Constant {
- inputs 0
- channels rgb
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Constant3
- xpos 1467
- ypos 870
-}
-Shuffle {
- alpha white
- name Shuffle4
- xpos 1467
- ypos 960
-}
-Reformat {
- inputs 0
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat4
- xpos 1613
- ypos 852
-}
-Rectangle {
- invert true
- area {0 942 1920 1080}
- name Rectangle1
- xpos 1613
- ypos 924
-}
-Rectangle {
- area {0 0 1920 138}
- color 0
- name Rectangle2
- xpos 1613
- ypos 963
-}
-Dot {
- name Dot1
- xpos 1647
- ypos 1011
-}
-Merge2 {
- inputs 2
- operation out
- name Merge16
- xpos 1467
- ypos 1008
-}
-Dot {
- name Dot11
- xpos 1501
- ypos 1083
-}
-push $N30cc2ed0
+push $Nafa50630
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N30c2b3b0
+push $Nb2c0ee90
 Dot {
  name Dot3
  xpos 1607
@@ -701,719 +617,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N30e27850 [stack 0]
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 DNxHD 36 23.98"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 68 78 120 72 68 32 51 54 32 50 51 46 57 56}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
-   }
- cursor_position 28
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text6
- xpos 1325
- ypos 660
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat1
- xpos 1325
- ypos 767
-}
-OCIOCDLTransform {
- slope {1 1 1}
- offset {0 0 0}
- power {1 1 1}
- saturation 0.804799974
- working_space linear
- read_from_file true
- file /Volumes/raid_vol01/shows/spinel/HC019/HC019_340/data/cdl/HC019_340.ccc
- version 10
- cccid A54B64AC-DE68-4AB9-8A02-CA1E03B0DC01
- name OCIOCDLTransform2
- xpos 1325
- ypos 883
- disable {{root.nocc}}
-}
-Vectorfield {
- vfield_file "\[value root.txt_ih_show_path]/SHARED/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_davinci3d.cube"
- version 97
- file_type cube
- interpolation "cubic field"
- name Vectorfield1
- xpos 1325
- ypos 930
- disable {{root.nocc}}
-}
-Sharpen {
- amount 0.65
- name Sharpen3
- xpos 1325
- ypos 1007
-}
-Merge2 {
- inputs 2
- mix {{"frame >= root.first_frame ? 1 : 0"}}
- name Merge1
- xpos 1325
- ypos 1080
- disable true
-}
-set N4d0cf170 [stack 0]
+set Nafcb8170 [stack 0]
 Dot {
- name Dot14
+ name Dot15
  xpos 974
- ypos 1083
+ ypos 580
 }
-Dot {
- name Dot6
- xpos 974
- ypos 1313
-}
-set N4d0dfba0 [stack 0]
-push $N4d0dfba0
-Dot {
- name Dot8
- xpos 1111
- ypos 1313
-}
-Group {
- name Group1
- label "Export Burn-In"
- xpos 1077
- ypos 1362
-}
- Input {
-  inputs 0
-  name Input1
-  xpos 829
-  ypos 583
- }
- Text2 {
-  font_size_toolbar 200
-  font_width_toolbar 100
-  font_height_toolbar 100
-  opacity 0.25
-  message "IN HOUSE VFX"
-  old_message {{73 78 32 72 79 85 83 69 32 86 70 88}
-    }
-  box {100 300 1820 780}
-  xjustify center
-  yjustify center
-  transforms {{0 2}
-    }
-  font_size_values {{0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200 0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200}
-    }
-  font {{ Arial : Regular : Arial.ttf : 0 }}
-  font_size 200
-  center {960 540}
-  cursor_initialised true
-  autofit_bbox false
-  initial_cursor_position {{945 598}
-    }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
-  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-    }
-  name Text19
-  xpos 829
-  ypos 623
-  disable true
- }
- Rectangle {
-  opacity 0.5
-  area {0 0 1920 131}
-  color 0
-  name Rectangle3
-  xpos 829
-  ypos 647
- }
- Rectangle {
-  opacity 0.5
-  area {0 949 1920 1080}
-  color 0
-  name Rectangle4
-  xpos 829
-  ypos 671
- }
- Rectangle {
-  area {0 129 1920 133}
-  name Rectangle5
-  xpos 829
-  ypos 695
- }
- Rectangle {
-  area {0 947 1920 951}
-  name Rectangle6
-  xpos 829
-  ypos 719
- }
- Text2 {
-  font_size_toolbar 80
-  font_width_toolbar 100
-  font_height_toolbar 100
-  opacity 0.5
-  message "Property of Sony Pictures"
-  old_message {{80 114 111 112 101 114 116 121 32 111 102 32 83 111 110 121 32 80 105 99 116 117 114 101 115}
-    }
-  box {20 140 1900 540}
-  xjustify right
-  yjustify bottom
-  transforms {{0 2}
-    }
-  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 10 80 11 80 12 80 13 80 14 80 15 80 16 80 17 80 18 80 19 80 20 80 21 80 22 80 23 80 24 80 0 90 1 90 2 90 3 90 4 90 5 90 6 90 7 90 8 90 9 90 10 90 11 90 12 90}
-    }
-  cursor_position 25
-  font {{ Arial : Regular : Arial.ttf : 0 }}
-  font_size 80
-  center {960 540}
-  cursor_initialised true
-  autofit_bbox false
-  initial_cursor_position {{1907.5 144.5}
-    }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
-  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-    }
-  name Text20
-  selected true
-  xpos 829
-  ypos 743
- }
- Text2 {
-  font_size_toolbar 80
-  font_width_toolbar 100
-  font_height_toolbar 100
-  opacity 0.5
-  message "\[date %m%d%y]"
-  old_message {{48 53 49 48 49 56}
-    }
-  old_expression_markers {{0 5}
-    }
-  box {20 140 1900 940}
-  xjustify right
-  transforms {{0 2}
-    }
-  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 0 90}
-    }
-  cursor_position 12
-  font {{ Arial : Regular : Arial.ttf : 0 }}
-  font_size 80
-  center {960 540}
-  cursor_initialised true
-  autofit_bbox false
-  initial_cursor_position {{1907.5 144.5}
-    }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
-  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-    }
-  name Text21
-  xpos 829
-  ypos 767
- }
- Text2 {
-  font_size_toolbar 80
-  font_width_toolbar 100
-  font_height_toolbar 100
-  opacity 0.5
-  message "\[value root.export_label]"
-  old_message {{73 110 45 72 111 117 115 101 32 86 70 88}
-    }
-  old_expression_markers {{0 11}
-    }
-  box {20 140 1900 940}
-  transforms {{0 2}
-    }
-  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 10 80 11 80 0 90}
-    }
-  cursor_position 25
-  font {{ Arial : Regular : Arial.ttf : 0 }}
-  font_size 80
-  center {960 540}
-  cursor_initialised true
-  autofit_bbox false
-  initial_cursor_position {{1907.5 144.5}
-    }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
-  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-    }
-  name Text22
-  xpos 829
-  ypos 791
- }
- Output {
-  name Output1
-  xpos 829
-  ypos 891
- }
-end_group
-Dot {
- name Dot4
- xpos 1111
- ypos 1435
-}
-Switch {
- inputs 2
- which {{"frame >= root.first_frame ? 0 : 1"}}
- name Switch5
- xpos 940
- ypos 1432
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_vendor]"
- old_message {{78 101 100 32 87 105 108 115 111 110}
-   }
- old_expression_markers {{0 9}
-   }
- box {16 1033 172 1064}
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- cursor_position 25
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {960 540}
- cursor_initialised true
- initial_cursor_position {{16 1064}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text19
- xpos 940
- ypos 1471
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[date %m-%d-%Y]"
- old_message {{48 53 45 49 48 45 50 48 49 56}
-   }
- old_expression_markers {{0 9}
-   }
- box {1748 1032 1905 1063}
- xjustify right
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {1050 576}
- cursor_initialised true
- initial_cursor_position {{1905 1063}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text20
- xpos 940
- ypos 1495
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_file_name]"
- old_message {{98 120 95 48 49 49 95 48 50 48 95 99 111 109 112 95 118 48 55 48 48 49}
-   }
- old_expression_markers {{0 21}
-   }
- box {16 16 490 47}
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
-   }
- cursor_position 28
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text21
- xpos 940
- ypos 1519
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_notes_1]"
- old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
-   }
- old_expression_markers {{0 14}
-   }
- box {380 16 1540 47}
- xjustify center
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
-   }
- cursor_position 26
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text22
- xpos 940
- ypos 1543
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 49}
-   }
- old_expression_markers {{1 4 6 9 13 16}
-   }
- box {1430 16 1904 47}
- xjustify right
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
-   }
- cursor_position 73
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text23
- xpos 940
- ypos 1567
- disable {{root.noburnin}}
-}
-Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name]_export.mov"
- colorspace rec709
- raw true
- file_type mov
- meta_codec AVdn
- mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
- mov64_codec AVdn
- mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
- mov64_units Frames
- mov64_write_timecode true
- mov64_bitrate 20000
- mov64_bitrate_tolerance 40000000
- mov64_quality_min 2
- mov64_quality_max 31
- mov64_gop_size 12
- mov64_b_frames 0
- checkHashOnRead false
- version 121
- in_colorspace linear
- out_colorspace linear
- beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
- name MOV_DNXHD_EXPORT_WRITE
- label "\[value file]"
- xpos 940
- ypos 1755
-}
-push $N4d0cf170
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_vendor]"
- old_message {{78 101 100 32 87 105 108 115 111 110}
-   }
- old_expression_markers {{0 9}
-   }
- box {16 1033 172 1064}
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- cursor_position 25
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {960 540}
- cursor_initialised true
- initial_cursor_position {{16 1064}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text3
- xpos 1325
- ypos 1322
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[date %m-%d-%Y]"
- old_message {{48 53 45 49 48 45 50 48 49 56}
-   }
- old_expression_markers {{0 9}
-   }
- box {1748 1032 1905 1063}
- xjustify right
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- center {1050 576}
- cursor_initialised true
- initial_cursor_position {{1905 1063}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text9
- xpos 1325
- ypos 1346
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_file_name]"
- old_message {{98 120 95 48 49 49 95 48 50 48 95 99 111 109 112 95 118 48 55 48 48 49}
-   }
- old_expression_markers {{0 21}
-   }
- box {16 16 490 47}
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
-   }
- cursor_position 28
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text12
- xpos 1325
- ypos 1370
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_notes_1]"
- old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
-   }
- old_expression_markers {{0 14}
-   }
- box {380 16 1540 47}
- xjustify center
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
-   }
- cursor_position 26
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text13
- xpos 1325
- ypos 1394
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 48}
-   }
- old_expression_markers {{1 4 6 9 13 16}
-   }
- box {1430 16 1904 47}
- xjustify right
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
-   }
- cursor_position 73
- font {{ Arial : Regular : Arial.ttf : 0 }}
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text14
- xpos 1325
- ypos 1418
- disable {{root.noburnin}}
-}
-Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
- colorspace rec709
- raw true
- file_type mov
- meta_codec AVdn
- mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
- mov64_codec AVdn
- mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
- mov64_units Frames
- mov64_write_timecode true
- mov64_bitrate 20000
- mov64_bitrate_tolerance 40000000
- mov64_quality_min 2
- mov64_quality_max 31
- mov64_gop_size 12
- mov64_b_frames 0
- checkHashOnRead false
- version 121
- in_colorspace linear
- out_colorspace linear
- beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
- name MOV_DNXHD_WRITE
- label "\[value file]"
- xpos 1325
- ypos 1894
-}
-push $N30d1edc0
-Viewer {
- frame_range 1001-1163
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 2842
- ypos 1192
-}
-push $N30e27850
+set N97638960 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -1424,13 +634,13 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 H.264 23.98"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 72 46 50 54 52 32 50 51 46 57 56}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 4444 23.98"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 52 52 52 32 50 51 46 57 56}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
  cursor_position 33
  font {{ Arial : Regular : Arial.ttf : 0 }}
@@ -1446,7 +656,7 @@ Text2 {
    }
  name Text4
  xpos 546
- ypos 665
+ ypos 666
 }
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
@@ -1454,29 +664,11 @@ Reformat {
  xpos 546
  ypos 767
 }
-OCIOCDLTransform {
- slope {1 1 1}
- offset {0 0 0}
- power {1 1 1}
- saturation 0.804799974
+OCIOFileTransform {
  working_space linear
- read_from_file true
- file /Volumes/raid_vol01/shows/spinel/HC019/HC019_340/data/cdl/HC019_340.ccc
- version 10
- cccid A54B64AC-DE68-4AB9-8A02-CA1E03B0DC01
- name OCIOCDLTransform1
+ name OCIOFileTransform1
  xpos 546
- ypos 891
- disable {{root.nocc}}
-}
-Vectorfield {
- vfield_file "\[value root.txt_ih_show_path]/SHARED/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_davinci3d.cube"
- version 98
- file_type cube
- interpolation "cubic field"
- name Vectorfield2
- xpos 546
- ypos 930
+ ypos 852
  disable {{root.nocc}}
 }
 Sharpen {
@@ -1527,7 +719,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{49 48 45 49 54 45 50 48 49 56}
+ old_message {{48 49 45 49 52 45 50 48 49 57}
    }
  old_expression_markers {{0 9}
    }
@@ -1564,7 +756,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_file_name]"
- old_message {{98 120 95 48 49 49 95 48 50 48 95 99 111 109 112 95 118 48 55 48 48 49}
+ old_message {{48 49 53 95 84 79 87 95 48 48 49 48 95 99 111 109 112 95 118 48 48 49}
    }
  old_expression_markers {{0 21}
    }
@@ -1672,28 +864,824 @@ Text2 {
  disable {{root.noburnin}}
 }
 Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/VFX/\[value root.ti_ih_file_name]_pr422.mov"
+ file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/VFX/\[value root.ti_ih_file_name]_vfx.mov"
  colorspace rec709
  raw true
  file_type mov
- meta_codec apcn
- mov32_codec apcn
- mov32_pixel_format {{0} "default (YCbCrA 32-bit 444 Float (r4fl))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)" "YCbCrA 32-bit 444 Float (r4fl)" "YCbCr  16-bit 444 (y416)" "YCbCr  10-bit 422 (v210)"}
- mov64_codec apcn
+ meta_codec ap4h
+ mov32_codec avc1
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "YCbCr  8-bit 422 (2vuy)"}
+ mov32_write_nclc false
+ mov64_codec ap4h
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
  mov64_units Frames
  mov64_write_timecode true
+ mov64_advanced 1
  mov64_bitrate 20000
  mov64_bitrate_tolerance 40000000
  mov64_quality_min 2
  mov64_quality_max 31
  mov64_gop_size 12
  mov64_b_frames 0
+ mov64_write_nclc false
  checkHashOnRead false
  version 123
  name MOV_VFX_WRITE
  label "\[value file]"
- selected true
  xpos 546
- ypos 1609
+ ypos 1610
+}
+Constant {
+ inputs 0
+ channels rgb
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Constant3
+ xpos 1467
+ ypos 870
+}
+Shuffle {
+ alpha white
+ name Shuffle4
+ xpos 1467
+ ypos 960
+}
+Reformat {
+ inputs 0
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Reformat4
+ xpos 1613
+ ypos 852
+}
+Rectangle {
+ invert true
+ area {0 942 1920 1080}
+ name Rectangle1
+ xpos 1613
+ ypos 924
+}
+Rectangle {
+ area {0 0 1920 138}
+ color 0
+ name Rectangle2
+ xpos 1613
+ ypos 963
+}
+Dot {
+ name Dot1
+ xpos 1647
+ ypos 1011
+}
+Merge2 {
+ inputs 2
+ operation out
+ name Merge16
+ xpos 1467
+ ypos 1008
+}
+Dot {
+ name Dot11
+ xpos 1501
+ ypos 1083
+}
+push $Nafcb8170
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 0 : 1"}}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 DNxHD 115 23.98"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 68 78 120 72 68 32 49 49 53 32 50 51 46 57 56}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+   }
+ cursor_position 31
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text6
+ xpos 1325
+ ypos 660
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Reformat1
+ xpos 1325
+ ypos 767
+}
+OCIOFileTransform {
+ working_space linear
+ name OCIOFileTransform2
+ xpos 1325
+ ypos 844
+ disable {{root.nocc}}
+}
+Sharpen {
+ amount 0.65
+ name Sharpen3
+ xpos 1325
+ ypos 1007
+}
+Merge2 {
+ inputs 2
+ mix {{"frame >= root.first_frame ? 1 : 0"}}
+ name Merge1
+ xpos 1325
+ ypos 1080
+ disable true
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_vendor]"
+ old_message {{78 101 100 32 87 105 108 115 111 110}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {16 1033 172 1064}
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ cursor_position 25
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {960 540}
+ cursor_initialised true
+ initial_cursor_position {{16 1064}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text3
+ xpos 1325
+ ypos 1322
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[date %m-%d-%Y]"
+ old_message {{48 49 45 49 52 45 50 48 49 57}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {1748 1032 1905 1063}
+ xjustify right
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {1050 576}
+ cursor_initialised true
+ initial_cursor_position {{1905 1063}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text9
+ xpos 1325
+ ypos 1346
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_file_name]"
+ old_message {{48 49 53 95 84 79 87 95 48 48 49 48 95 99 111 109 112 95 118 48 48 49}
+   }
+ old_expression_markers {{0 21}
+   }
+ box {16 16 490 47}
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
+   }
+ cursor_position 28
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text12
+ xpos 1325
+ ypos 1370
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_notes_1]"
+ old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
+   }
+ old_expression_markers {{0 14}
+   }
+ box {380 16 1540 47}
+ xjustify center
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
+   }
+ cursor_position 26
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text13
+ xpos 1325
+ ypos 1394
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
+ old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 48}
+   }
+ old_expression_markers {{1 4 6 9 13 16}
+   }
+ box {1430 16 1904 47}
+ xjustify right
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
+   }
+ cursor_position 73
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text14
+ xpos 1325
+ ypos 1418
+ disable {{root.noburnin}}
+}
+set Nb2cded90 [stack 0]
+Viewer {
+ frame 1000
+ frame_range 1001-1163
+ frame_increment 5
+ fps 23.97602463
+ colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 2842
+ ypos 1192
+}
+push $Nb2cded90
+Write {
+ file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
+ colorspace rec709
+ raw true
+ file_type mov
+ meta_codec AVdn
+ mov32_codec AVdn
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov32_write_nclc false
+ mov64_codec AVdn
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
+ mov64_units Frames
+ mov64_write_timecode true
+ mov64_advanced 1
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_write_nclc false
+ checkHashOnRead false
+ version 121
+ beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
+ name MOV_DNXHD_WRITE
+ label "\[value file]"
+ xpos 1325
+ ypos 1895
+}
+push $N97638960
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 0 : 1"}}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 422 HQ 23.98"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 50 50 32 72 81 32 50 51 46 57 56}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+   }
+ cursor_position 33
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text24
+ xpos 940
+ ypos 659
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ name Reformat9
+ xpos 940
+ ypos 766
+}
+OCIOFileTransform {
+ working_space linear
+ name OCIOFileTransform3
+ xpos 940
+ ypos 877
+ disable {{root.nocc}}
+}
+Sharpen {
+ amount 0.65
+ name Sharpen2
+ xpos 940
+ ypos 1000
+}
+Dot {
+ name Dot6
+ xpos 974
+ ypos 1313
+}
+set Nafcd7460 [stack 0]
+push $Nafcd7460
+Dot {
+ name Dot8
+ xpos 1111
+ ypos 1313
+}
+Group {
+ name Group1
+ label "Export Burn-In"
+ xpos 1077
+ ypos 1362
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 829
+  ypos 583
+ }
+ Text2 {
+  font_size_toolbar 200
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.25
+  message "IN HOUSE VFX"
+  old_message {{73 78 32 72 79 85 83 69 32 86 70 88}
+    }
+  box {100 300 1820 780}
+  xjustify center
+  yjustify center
+  transforms {{0 2}
+    }
+  font_size_values {{0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200 0 200 1 200 2 200 3 200 4 200 5 200 6 200 7 200 8 200 9 200 10 200 11 200}
+    }
+  font {{ Arial : Regular : Arial.ttf : 0 }}
+  font_size 200
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{945 598}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text19
+  xpos 829
+  ypos 623
+  disable true
+ }
+ Rectangle {
+  opacity 0.5
+  area {0 0 1920 131}
+  color 0
+  name Rectangle3
+  xpos 829
+  ypos 647
+ }
+ Rectangle {
+  opacity 0.5
+  area {0 949 1920 1080}
+  color 0
+  name Rectangle4
+  xpos 829
+  ypos 671
+ }
+ Rectangle {
+  area {0 129 1920 133}
+  name Rectangle5
+  xpos 829
+  ypos 695
+ }
+ Rectangle {
+  area {0 947 1920 951}
+  name Rectangle6
+  xpos 829
+  ypos 719
+ }
+ Text2 {
+  font_size_toolbar 80
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.5
+  message "Property of Warner Brothers"
+  old_message {{80 114 111 112 101 114 116 121 32 111 102 32 87 97 114 110 101 114 32 66 114 111 116 104 101 114 115}
+    }
+  box {20 140 1900 540}
+  xjustify right
+  yjustify bottom
+  transforms {{0 2}
+    }
+  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 10 80 11 80 12 80 13 80 14 80 15 80 16 80 17 80 18 80 19 80 20 80 21 80 22 80 23 80 24 80 25 80 26 80 0 90 1 90 2 90 3 90 4 90 5 90 6 90 7 90 8 90 9 90 10 90 11 90 12 90}
+    }
+  cursor_position 27
+  font {{ Arial : Regular : Arial.ttf : 0 }}
+  font_size 80
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1907.5 144.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text20
+  xpos 829
+  ypos 743
+ }
+ Text2 {
+  font_size_toolbar 80
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.5
+  message "\[date %Y-%m-%d]"
+  old_message {{50 48 49 57 45 48 49 45 49 52}
+    }
+  old_expression_markers {{0 9}
+    }
+  box {20 140 1900 940}
+  xjustify right
+  transforms {{0 2}
+    }
+  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 0 90}
+    }
+  cursor_position 14
+  font {{ Arial : Regular : Arial.ttf : 0 }}
+  font_size 80
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1907.5 144.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text21
+  selected true
+  xpos 829
+  ypos 767
+ }
+ Text2 {
+  font_size_toolbar 80
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.5
+  message "\[value root.export_label]"
+  old_message {{73 110 45 72 111 117 115 101 32 86 70 88}
+    }
+  old_expression_markers {{0 11}
+    }
+  box {20 140 1900 940}
+  transforms {{0 2}
+    }
+  font_size_values {{0 80 1 80 2 80 3 80 4 80 5 80 6 80 7 80 8 80 9 80 10 80 11 80 0 90}
+    }
+  cursor_position 25
+  font {{ Arial : Regular : Arial.ttf : 0 }}
+  font_size 80
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1907.5 144.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text22
+  xpos 829
+  ypos 791
+ }
+ Output {
+  name Output1
+  xpos 829
+  ypos 891
+ }
+end_group
+Dot {
+ name Dot4
+ xpos 1111
+ ypos 1435
+}
+Switch {
+ inputs 2
+ which {{"frame >= root.first_frame ? 0 : 1"}}
+ name Switch5
+ xpos 940
+ ypos 1432
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_vendor]"
+ old_message {{78 101 100 32 87 105 108 115 111 110}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {16 1033 172 1064}
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ cursor_position 25
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {960 540}
+ cursor_initialised true
+ initial_cursor_position {{16 1064}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text19
+ xpos 940
+ ypos 1471
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[date %m-%d-%Y]"
+ old_message {{48 49 45 49 52 45 50 48 49 57}
+   }
+ old_expression_markers {{0 9}
+   }
+ box {1748 1032 1905 1063}
+ xjustify right
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ center {1050 576}
+ cursor_initialised true
+ initial_cursor_position {{1905 1063}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text20
+ xpos 940
+ ypos 1495
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_file_name]"
+ old_message {{48 49 53 95 84 79 87 95 48 48 49 48 95 99 111 109 112 95 118 48 48 49}
+   }
+ old_expression_markers {{0 21}
+   }
+ box {16 16 490 47}
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
+   }
+ cursor_position 28
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text21
+ xpos 940
+ ypos 1519
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_notes_1]"
+ old_message {{83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
+   }
+ old_expression_markers {{0 14}
+   }
+ box {380 16 1540 47}
+ xjustify center
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30}
+   }
+ cursor_position 26
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text22
+ xpos 940
+ ypos 1543
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
+ old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 49}
+   }
+ old_expression_markers {{1 4 6 9 13 16}
+   }
+ box {1430 16 1904 47}
+ xjustify right
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30}
+   }
+ cursor_position 73
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text23
+ xpos 940
+ ypos 1567
+ disable {{root.noburnin}}
+}
+Write {
+ file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/EXPORT/\[value root.ti_ih_file_name]_export.mov"
+ colorspace rec709
+ raw true
+ file_type mov
+ meta_codec apch
+ mov32_codec AVdn
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov32_write_nclc false
+ mov64_codec apch
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
+ mov64_units Frames
+ mov64_write_timecode true
+ mov64_advanced 1
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_write_nclc false
+ checkHashOnRead false
+ version 121
+ beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
+ name MOV_VFX_EXPORT_WRITE
+ label "\[value file]"
+ xpos 940
+ ypos 1757
 }
