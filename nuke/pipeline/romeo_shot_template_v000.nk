@@ -1,5 +1,5 @@
 #! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
-#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"2048 1152 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3272 1768 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
 version 11.3 v1
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
@@ -18,7 +18,6 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="DopeSheet.1"/>
                     <page id="uk.co.thefoundry.scripteditor.1"/>
                     <page id="Error Console.1"/>
-                    <page id="DAG.2"/>
                 </dock>
             </splitter>
             <split size="615"/>
@@ -109,7 +108,7 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos -40
  ypos 850
@@ -120,26 +119,11 @@ Group {
   xpos 400
   ypos -9
  }
- OCIOCDLTransform {
-  slope {1.005399942 1.007099986 0.9875000119}
-  offset {0.01899999939 0.01899999939 0.01899999939}
-  power {1.032099962 1.032099962 1.032099962}
-  saturation 0.804799974
+ OCIOFileTransform {
   working_space linear
-  read_from_file true
-  file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/data/cdl/HC019_190.ccc
-  cccid 3467F1F8-51D9-4F17-A7DC-0295417947E3
-  name OCIOCDLTransform1
+  name OCIOFileTransform1
   xpos 400
-  ypos 79
- }
- Vectorfield {
-  vfield_file /Volumes/raid_vol01/shows/escaperoom/SHARED/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_davinci3d.cube
-  version 6
-  file_type cube
-  name Vectorfield1
-  xpos 400
-  ypos 107
+  ypos 77
  }
  Output {
   name Output1
@@ -161,7 +145,6 @@ Read {
  auto_alpha true
  name Read1
  label main_plate_ingested
- selected true
  xpos 70
  ypos -911
 }
@@ -169,7 +152,7 @@ NoOp {
  name NoOp2
  tile_color 0xffce77ff
  label "Camera Format\n\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"
- note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
  ypos -792
@@ -178,7 +161,7 @@ Group {
  name Romeo_Reformat
  tile_color 0xffce77ff
  label "\nPlate to Delivery\nResolution"
- note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
  ypos 367
@@ -198,31 +181,31 @@ Group {
   xpos 512
   ypos 116
  }
-set Ndb52d700 [stack 0]
+set Nf620240 [stack 0]
  Dot {
   name Dot1
   xpos 710
   ypos 138
  }
-set Ndb534360 [stack 0]
+set Nf6242e0 [stack 0]
  Dot {
   name Dot2
   xpos 885
   ypos 138
  }
-set Ndb538240 [stack 0]
+set Nf626660 [stack 0]
  Dot {
   name Dot3
   xpos 1054
   ypos 138
  }
-set Ndb53c350 [stack 0]
+set Nf628b20 [stack 0]
  Dot {
   name Dot4
   xpos 1228
   ypos 138
  }
-set Ndb540230 [stack 0]
+set Nf631ca0 [stack 0]
  Dot {
   name Dot5
   xpos 1407
@@ -249,7 +232,7 @@ set Ndb540230 [stack 0]
   xpos 1373
   ypos 283
  }
-push $Ndb540230
+push $Nf631ca0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -271,7 +254,7 @@ push $Ndb540230
   xpos 1194
   ypos 283
  }
-push $Ndb53c350
+push $Nf628b20
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -293,7 +276,7 @@ push $Ndb53c350
   xpos 1020
   ypos 283
  }
-push $Ndb538240
+push $Nf626660
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -315,7 +298,7 @@ push $Ndb538240
   xpos 851
   ypos 283
  }
-push $Ndb534360
+push $Nf6242e0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -340,7 +323,7 @@ push $Ndb534360
   xpos 676
   ypos 283
  }
-push $Ndb52d700
+push $Nf620240
  Switch {
   inputs 6
   which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
@@ -373,7 +356,7 @@ push $Ndb52d700
   ypos 630
  }
 end_group
-set Nd229ae00 [stack 0]
+set Ne81c600 [stack 0]
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
@@ -387,21 +370,21 @@ Dot {
  xpos 214
  ypos 738
 }
-push $Nd229ae00
+push $Ne81c600
 Reformat {
- format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
  pbb true
  name Reformat1
  xpos 70
  ypos 640
 }
 Crop {
- box {0 0 2048 1152}
+ box {0 0 3272 1768}
  name Crop1
  xpos 70
- ypos 685
+ ypos 672
 }
-set Nd9794820 [stack 0]
+set Nf098890 [stack 0]
 CopyMetaData {
  inputs 2
  mergeMode "Meta only"
@@ -423,7 +406,7 @@ Write {
  xpos 70
  ypos 798
 }
-push $Nd9794820
+push $Nf098890
 Viewer {
  frame_range 1001-1054
  fps 23.97602463
