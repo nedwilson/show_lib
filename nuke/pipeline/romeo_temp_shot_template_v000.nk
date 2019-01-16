@@ -1,5 +1,5 @@
 #! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
-#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"24" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"14:55:15:14" colorManagement:"Nuke"
+#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
 version 11.3 v1
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
@@ -115,25 +115,27 @@ Read {
  colorspace linear
  raw true
  auto_alpha true
+ decoder mov32
  mov64_decode_video_levels "Video Range"
  mov32_codec {{0} "AVID DNxHD Codec (AVID - AVdn)"}
  mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 (v408)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  name Read1
  label main_plate_ingested
+ selected true
  xpos 70
  ypos -911
 }
-set Nde9b7a0 [stack 0]
+set Nda287950 [stack 0]
 NoOp {
  name NoOp2
  tile_color 0xffce77ff
  label "Camera Format\n\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
- ypos -792
+ ypos -632
 }
-set Nf616790 [stack 0]
+set Nd0eac4e0 [stack 0]
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
@@ -147,7 +149,7 @@ Dot {
  xpos 214
  ypos 738
 }
-push $Nf616790
+push $Nd0eac4e0
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Reformat2
@@ -181,7 +183,7 @@ Write {
  xpos 70
  ypos 798
 }
-push $Nde9b7a0
+push $Nda287950
 Viewer {
  frame_range 1001-1054
  fps 23.97602463
