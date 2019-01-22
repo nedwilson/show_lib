@@ -12,7 +12,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
                 <split size="1294"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -64,7 +64,8 @@ Read {
  last 829
  origlast 829
  origset true
- colorspace rec709
+ colorspace linear
+ raw true
  auto_alpha true
  decoder mov32
  mov64_decode_video_levels "Video Range"
@@ -86,14 +87,14 @@ OCIOColorSpace {
  out_colorspace AlexaV3LogC
  name OCIOColorSpace1
  xpos 297
- ypos -565
+ ypos -557
 }
 OCIOFileTransform {
  file /Volumes/raid_vol01/shows/escaperoom/SHARED/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_davinci3d.cube
  working_space linear
  name OCIOFileTransform1
  xpos 297
- ypos -517
+ ypos -523
 }
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
@@ -190,7 +191,7 @@ Text2 {
  xpos 297
  ypos -341
 }
-set N7bbb01a0 [stack 0]
+set N314a3a80 [stack 0]
 Remove {
  operation keep
  channels rgb
@@ -209,7 +210,7 @@ Write {
  xpos 297
  ypos -293
 }
-push $N7bbb01a0
+push $N314a3a80
 Viewer {
  frame_range 1001-1402
  frame_increment 16
