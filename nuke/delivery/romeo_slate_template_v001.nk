@@ -125,13 +125,14 @@ Root {
 Read {
  inputs 0
  file_type png
- file /Volumes/romeo_primary/ARTDEPT/Graphics/SHOW_LOGO/Romeo_ShowLogo_Final_WhiteonBlack.png
+ file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
  name Read2
  xpos 2402
- ypos 346
+ ypos 347
 }
+set N1b17fcc0 [stack 0]
 Reformat {
  format "1280 632 0 0 1280 632 1 Weird"
  name Reformat11
@@ -146,7 +147,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N4c0c8690 [stack 0]
+set N1b418b80 [stack 0]
 Read {
  inputs 0
  file FILE_PATH
@@ -177,7 +178,7 @@ Dot {
  xpos 1718
  ypos 126
 }
-set N4c0ef850 [stack 0]
+set N1b42dee0 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  black_outside true
@@ -185,7 +186,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set N4c0f3540 [stack 0]
+set N1b4303a0 [stack 0]
 Reformat {
  format "2100 1152 0 0 2100 1152 1 Spinel 2K Delivery (.sp2k)"
  resize none
@@ -205,7 +206,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $N4c0ef850
+push $N1b42dee0
 Dot {
  name Dot10
  xpos 1859
@@ -218,7 +219,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set N4c71c1f0 [stack 0]
+set N1b446f60 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -259,7 +260,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N4c751880 [stack 0]
+set N1b466280 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -330,7 +331,7 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N4c793550 [stack 0]
+set N1b48ad30 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -372,13 +373,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N4c71c1f0
+push $N1b446f60
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N4c7dac30 [stack 0]
+set N1b4b23b0 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -400,13 +401,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $N4c0c8690
+push $N1b418b80
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $N4c7dac30
+push $N1b4b23b0
 Dot {
  name Dot18
  xpos 2087
@@ -420,7 +421,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N4d80b570 [stack 0]
+set N1b4caf00 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -441,7 +442,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $N4c751880
+push $N1b466280
 Dot {
  name Dot21
  xpos 2339
@@ -569,7 +570,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N4d80b570
+push $N1b4caf00
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -593,13 +594,13 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $N4c793550
+push $N1b48ad30
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N4c0f3540
+push $N1b4303a0
 Dot {
  name Dot3
  xpos 1607
@@ -617,13 +618,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N4d8e3bc0 [stack 0]
+set N1db48b90 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N4d8e7aa0 [stack 0]
+set N1db4b050 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -945,7 +946,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N4d8e3bc0
+push $N1db48b90
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1187,22 +1188,6 @@ Text2 {
  ypos 1418
  disable {{root.noburnin}}
 }
-set N4da7f1e0 [stack 0]
-Viewer {
- frame 1001
- frame_range 1001-1163
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 2842
- ypos 1192
-}
-push $N4da7f1e0
 Write {
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
  colorspace rec709
@@ -1234,7 +1219,7 @@ Write {
  xpos 1325
  ypos 1895
 }
-push $N4d8e7aa0
+push $N1db4b050
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1288,8 +1273,8 @@ Dot {
  xpos 974
  ypos 1313
 }
-set N4db1d400 [stack 0]
-push $N4db1d400
+set N1140b360 [stack 0]
+push $N1140b360
 Dot {
  name Dot8
  xpos 1111
@@ -1683,9 +1668,26 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
  xpos 940
  ypos 1758
+}
+push $N1b17fcc0
+Viewer {
+ frame_range 1001-1163
+ frame_increment 5
+ fps 23.97602463
+ colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ selected true
+ xpos 2842
+ ypos 1192
 }
