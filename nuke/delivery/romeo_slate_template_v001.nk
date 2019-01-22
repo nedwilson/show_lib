@@ -1665,14 +1665,12 @@ Write {
  colorspace rec709
  raw true
  file_type mov
- meta_codec AVdn
+ meta_codec apch
  mov32_codec AVdn
- mov32_fps 24
  mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov32_write_nclc false
- mov64_codec AVdn
+ mov64_codec apch
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
- mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
