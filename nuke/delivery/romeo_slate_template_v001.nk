@@ -39,7 +39,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 Root {
  inputs 0
  name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v001.nk
- frame 1000
+ frame 1001
  first_frame 1001
  last_frame 1163
  lock_range true
@@ -146,7 +146,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set Na7418040 [stack 0]
+set N4c0c8690 [stack 0]
 Read {
  inputs 0
  file FILE_PATH
@@ -177,7 +177,7 @@ Dot {
  xpos 1718
  ypos 126
 }
-set Nb2c0c970 [stack 0]
+set N4c0ef850 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  black_outside true
@@ -185,7 +185,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set Nb2c0ee90 [stack 0]
+set N4c0f3540 [stack 0]
 Reformat {
  format "2100 1152 0 0 2100 1152 1 Spinel 2K Delivery (.sp2k)"
  resize none
@@ -205,7 +205,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $Nb2c0c970
+push $N4c0ef850
 Dot {
  name Dot10
  xpos 1859
@@ -218,7 +218,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set Nb2c252f0 [stack 0]
+set N4c71c1f0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -259,7 +259,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set Na8ace6d0 [stack 0]
+set N4c751880 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -330,7 +330,7 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set Nafa50630 [stack 0]
+set N4c793550 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -372,13 +372,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $Nb2c252f0
+push $N4c71c1f0
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set Nafa7db90 [stack 0]
+set N4c7dac30 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -400,13 +400,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $Na7418040
+push $N4c0c8690
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $Nafa7db90
+push $N4c7dac30
 Dot {
  name Dot18
  xpos 2087
@@ -420,7 +420,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set Nafc39740 [stack 0]
+set N4d80b570 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -441,7 +441,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $Na8ace6d0
+push $N4c751880
 Dot {
  name Dot21
  xpos 2339
@@ -569,7 +569,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $Nafc39740
+push $N4d80b570
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -593,13 +593,13 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $Nafa50630
+push $N4c793550
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $Nb2c0ee90
+push $N4c0f3540
 Dot {
  name Dot3
  xpos 1607
@@ -617,13 +617,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nafcb8170 [stack 0]
+set N4d8e3bc0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N97638960 [stack 0]
+set N4d8e7aa0 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -886,6 +886,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 123
+ in_colorspace linear
+ out_colorspace linear
  name MOV_VFX_WRITE
  label "\[value file]"
  xpos 546
@@ -943,7 +945,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nafcb8170
+push $N4d8e3bc0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1042,7 +1044,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{48 49 45 49 52 45 50 48 49 57}
+ old_message {{48 49 45 50 49 45 50 48 49 57}
    }
  old_expression_markers {{0 9}
    }
@@ -1153,7 +1155,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "(\[value root.first_frame]-\[value root.last_frame])  \[format %04d \[frame]]"
- old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 48}
+ old_message {{40 49 48 48 49 45 49 49 54 51 41 32 32 49 48 48 49}
    }
  old_expression_markers {{1 4 6 9 13 16}
    }
@@ -1185,9 +1187,9 @@ Text2 {
  ypos 1418
  disable {{root.noburnin}}
 }
-set Nb2cded90 [stack 0]
+set N4da7f1e0 [stack 0]
 Viewer {
- frame 1000
+ frame 1001
  frame_range 1001-1163
  frame_increment 5
  fps 23.97602463
@@ -1200,7 +1202,7 @@ Viewer {
  xpos 2842
  ypos 1192
 }
-push $Nb2cded90
+push $N4da7f1e0
 Write {
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
  colorspace rec709
@@ -1224,13 +1226,15 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1895
 }
-push $N97638960
+push $N4d8e7aa0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1284,8 +1288,8 @@ Dot {
  xpos 974
  ypos 1313
 }
-set Nafcd7460 [stack 0]
-push $Nafcd7460
+set N4db1d400 [stack 0]
+push $N4db1d400
 Dot {
  name Dot8
  xpos 1111
@@ -1397,7 +1401,7 @@ Group {
   font_height_toolbar 100
   opacity 0.5
   message "\[date %Y-%m-%d]"
-  old_message {{50 48 49 57 45 48 49 45 49 52}
+  old_message {{50 48 49 57 45 48 49 45 50 49}
     }
   old_expression_markers {{0 9}
     }
@@ -1513,7 +1517,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m-%d-%Y]"
- old_message {{48 49 45 49 52 45 50 48 49 57}
+ old_message {{48 49 45 50 49 45 50 48 49 57}
    }
  old_expression_markers {{0 9}
    }
@@ -1661,12 +1665,14 @@ Write {
  colorspace rec709
  raw true
  file_type mov
- meta_codec apch
+ meta_codec AVdn
  mov32_codec AVdn
+ mov32_fps 24
  mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov32_write_nclc false
- mov64_codec apch
+ mov64_codec AVdn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
+ mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
@@ -1683,5 +1689,5 @@ Write {
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
  xpos 940
- ypos 1757
+ ypos 1758
 }
