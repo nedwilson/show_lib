@@ -1,0 +1,199 @@
+#! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
+version 11.3 v1
+Gizmo {
+ tile_color 0xffce77ff
+ name Romeo_Reformat
+ label "\nPlate to Delivery\nResolution"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 20
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 512
+  ypos 76
+ }
+ ModifyMetaData {
+  metadata {
+   {set romeo/camera_type "\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"}
+  }
+  name ModifyMetaData1
+  label "Determine camera\ntype from input\nresolution and add\nto metadata stream"
+  xpos 512
+  ypos 116
+ }
+set Nb1494690 [stack 0]
+ Dot {
+  name Dot1
+  xpos 710
+  ypos 138
+ }
+set Nb149b370 [stack 0]
+ Dot {
+  name Dot2
+  xpos 885
+  ypos 138
+ }
+set Nb149f220 [stack 0]
+ Dot {
+  name Dot3
+  xpos 1054
+  ypos 138
+ }
+set Nb14a3100 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1228
+  ypos 138
+ }
+set Nb14a6fb0 [stack 0]
+ Dot {
+  name Dot5
+  xpos 1407
+  ypos 138
+ }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace9
+  xpos 1373
+  ypos 206
+ }
+ Reformat {
+  format "3108 1748 0 0 3108 1748 1 Blackmagic VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat11
+  xpos 1373
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace10
+  xpos 1373
+  ypos 283
+ }
+push $Nb14a6fb0
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace7
+  xpos 1194
+  ypos 206
+ }
+ Reformat {
+  format "3270 2104 0 0 3270 2104 1 Alexa Mini VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat10
+  xpos 1194
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace8
+  xpos 1194
+  ypos 283
+ }
+push $Nb14a3100
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace5
+  xpos 1020
+  ypos 206
+ }
+ Reformat {
+  format "4172 1740 0 0 4172 1740 1 Alexa LF 2.39 VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat9
+  xpos 1020
+  ypos 240
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace6
+  xpos 1020
+  ypos 283
+ }
+push $Nb149f220
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace3
+  xpos 851
+  ypos 206
+ }
+ Reformat {
+  format "3370 2346 0 0 3370 2346 1 Alexa LF VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat8
+  xpos 851
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace4
+  xpos 851
+  ypos 283
+ }
+push $Nb149b370
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace1
+  selected true
+  xpos 676
+  ypos 206
+ }
+ Reformat {
+  format "3866 1828 0 0 3866 1828 1 Alexa 65 VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat7
+  selected true
+  xpos 676
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace2
+  selected true
+  xpos 676
+  ypos 283
+ }
+push $Nb1494690
+ Switch {
+  inputs 6
+  which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
+  name Switch1
+  xpos 512
+  ypos 430
+ }
+ Reformat {
+  format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
+  resize none
+  filter Mitchell
+  black_outside true
+  name Reformat12
+  label "To Romeo\nDelivery Format\n(3272x1768)"
+  xpos 512
+  ypos 478
+ }
+ Crop {
+  box {0 0 3272 1768}
+  reformat true
+  crop false
+  name Crop1
+  label "Reset Bounding Box"
+  xpos 512
+  ypos 530
+ }
+ Output {
+  name Output1
+  xpos 512
+  ypos 630
+ }
+end_group
