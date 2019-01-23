@@ -1,0 +1,785 @@
+#! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
+version 11.3 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="23" w="2560" h="1315" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1897" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1294"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                    <page id="Error Console.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="2560" y="23" w="2560" h="1401" screen="1">
+        <splitter orientation="2">
+            <split size="1401"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Users/ned/PycharmProjects/show_lib/nuke/pipeline/romeo_vfx_shot_workflow_example_v002.nk
+ frame 1005
+ first_frame 1001
+ last_frame 1024
+ lock_range true
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ label "<center>MAIN PLATE READ\nALEXA 65 SOURCE"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos -942
+ ypos -648
+ bdwidth 541
+ bdheight 748
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode10
+ label "<center>VFX QT WRITE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 42
+ xpos 312
+ ypos 1152
+ bdwidth 346
+ bdheight 297
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode11
+ label "<center>EDITORIAL QT WRITE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 42
+ xpos -346
+ ypos 1151
+ bdwidth 451
+ bdheight 305
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ label "<center>ALEXA 65 SOURCE\nEXAMPLE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos -307
+ ypos -570
+ bdwidth 439
+ bdheight 373
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode3
+ label "<center>ALEXA LF SOURCE\nEXAMPLE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos 190
+ ypos -573
+ bdwidth 447
+ bdheight 375
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode4
+ label "<center>ALEXA LF 2.39 SOURCE\nEXAMPLE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos 690
+ ypos -568
+ bdwidth 561
+ bdheight 375
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode5
+ label "<center>ALEXA MINI SOURCE\nEXAMPLE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos 1331
+ ypos -567
+ bdwidth 476
+ bdheight 368
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode6
+ label "<center>BLACKMAGIC SOURCE\nEXAMPLE"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 50
+ xpos 1887
+ ypos -572
+ bdwidth 518
+ bdheight 371
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode7
+ tile_color 0xaaaaaa00
+ label "<center>VIEWER_INPUT group - to view shot with correct LUT applied. "
+ note_font_size 42
+ xpos -1724
+ ypos -93
+ bdwidth 355
+ bdheight 308
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode8
+ label "<center>MAIN EXR WRITE"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 42
+ xpos -927
+ ypos 738
+ bdwidth 451
+ bdheight 305
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode9
+ label "<center>COMPANY 3 DAILIES QT\nFOR COMPARISON"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font_size 42
+ xpos 836
+ ypos 894
+ bdwidth 539
+ bdheight 350
+}
+Read {
+ inputs 0
+ file_type exr
+ file "/Volumes/romeo_primary/Shots/SHARED/staging/FWD 20181114_Romeo_LensGrid_RePulls_EXR_CUBE/20181114_Romeo_LensGrid_RePulls_EXR_CUBE/EXR/FC_185_1_ALEXA_MINI_REV1/3424x2202/FC_185_1_ALEXA_MINI_REV1.%04d.exr"
+ format "3424 2202 0 0 3424 2202 2 "
+ first 1001
+ last 1040
+ origfirst 1001
+ origlast 1040
+ origset true
+ name Read3
+ xpos 1526
+ ypos -348
+}
+Reformat {
+ format "3424 2202 0 0 3424 2202 1 Alexa Mini VFX Scan Full Ap"
+ resize none
+ name Reformat1
+ xpos 1526
+ ypos -260
+}
+Read {
+ inputs 0
+ file_type exr
+ file "/Volumes/romeo_primary/Lens_Grids/20181220_20181114_Romeo_Lens_Grid_Re_Pulls EXR/PKG_2/EXR/COLOR_CHART_1_T008_REV1/4971x2349/COLOR_CHART_1_T008_REV1.####.exr"
+ format "4971 2349 0 0 4971 2349 1 Alexa 65 VFX Scan Full Ap"
+ first 1001
+ last 1032
+ origfirst 1001
+ origlast 1032
+ origset true
+ raw true
+ name MAIN_PLATE_READ
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -729
+ ypos -470
+}
+Reformat {
+ format "4971 2349 0 0 4971 2349 1 Alexa 65 VFX Scan Full Ap"
+ resize none
+ name Reformat2
+ xpos -729
+ ypos -317
+}
+NoOp {
+ name NoOp2
+ tile_color 0xffce77ff
+ label "Camera Format\n\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -729
+ ypos -233
+}
+Group {
+ name Romeo_Reformat
+ tile_color 0xffce77ff
+ label "\nPlate to Delivery\nResolution"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -729
+ ypos 354
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 512
+  ypos 76
+ }
+ ModifyMetaData {
+  metadata {
+   {set romeo/camera_type "\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"}
+  }
+  name ModifyMetaData1
+  label "Determine camera\ntype from input\nresolution and add\nto metadata stream"
+  xpos 512
+  ypos 116
+ }
+set Nb1494690 [stack 0]
+ Dot {
+  name Dot1
+  xpos 710
+  ypos 138
+ }
+set Nb149b370 [stack 0]
+ Dot {
+  name Dot2
+  xpos 885
+  ypos 138
+ }
+set Nb149f220 [stack 0]
+ Dot {
+  name Dot3
+  xpos 1054
+  ypos 138
+ }
+set Nb14a3100 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1228
+  ypos 138
+ }
+set Nb14a6fb0 [stack 0]
+ Dot {
+  name Dot5
+  xpos 1407
+  ypos 138
+ }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace9
+  xpos 1373
+  ypos 206
+ }
+ Reformat {
+  format "3108 1748 0 0 3108 1748 1 Blackmagic VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat11
+  xpos 1373
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace10
+  xpos 1373
+  ypos 283
+ }
+push $Nb14a6fb0
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace7
+  xpos 1194
+  ypos 206
+ }
+ Reformat {
+  format "3270 2104 0 0 3270 2104 1 Alexa Mini VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat10
+  xpos 1194
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace8
+  xpos 1194
+  ypos 283
+ }
+push $Nb14a3100
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace5
+  xpos 1020
+  ypos 206
+ }
+ Reformat {
+  format "4172 1740 0 0 4172 1740 1 Alexa LF 2.39 VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat9
+  xpos 1020
+  ypos 240
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace6
+  xpos 1020
+  ypos 283
+ }
+push $Nb149f220
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace3
+  xpos 851
+  ypos 206
+ }
+ Reformat {
+  format "3370 2346 0 0 3370 2346 1 Alexa LF VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat8
+  xpos 851
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace4
+  xpos 851
+  ypos 283
+ }
+push $Nb149b370
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace1
+  selected true
+  xpos 676
+  ypos 206
+ }
+ Reformat {
+  format "3866 1828 0 0 3866 1828 1 Alexa 65 VFX Delivery Full Ap"
+  filter Mitchell
+  name Reformat7
+  selected true
+  xpos 676
+  ypos 241
+ }
+ OCIOColorSpace {
+  in_colorspace AlexaV3LogC
+  out_colorspace linear
+  name OCIOColorSpace2
+  selected true
+  xpos 676
+  ypos 283
+ }
+push $Nb1494690
+ Switch {
+  inputs 6
+  which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
+  name Switch1
+  xpos 512
+  ypos 430
+ }
+ Reformat {
+  format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
+  resize none
+  filter Mitchell
+  black_outside true
+  name Reformat12
+  label "To Romeo\nDelivery Format\n(3272x1768)"
+  xpos 512
+  ypos 478
+ }
+ Crop {
+  box {0 0 3272 1768}
+  reformat true
+  crop false
+  name Crop1
+  label "Reset Bounding Box"
+  xpos 512
+  ypos 530
+ }
+ Output {
+  name Output1
+  xpos 512
+  ypos 630
+ }
+end_group
+Dot {
+ name Dot1
+ xpos -695
+ ypos 582
+}
+set Nb15a3310 [stack 0]
+Write {
+ file /staging/romeo/ROMEO_VFX_shot_workflow_example_v002.%04d.exr
+ raw true
+ file_type exr
+ compression "PIZ Wavelet (32 scanlines)"
+ metadata "all metadata"
+ first_part none
+ in_colorspace linear
+ out_colorspace linear
+ name MAIN_EXR_WRITE
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 12
+ xpos -729
+ ypos 865
+}
+push $Nb15a3310
+Reformat {
+ format "3108 1680 0 0 3108 1680 1 Romeo VFX Projection 1.85 Area"
+ resize none
+ filter Mitchell
+ pbb true
+ name Reformat7
+ xpos -153
+ ypos 575
+}
+OCIOColorSpace {
+ in_colorspace linear
+ out_colorspace AlexaV3LogC
+ name OCIOColorSpace1
+ xpos -153
+ ypos 655
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ filter Mitchell
+ name Reformat8
+ xpos -153
+ ypos 723
+}
+OCIOFileTransform {
+ file "/Volumes/romeo_primary/Lens_Grids/20181220_20181114_Romeo_Lens_Grid_Re_Pulls EXR/PKG_2/CUBE/COLOR_CHART_1_T008_REV1/any/COLOR_CHART_1_T008_REV1.cube"
+ version 2
+ working_space linear
+ name OCIOFileTransform3
+ label "Apply plate-specific LUT for\nsRGB devices - adjust path\nfor EACH SHOT!"
+ xpos -153
+ ypos 777
+}
+Dot {
+ name Dot2
+ xpos -119
+ ypos 896
+}
+set Nb1179bf0 [stack 0]
+Dot {
+ name Dot3
+ xpos 484
+ ypos 896
+}
+OFXcom.2d4a.livegrain_v0 {
+ "FILM PROFILES" 1
+ preset "35MM KD V3 500T 5219 - V"
+ preset_id 0,006_35MM_5219_LVL5
+ shadowAsset "Shad 35mm KODAK V3 500T 5219 Level 5"
+ shadowAsset_id 0,MSNNizc6
+ midtoneAsset "Mid 35mm KODAK V3 500T 5219 Level 5"
+ midtoneAsset_id 0,ObOKd5mK
+ highlightAsset "High 35mm KODAK V3 500T 5219 Level 5"
+ highlightAsset_id 0,8HOKTIJm
+ gammaWorkflow sRGB
+ gammaWorkflow_id 0,srgb
+ SHADOWS 1
+ shadowLow 0
+ shadowHigh 0.026
+ shadowSoftnessLow 0.502
+ shadowSoftnessHigh 0.358
+ shadowGain 0.806
+ MIDTONES 1
+ midtoneLow 0.379
+ midtoneHigh 0.657
+ midtoneSoftnessLow 0.454
+ midtoneSoftnessHigh 0.611
+ midtoneGain 0.82
+ HIGHLIGHTS 1
+ highlightLow 0.87
+ highlightHigh 1
+ highlightSoftnessLow 0.556
+ highlightSoftnessHigh 1
+ highlightGain 0.95
+ revealMask false
+ ADVANCED 0
+ gangToneVal true
+ shadowTone 2
+ midtoneTone 2
+ highlightTone 2
+ gangZoomVal true
+ shadowZoom 1
+ midtoneZoom 1
+ highlightZoom 1
+ gangSharpnessVal true
+ shadowSharpness 0
+ midtoneSharpness 0
+ highlightSharpness 0
+ name "LIVEGRAIN Texture Mapping1"
+ xpos 450
+ ypos 1102
+}
+Write {
+ file /staging/romeo/ROMEO_VFX_shot_workflow_example_v002_vfx.mov
+ raw true
+ file_type mov
+ meta_codec apch
+ mov32_codec avc1
+ mov32_write_timecode true
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "YCbCr  8-bit 422 (2vuy)"}
+ mov32_write_nclc false
+ mov64_codec apch
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 220Mbit"
+ mov64_write_timecode true
+ mov64_advanced 1
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_write_nclc false
+ checkHashOnRead false
+ in_colorspace linear
+ out_colorspace linear
+ name VFX_QT_WRITE
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 12
+ xpos 450
+ ypos 1286
+}
+Read {
+ inputs 0
+ file_type exr
+ file "/Volumes/romeo_primary/Shots/SHARED/staging/FWD 20181114_Romeo_LensGrid_RePulls_EXR_CUBE/20181114_Romeo_LensGrid_RePulls_EXR_CUBE/EXR/FC_1T_ALEXA_65_REV1/4971x2349/FC_1T_ALEXA_65_REV1.%04d.exr"
+ format "4971 2349 0 0 4971 2349 1 Alexa 65 VFX Scan Full Ap"
+ first 1001
+ last 1040
+ origfirst 1001
+ origlast 1040
+ origset true
+ raw true
+ name Read2
+ xpos -121
+ ypos -363
+}
+Reformat {
+ format "4971 2349 0 0 4971 2349 1 Alexa 65 VFX Scan Full Ap"
+ resize none
+ name Reformat3
+ xpos -121
+ ypos -258
+}
+Group {
+ inputs 0
+ name VIEWER_INPUT
+ tile_color 0xffce77ff
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -1596
+ ypos 110
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -875
+  ypos 165
+ }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace1
+  label "From Linear to\nAlexaV3LogC"
+  xpos -875
+  ypos 220
+ }
+ OCIOFileTransform {
+  file "/Volumes/romeo_primary/Lens_Grids/20181220_20181114_Romeo_Lens_Grid_Re_Pulls EXR/PKG_2/CUBE/COLOR_CHART_1_T008_REV1/any/COLOR_CHART_1_T008_REV1.cube"
+  working_space linear
+  name OCIOFileTransform2
+  label "Apply plate-specific LUT for\nsRGB devices - adjust path\nfor EACH SHOT!"
+  selected true
+  xpos -875
+  ypos 311
+ }
+ Output {
+  name Output1
+  xpos -875
+  ypos 451
+ }
+end_group
+push $Nb1179bf0
+OFXcom.2d4a.livegrain_v0 {
+ "FILM PROFILES" 1
+ preset "35MM KD V3 500T 5219 - V"
+ preset_id 0,006_35MM_5219_LVL5
+ shadowAsset "Shad 35mm KODAK V3 500T 5219 Level 5"
+ shadowAsset_id 0,MSNNizc6
+ midtoneAsset "Mid 35mm KODAK V3 500T 5219 Level 5"
+ midtoneAsset_id 0,ObOKd5mK
+ highlightAsset "High 35mm KODAK V3 500T 5219 Level 5"
+ highlightAsset_id 0,8HOKTIJm
+ gammaWorkflow sRGB
+ gammaWorkflow_id 0,srgb
+ SHADOWS 1
+ shadowLow 0
+ shadowHigh 0.026
+ shadowSoftnessLow 0.502
+ shadowSoftnessHigh 0.358
+ shadowGain 0.806
+ MIDTONES 1
+ midtoneLow 0.379
+ midtoneHigh 0.657
+ midtoneSoftnessLow 0.454
+ midtoneSoftnessHigh 0.611
+ midtoneGain 0.82
+ HIGHLIGHTS 1
+ highlightLow 0.87
+ highlightHigh 1
+ highlightSoftnessLow 0.556
+ highlightSoftnessHigh 1
+ highlightGain 0.95
+ revealMask false
+ ADVANCED 0
+ gangToneVal true
+ shadowTone 2
+ midtoneTone 2
+ highlightTone 2
+ gangZoomVal true
+ shadowZoom 1
+ midtoneZoom 1
+ highlightZoom 1
+ gangSharpnessVal true
+ shadowSharpness 0
+ midtoneSharpness 0
+ highlightSharpness 0
+ name "LIVEGRAIN Texture Mapping2"
+ xpos -153
+ ypos 1091
+}
+Write {
+ file /staging/romeo/ROMEO_VFX_shot_workflow_example_v002.mov
+ raw true
+ file_type mov
+ meta_codec AVdn
+ mov32_codec AVdn
+ mov32_write_timecode true
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov32_write_nclc false
+ mov64_codec AVdn
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 220Mbit"
+ mov64_write_timecode true
+ mov64_advanced 1
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_write_nclc false
+ checkHashOnRead false
+ in_colorspace linear
+ out_colorspace linear
+ name EDITORIAL_QT_WRITE
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font_size 12
+ xpos -153
+ ypos 1279
+}
+CheckerBoard2 {
+ inputs 0
+ format "4334 3016 0 0 4334 3016 1 Alexa LF VFX Scan Full Ap"
+ name CheckerBoard3
+ xpos 369
+ ypos -360
+}
+Reformat {
+ format "4334 3016 0 0 4334 3016 1 Alexa LF VFX Scan Full Ap"
+ resize none
+ name Reformat4
+ xpos 369
+ ypos -257
+}
+CheckerBoard2 {
+ inputs 0
+ format "4172 1740 0 0 4172 1740 1 Alexa LF 2.39 VFX Scan Full Ap"
+ name CheckerBoard1
+ xpos 919
+ ypos -332
+}
+Reformat {
+ format "4172 1740 0 0 4172 1740 1 Alexa LF 2.39 VFX Scan Full Ap"
+ resize none
+ name Reformat5
+ xpos 919
+ ypos -260
+}
+Read {
+ inputs 0
+ file_type mov
+ file /Volumes/romeo_primary/Lens_Grids/20181220_20181114_Romeo_Lens_Grid_Re_Pulls_edlMXFCOLOR_CHART_1_T008_REV1/PKG_1/COLOR_CHART_1_T008_REV1/1920x1080/COLOR_CHART_1_T008_REV1.mov
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ last 32
+ origlast 32
+ origset true
+ colorspace linear
+ raw true
+ mov64_decode_video_levels "Video Range"
+ mov32_codec {{0} "AVID DNxHD Codec (AVID - AVdn)"}
+ mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "RGBA  16-bit (b64a)" "YCbCrA 8-bit 444 (v408)" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ name Read1
+ xpos 1054
+ ypos 1058
+}
+TimeOffset {
+ time_offset 1000
+ time ""
+ name TimeOffset1
+ xpos 1054
+ ypos 1148
+}
+CheckerBoard2 {
+ inputs 0
+ format "3840 2160 0 0 3840 2160 1 Blackmagic VFX Scan Full Ap"
+ name CheckerBoard2
+ xpos 2111
+ ypos -332
+}
+Reformat {
+ format "3840 2160 0 0 3840 2160 1 Blackmagic VFX Scan Full Ap"
+ resize none
+ name Reformat6
+ xpos 2111
+ ypos -260
+}
+Viewer {
+ inputs 2
+ frame_range 1001-1024
+ viewerProcess None
+ input_process false
+ name Viewer1
+ xpos -1597
+ ypos 160
+}
