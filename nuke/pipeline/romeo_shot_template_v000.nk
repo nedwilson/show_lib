@@ -1,5 +1,5 @@
 #! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
-#write_info Write_exr file:"/Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.%04d.exr" format:"3272 1768 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+#write_info Write_exr file:"/Volumes/romeo_primary/romeo/BUS/004_BUS_0010/img/comp/004_BUS_0010_comp_v000/004_BUS_0010_comp_v000.%04d.exr" format:"3272 1768 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"24" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"11:47:57:18" colorManagement:"Nuke"
 version 11.3 v1
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
@@ -108,7 +108,7 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos -40
  ypos 850
@@ -119,7 +119,15 @@ Group {
   xpos 400
   ypos -9
  }
+ OCIOColorSpace {
+  in_colorspace linear
+  out_colorspace AlexaV3LogC
+  name OCIOColorSpace1
+  xpos 400
+  ypos 40
+ }
  OCIOFileTransform {
+  file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0010/data/color/004_BUS_0010.cube
   working_space linear
   name OCIOFileTransform1
   xpos 400
@@ -134,12 +142,12 @@ end_group
 Read {
  inputs 0
  file_type exr
- file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/plates/HC019_190_BS/HC019_190_BS.%04d.exr
- format "3424 2202 0 0 3424 2202 1 Alexa 3K Open Gate (.a3kog)"
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0010/img/plates/004_BUS_0010_PLATE/004_BUS_0010_PLATE.####.exr
+ format "4971 2349 0 0 4971 2349 1 Alexa 65 VFX Scan Full Ap"
  first 1001
- last 1054
+ last 1458
  origfirst 1001
- origlast 1054
+ origlast 1458
  origset true
  colorspace linear
  auto_alpha true
@@ -148,20 +156,35 @@ Read {
  xpos 70
  ypos -911
 }
+set Nd1eb9020 [stack 0]
+PostageStamp {
+ name PostageStamp1
+ label "MAIN PLATE"
+ xpos 180
+ ypos 635
+ hide_input true
+ postage_stamp true
+}
+Dot {
+ name Dot1
+ xpos 214
+ ypos 738
+}
+push $Nd1eb9020
 NoOp {
  name NoOp2
  tile_color 0xffce77ff
  label "Camera Format\n\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
- ypos -792
+ ypos -793
 }
 Group {
  name Romeo_Reformat
  tile_color 0xffce77ff
  label "\nPlate to Delivery\nResolution"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
  ypos 367
@@ -181,31 +204,31 @@ Group {
   xpos 512
   ypos 116
  }
-set Nf620240 [stack 0]
+set Nd1dc4d40 [stack 0]
  Dot {
   name Dot1
   xpos 710
   ypos 138
  }
-set Nf6242e0 [stack 0]
+set Nd1db0320 [stack 0]
  Dot {
   name Dot2
   xpos 885
   ypos 138
  }
-set Nf626660 [stack 0]
+set Nd1db3f30 [stack 0]
  Dot {
   name Dot3
   xpos 1054
   ypos 138
  }
-set Nf628b20 [stack 0]
+set Nd1db7ba0 [stack 0]
  Dot {
   name Dot4
   xpos 1228
   ypos 138
  }
-set Nf631ca0 [stack 0]
+set Nd1dc8aa0 [stack 0]
  Dot {
   name Dot5
   xpos 1407
@@ -232,7 +255,7 @@ set Nf631ca0 [stack 0]
   xpos 1373
   ypos 283
  }
-push $Nf631ca0
+push $Nd1dc8aa0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -254,7 +277,7 @@ push $Nf631ca0
   xpos 1194
   ypos 283
  }
-push $Nf628b20
+push $Nd1db7ba0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -276,7 +299,7 @@ push $Nf628b20
   xpos 1020
   ypos 283
  }
-push $Nf626660
+push $Nd1db3f30
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -298,7 +321,7 @@ push $Nf626660
   xpos 851
   ypos 283
  }
-push $Nf6242e0
+push $Nd1db0320
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -323,7 +346,7 @@ push $Nf6242e0
   xpos 676
   ypos 283
  }
-push $Nf620240
+push $Nd1dc4d40
  Switch {
   inputs 6
   which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
@@ -356,21 +379,6 @@ push $Nf620240
   ypos 630
  }
 end_group
-set Ne81c600 [stack 0]
-PostageStamp {
- name PostageStamp1
- label "MAIN PLATE"
- xpos 180
- ypos 635
- hide_input true
- postage_stamp true
-}
-Dot {
- name Dot1
- xpos 214
- ypos 738
-}
-push $Ne81c600
 Reformat {
  format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
  pbb true
@@ -384,7 +392,6 @@ Crop {
  xpos 70
  ypos 672
 }
-set Nf098890 [stack 0]
 CopyMetaData {
  inputs 2
  mergeMode "Meta only"
@@ -394,7 +401,7 @@ CopyMetaData {
 }
 Write {
  channels rgba
- file /Volumes/raid_vol01/shows/spinel/HC019/HC019_190/pix/comp/HC019_190_comp_v001/HC019_190_comp_v001.####.exr
+ file /Volumes/romeo_primary/romeo/BUS/004_BUS_0010/img/comp/004_BUS_0010_comp_v000/004_BUS_0010_comp_v000.%04d.exr
  colorspace linear
  file_type exr
  metadata "all metadata"
@@ -406,7 +413,6 @@ Write {
  xpos 70
  ypos 798
 }
-push $Nf098890
 Viewer {
  frame_range 1001-1054
  fps 23.97602463
