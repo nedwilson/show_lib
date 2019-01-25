@@ -11,7 +11,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
                 <split size="1294"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -148,7 +148,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N13156f50 [stack 0]
+set N6d160900 [stack 0]
 Read {
  inputs 0
  file FILE_PATH
@@ -177,41 +177,82 @@ Crop {
 Dot {
  name Dot9
  xpos 1718
- ypos 126
+ ypos -2
 }
-set N10fa4320 [stack 0]
+set N6d1887e0 [stack 0]
+Dot {
+ name Dot14
+ xpos 1580
+ ypos -2
+}
+Reformat {
+ format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
+ filter Simon
+ name Reformat10
+ xpos 1546
+ ypos 54
+}
+Crop {
+ box {0 0 3108 1680}
+ reformat true
+ crop false
+ name Crop7
+ xpos 1546
+ ypos 86
+}
+Dot {
+ name Dot16
+ xpos 1580
+ ypos 226
+}
+push $N6d1887e0
+Reformat {
+ format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
+ resize none
+ filter Simon
+ name Reformat6
+ xpos 1684
+ ypos 131
+}
+Crop {
+ box {0 0 3108 1680}
+ reformat true
+ crop false
+ name Crop6
+ xpos 1684
+ ypos 163
+}
+Switch {
+ inputs 2
+ which {{"EXR_READ.format.r == 1920"}}
+ name Switch6
+ xpos 1684
+ ypos 223
+}
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ filter Simon
  black_outside true
  name Reformat3
  xpos 1684
  ypos 278
 }
-set N10fa8210 [stack 0]
-Reformat {
- format "2100 1152 0 0 2100 1152 1 Spinel 2K Delivery (.sp2k)"
- resize none
- black_outside true
- name Reformat6
- xpos 1684
- ypos 348
- disable true
-}
+set N6d18c740 [stack 0]
 Dot {
  name Dot5
  xpos 1794
- ypos 351
+ ypos 285
 }
 Dot {
  name Dot7
  xpos 1794
  ypos 516
 }
-push $N10fa4320
+push $N6d1887e0
 Dot {
  name Dot10
  xpos 1859
- ypos 126
+ ypos -2
 }
 Switch {
  inputs 2
@@ -220,7 +261,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set N10fd2000 [stack 0]
+set N6d1b1b40 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -261,7 +302,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N1304bef0 [stack 0]
+set N6d1e71d0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -332,7 +373,7 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N13176770 [stack 0]
+set N6d2306a0 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -374,13 +415,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N10fd2000
+push $N6d1b1b40
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N131bdf10 [stack 0]
+set N6d4fa210 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -402,13 +443,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $N13156f50
+push $N6d160900
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $N131bdf10
+push $N6d4fa210
 Dot {
  name Dot18
  xpos 2087
@@ -422,7 +463,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N13088630 [stack 0]
+set N6d72ab50 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -443,7 +484,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $N1304bef0
+push $N6d1e71d0
 Dot {
  name Dot21
  xpos 2339
@@ -571,7 +612,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N13088630
+push $N6d72ab50
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -595,17 +636,25 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $N13176770
+push $N6d2306a0
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N10fa8210
+push $N6d18c740
 Dot {
  name Dot3
  xpos 1607
  ypos 285
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ filter Simon
+ name Reformat12
+ selected true
+ xpos 1573
+ ypos 407
 }
 OFXcom.2d4a.livegrain_v0 {
  "FILM PROFILES" 1
@@ -653,9 +702,9 @@ OFXcom.2d4a.livegrain_v0 {
  highlightSharpness 0
  name "LIVEGRAIN Texture Mapping2"
  xpos 1573
- ypos 441
+ ypos 493
 }
-set N13212060 [stack 0]
+set N66606590 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -668,13 +717,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N132b6600 [stack 0]
+set N6d2bb590 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N132ba4e0 [stack 0]
+set N6d2bf470 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -984,7 +1033,7 @@ Write {
  xpos 546
  ypos 1610
 }
-push $N132ba4e0
+push $N6d2bf470
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1038,8 +1087,8 @@ Dot {
  xpos 974
  ypos 1313
 }
-set N1402b340 [stack 0]
-push $N1402b340
+set N6bbafc50 [stack 0]
+push $N6bbafc50
 Dot {
  name Dot8
  xpos 1111
@@ -1534,7 +1583,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N132b6600
+push $N6d2bb590
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1848,14 +1897,13 @@ Write {
  xpos 1325
  ypos 1895
 }
-push $N13212060
-push 0
+push $N66606590
+push $N6d18c740
 Viewer {
  inputs 2
  frame_range 1001-1163
  frame_increment 5
  fps 23.97602463
- input_number 1
  colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
  samplepoints {{-0.1575864106 0.4610427618}
    }
