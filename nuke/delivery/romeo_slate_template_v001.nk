@@ -11,7 +11,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
                 <split size="1294"/>
-                <dock id="" activePageId="DAG.1">
+                <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -148,7 +148,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N6d160900 [stack 0]
+set Nb566e780 [stack 0]
 Read {
  inputs 0
  file FILE_PATH
@@ -179,7 +179,7 @@ Dot {
  xpos 1718
  ypos -2
 }
-set N6d1887e0 [stack 0]
+set Nb5688c70 [stack 0]
 Dot {
  name Dot14
  xpos 1580
@@ -205,7 +205,7 @@ Dot {
  xpos 1580
  ypos 226
 }
-push $N6d1887e0
+push $Nb5688c70
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -237,7 +237,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set N6d18c740 [stack 0]
+set Nb5e1e3c0 [stack 0]
 Dot {
  name Dot5
  xpos 1794
@@ -248,7 +248,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $N6d1887e0
+push $Nb5688c70
 Dot {
  name Dot10
  xpos 1859
@@ -261,7 +261,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set N6d1b1b40 [stack 0]
+set Nb5e2ce20 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -302,7 +302,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N6d1e71d0 [stack 0]
+set Nb5e4cea0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -373,7 +373,7 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N6d2306a0 [stack 0]
+set Nb571b400 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -415,13 +415,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N6d1b1b40
+push $Nb5e2ce20
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N6d4fa210 [stack 0]
+set Nb5770090 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -443,13 +443,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $N6d160900
+push $Nb566e780
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $N6d4fa210
+push $Nb5770090
 Dot {
  name Dot18
  xpos 2087
@@ -463,7 +463,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N6d72ab50 [stack 0]
+set Nb5788dd0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -484,7 +484,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $N6d1e71d0
+push $Nb5e4cea0
 Dot {
  name Dot21
  xpos 2339
@@ -612,7 +612,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N6d72ab50
+push $Nb5788dd0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -636,13 +636,13 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $N6d2306a0
+push $Nb571b400
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N6d18c740
+push $Nb5e1e3c0
 Dot {
  name Dot3
  xpos 1607
@@ -651,11 +651,23 @@ Dot {
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
+ black_outside true
  name Reformat12
- selected true
  xpos 1573
- ypos 407
+ ypos 349
 }
+set Nb7802900 [stack 0]
+Dot {
+ name Dot20
+ xpos 1469
+ ypos 356
+}
+Dot {
+ name Dot17
+ xpos 1469
+ ypos 521
+}
+push $Nb7802900
 OFXcom.2d4a.livegrain_v0 {
  "FILM PROFILES" 1
  preset "35MM KD V3 500T 5219 - V"
@@ -702,9 +714,16 @@ OFXcom.2d4a.livegrain_v0 {
  highlightSharpness 0
  name "LIVEGRAIN Texture Mapping2"
  xpos 1573
- ypos 493
+ ypos 435
 }
-set N66606590 [stack 0]
+Switch {
+ inputs 2
+ which {{"EXR_READ.format.r == 1920"}}
+ name Switch7
+ xpos 1573
+ ypos 518
+}
+set Nb798f660 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -717,13 +736,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N6d2bb590 [stack 0]
+set Nae175bb0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N6d2bf470 [stack 0]
+set Nae178070 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -1033,7 +1052,7 @@ Write {
  xpos 546
  ypos 1610
 }
-push $N6d2bf470
+push $Nae178070
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1087,8 +1106,8 @@ Dot {
  xpos 974
  ypos 1313
 }
-set N6bbafc50 [stack 0]
-push $N6bbafc50
+set Nb5eb8e70 [stack 0]
+push $Nb5eb8e70
 Dot {
  name Dot8
  xpos 1111
@@ -1583,7 +1602,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N6d2bb590
+push $Nae175bb0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1897,8 +1916,8 @@ Write {
  xpos 1325
  ypos 1895
 }
-push $N66606590
-push $N6d18c740
+push $Nb7802900
+push $Nb798f660
 Viewer {
  inputs 2
  frame_range 1001-1163
