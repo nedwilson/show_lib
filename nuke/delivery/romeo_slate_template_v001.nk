@@ -78,6 +78,7 @@ Root {
  addUserKnob {20 endGroup n -1}
  addUserKnob {20 tab_inhouse l In-House}
  addUserKnob {6 nocc l "no color correction" +STARTLINE}
+ nocc true
  addUserKnob {6 noburnin l "no quicktime burn-in" +STARTLINE}
  addUserKnob {6 exportburnin l "add export burn-in" +STARTLINE}
  addUserKnob {1 ti_ih_show_name l "show name"}
@@ -147,7 +148,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set Nd20ab720 [stack 0]
+set Ne2722290 [stack 0]
 Read {
  inputs 0
  file_type exr
@@ -164,8 +165,9 @@ Read {
  auto_alpha true
  metadatafilter timecode
  name EXR_READ
+ selected true
  xpos 1684
- ypos -293
+ ypos -292
 }
 Crop {
  box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
@@ -179,7 +181,7 @@ Dot {
  xpos 1718
  ypos -2
 }
-set Nd20c1a20 [stack 0]
+set Ne2749260 [stack 0]
 Dot {
  name Dot14
  xpos 1580
@@ -205,7 +207,7 @@ Dot {
  xpos 1580
  ypos 226
 }
-push $Nd20c1a20
+push $Ne2749260
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -237,7 +239,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set Nd20e5bb0 [stack 0]
+set Ne2772080 [stack 0]
 Dot {
  name Dot5
  xpos 1794
@@ -248,7 +250,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $Nd20c1a20
+push $Ne2749260
 Dot {
  name Dot10
  xpos 1859
@@ -261,7 +263,7 @@ Switch {
  xpos 1825
  ypos 513
 }
-set Nd20f45e0 [stack 0]
+set Ne2780cb0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -302,7 +304,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set Ndb117e00 [stack 0]
+set Ne27a00f0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -373,7 +375,7 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set Ndb13c830 [stack 0]
+set Ne3055040 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -415,13 +417,13 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $Nd20f45e0
+push $Ne2780cb0
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set Ndb163cf0 [stack 0]
+set Ne307fc30 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -443,13 +445,13 @@ Write {
  xpos 1825
  ypos 1339
 }
-push $Nd20ab720
+push $Ne2722290
 Dot {
  name Dot24
  xpos 2712
  ypos 657
 }
-push $Ndb163cf0
+push $Ne307fc30
 Dot {
  name Dot18
  xpos 2087
@@ -463,7 +465,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set Ndb17c9f0 [stack 0]
+set Ne23f6240 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -484,7 +486,7 @@ Transform {
  xpos 2385
  ypos 1021
 }
-push $Ndb117e00
+push $Ne27a00f0
 Dot {
  name Dot21
  xpos 2339
@@ -612,7 +614,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $Ndb17c9f0
+push $Ne23f6240
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -636,13 +638,13 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $Ndb13c830
+push $Ne3055040
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $Nd20e5bb0
+push $Ne2772080
 Dot {
  name Dot3
  xpos 1607
@@ -656,7 +658,7 @@ Reformat {
  xpos 1573
  ypos 349
 }
-set Ndb1f22b0 [stack 0]
+set Naa509b70 [stack 0]
 Dot {
  name Dot20
  xpos 1469
@@ -667,7 +669,7 @@ Dot {
  xpos 1469
  ypos 521
 }
-push $Ndb1f22b0
+push $Naa509b70
 OFXcom.2d4a.livegrain_v0 {
  "FILM PROFILES" 1
  preset "35MM KD V3 500T 5219 - V"
@@ -715,6 +717,7 @@ OFXcom.2d4a.livegrain_v0 {
  name "LIVEGRAIN Texture Mapping2"
  xpos 1573
  ypos 435
+ disable {{root.nocc}}
 }
 Switch {
  inputs 2
@@ -723,6 +726,7 @@ Switch {
  xpos 1573
  ypos 518
 }
+set Naa54fb30 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -735,13 +739,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nd80ded50 [stack 0]
+set Naa557cd0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set Nd80e1210 [stack 0]
+set Naa55a190 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -1060,7 +1064,7 @@ Write {
  xpos 546
  ypos 1610
 }
-push $Nd80e1210
+push $Naa55a190
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1123,8 +1127,8 @@ Dot {
  xpos 974
  ypos 1313
 }
-set Ndb400380 [stack 0]
-push $Ndb400380
+set Ne207ef00 [stack 0]
+push $Ne207ef00
 Dot {
  name Dot8
  xpos 1111
@@ -1621,7 +1625,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nd80ded50
+push $Naa557cd0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1913,7 +1917,6 @@ Text2 {
  ypos 1442
  disable {{root.noburnin}}
 }
-set Ndb524810 [stack 0]
 Write {
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
  colorspace rec709
@@ -1945,22 +1948,6 @@ Write {
  xpos 1325
  ypos 1895
 }
-push $Ndb1f22b0
-push $Ndb524810
-Viewer {
- inputs 2
- frame_range 1001-1163
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 2842
- ypos 1192
-}
 Read {
  inputs 0
  file_type exr
@@ -1979,4 +1966,21 @@ Read {
  name EXR_READ_EXAMPLE
  xpos 1393
  ypos -267
+}
+push $Naa54fb30
+push $Naa509b70
+Viewer {
+ inputs 2
+ frame_range 1001-1163
+ frame_increment 5
+ fps 23.97602463
+ input_number 1
+ colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 2842
+ ypos 1192
 }
