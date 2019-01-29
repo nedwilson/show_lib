@@ -38,8 +38,8 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/delivery/romeo_slate_template_v001.nk
- frame 1000
+ name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v001.nk
+ frame 1001
  first_frame 1001
  last_frame 1179
  lock_range true
@@ -149,7 +149,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N52bc05b0 [stack 0]
+set Ndab419d0 [stack 0]
 Dot {
  name Dot24
  xpos 2712
@@ -186,7 +186,7 @@ Dot {
  xpos 1607
  ypos -2
 }
-set N52bc5890 [stack 0]
+set Ndab6fb60 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -212,7 +212,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N52bc5890
+push $Ndab6fb60
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -229,7 +229,7 @@ Crop {
  xpos 1573
  ypos 163
 }
-set N52bf4520 [stack 0]
+set Ndba22ca0 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -257,7 +257,7 @@ OCIOFileTransform {
  file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/data/color/004_BUS_0100.cube
  version 6
  working_space linear
- name OCIOFileTransform2
+ name OCIOFileTransform1
  xpos 1573
  ypos 467
  disable {{root.nocc}}
@@ -306,12 +306,12 @@ OFXcom.2d4a.livegrain_v0 {
  shadowSharpness 0
  midtoneSharpness 0
  highlightSharpness 0
- name "LIVEGRAIN Texture Mapping2"
+ name "LIVEGRAIN_Texture_Mapping1"
  xpos 1573
  ypos 491
  disable {{root.nocc}}
 }
-set N57282050 [stack 0]
+set Ndafc8860 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -320,13 +320,13 @@ Reformat {
  xpos 1825
  ypos 487
 }
-set N55307580 [stack 0]
+set Ndbbc6570 [stack 0]
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N55326a60 [stack 0]
+set Ndbbd31a0 [stack 0]
 Dot {
  name Dot18
  xpos 2087
@@ -340,7 +340,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N5532e810 [stack 0]
+set Ndbbdae80 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -375,7 +375,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N5535dc60 [stack 0]
+set Ndbc0e310 [stack 0]
 Dot {
  name Dot21
  xpos 2339
@@ -503,7 +503,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N5532e810
+push $Ndbbdae80
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -528,8 +528,8 @@ Write {
  ypos 1635
  disable true
 }
-push $N52bc05b0
-push $N55307580
+push $Ndab419d0
+push $Ndbbc6570
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -556,7 +556,7 @@ Transform {
  xpos 1974
  ypos 630
 }
-push $N5535dc60
+push $Ndbc0e310
 Merge2 {
  inputs 2
  name Merge17
@@ -627,13 +627,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N5546daf0 [stack 0]
+set Ndbd62510 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N57282050
+push $Ndafc8860
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -641,19 +641,19 @@ Switch {
  xpos 1573
  ypos 577
 }
-set N55607990 [stack 0]
+set Ndbd7e630 [stack 0]
 Dot {
  name Dot13
  xpos 1359
  ypos 580
 }
-set N5560e5b0 [stack 0]
+set Ndbd85200 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N55612490 [stack 0]
+set Ndbd890e0 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -946,7 +946,7 @@ Write {
  xpos 546
  ypos 1610
 }
-push $N55612490
+push $Ndbd890e0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -981,8 +981,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N52f47f50 [stack 0]
-push $N52f47f50
+set Ndb862b90 [stack 0]
+push $Ndb862b90
 Dot {
  name Dot8
  xpos 1111
@@ -1481,7 +1481,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N5560e5b0
+push $Ndbd85200
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1770,13 +1770,15 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1895
 }
-push $N5546daf0
+push $Ndbd62510
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1818,7 +1820,7 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N55326a60
+push $Ndbbd31a0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1841,11 +1843,11 @@ Write {
  ypos 1339
  disable true
 }
-push $N52bf4520
-push $N55607990
+push $Ndba22ca0
+push $Ndbd7e630
 Viewer {
  inputs 2
- frame 1000
+ frame 1001
  frame_range 1001-1179
  frame_increment 5
  fps 23.97602463
