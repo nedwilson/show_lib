@@ -148,7 +148,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N8788f6d0 [stack 0]
+set N7de7e1d0 [stack 0]
 Dot {
  name Dot24
  xpos 2712
@@ -185,7 +185,7 @@ Dot {
  xpos 1718
  ypos -2
 }
-set N8880eeb0 [stack 0]
+set N7c1db630 [stack 0]
 Dot {
  name Dot14
  xpos 1580
@@ -211,7 +211,7 @@ Dot {
  xpos 1580
  ypos 226
 }
-push $N8880eeb0
+push $N7c1db630
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -243,7 +243,7 @@ Reformat {
  xpos 1684
  ypos 278
 }
-set N8883ae50 [stack 0]
+set N66d02ba0 [stack 0]
 Dot {
  name Dot5
  xpos 1794
@@ -254,7 +254,7 @@ Dot {
  xpos 1794
  ypos 516
 }
-push $N8880eeb0
+push $N7c1db630
 Dot {
  name Dot10
  xpos 1859
@@ -267,13 +267,13 @@ Switch {
  xpos 1825
  ypos 513
 }
-set N88849880 [stack 0]
+set N66d115d0 [stack 0]
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N8887e250 [stack 0]
+set N66d15780 [stack 0]
 Dot {
  name Dot18
  xpos 2087
@@ -287,7 +287,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N88896e30 [stack 0]
+set N66d1a100 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -322,7 +322,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N88868ec0 [stack 0]
+set N66d35fe0 [stack 0]
 Dot {
  name Dot21
  xpos 2339
@@ -450,7 +450,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N88896e30
+push $N66d1a100
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -474,8 +474,8 @@ Write {
  xpos 2053
  ypos 1635
 }
-push $N8788f6d0
-push $N88849880
+push $N7de7e1d0
+push $N66d115d0
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
@@ -502,7 +502,7 @@ Transform {
  xpos 1974
  ypos 630
 }
-push $N88868ec0
+push $N66d35fe0
 Merge2 {
  inputs 2
  name Merge17
@@ -573,13 +573,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N878ef1a0 [stack 0]
+set N7ddcf9c0 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N8883ae50
+push $N66d02ba0
 Dot {
  name Dot3
  xpos 1607
@@ -593,7 +593,7 @@ Reformat {
  xpos 1573
  ypos 349
 }
-set N88d105e0 [stack 0]
+set N7dde1b00 [stack 0]
 Dot {
  name Dot20
  xpos 1469
@@ -604,7 +604,7 @@ Dot {
  xpos 1469
  ypos 521
 }
-push $N88d105e0
+push $N7dde1b00
 OFXcom.2d4a.livegrain_v0 {
  "FILM PROFILES" 1
  preset "35MM KD V3 500T 5219 - V"
@@ -661,7 +661,7 @@ Switch {
  xpos 1573
  ypos 518
 }
-set N88d2b600 [stack 0]
+set N66d62fc0 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -674,13 +674,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N88d337a0 [stack 0]
+set N66d6b160 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N88d35c60 [stack 0]
+set N66d6d620 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -736,12 +736,6 @@ OCIOFileTransform {
  xpos 546
  ypos 853
  disable {{root.nocc}}
-}
-Sharpen {
- amount 0.65
- name Sharpen1
- xpos 546
- ypos 1047
 }
 Text2 {
  font_size_toolbar 30
@@ -994,12 +988,14 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 123
+ in_colorspace linear
+ out_colorspace linear
  name MOV_VFX_WRITE
  label "\[value file]"
  xpos 546
  ypos 1610
 }
-push $N88d35c60
+push $N66d6d620
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1051,19 +1047,13 @@ OCIOFileTransform {
  ypos 876
  disable {{root.nocc}}
 }
-Sharpen {
- amount 0.65
- name Sharpen2
- xpos 940
- ypos 1000
-}
 Dot {
  name Dot6
  xpos 974
  ypos 1313
 }
-set N88c94330 [stack 0]
-push $N88c94330
+set N66e27540 [stack 0]
+push $N66e27540
 Dot {
  name Dot8
  xpos 1111
@@ -1502,6 +1492,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1513,12 +1505,14 @@ Constant {
  channels rgb
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Constant3
+ selected true
  xpos 1467
  ypos 870
 }
 Shuffle {
  alpha white
  name Shuffle4
+ selected true
  xpos 1467
  ypos 960
 }
@@ -1526,6 +1520,7 @@ Reformat {
  inputs 0
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Reformat4
+ selected true
  xpos 1613
  ypos 852
 }
@@ -1533,6 +1528,7 @@ Rectangle {
  invert true
  area {0 942 1920 1080}
  name Rectangle1
+ selected true
  xpos 1613
  ypos 924
 }
@@ -1540,11 +1536,13 @@ Rectangle {
  area {0 0 1920 138}
  color 0
  name Rectangle2
+ selected true
  xpos 1613
  ypos 963
 }
 Dot {
  name Dot1
+ selected true
  xpos 1647
  ypos 1011
 }
@@ -1552,15 +1550,17 @@ Merge2 {
  inputs 2
  operation out
  name Merge16
+ selected true
  xpos 1467
  ypos 1008
 }
 Dot {
  name Dot11
+ selected true
  xpos 1501
  ypos 1083
 }
-push $N88d337a0
+push $N66d6b160
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1611,12 +1611,6 @@ OCIOFileTransform {
  xpos 1325
  ypos 843
  disable {{root.nocc}}
-}
-Sharpen {
- amount 0.65
- name Sharpen3
- xpos 1325
- ypos 1007
 }
 Merge2 {
  inputs 2
@@ -1877,6 +1871,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
@@ -1902,8 +1898,8 @@ Read {
  xpos 1393
  ypos -267
 }
-push $N88d2b600
-push $N88d105e0
+push $N66d62fc0
+push $N7dde1b00
 Viewer {
  inputs 2
  frame_range 1001-1163
@@ -1918,7 +1914,7 @@ Viewer {
  xpos 2842
  ypos 1192
 }
-push $N878ef1a0
+push $N7ddcf9c0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1960,7 +1956,7 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N8887e250
+push $N66d15780
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1975,6 +1971,8 @@ Write {
  compression "PIZ Wavelet (32 scanlines)"
  first_part rgba
  version 89
+ in_colorspace linear
+ out_colorspace linear
  name EXR_WRITE
  label "\[value file]"
  xpos 1825
