@@ -38,13 +38,13 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v001.nk
- frame 1001
+ name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/delivery/romeo_slate_template_v001.nk
+ frame 1000
  first_frame 1001
- last_frame 1163
+ last_frame 1179
  lock_range true
  fps 23.976
- format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
+ format "3272 1768 0 0 3272 1768 1 Submission Format"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
  colorManagement Nuke
@@ -81,18 +81,19 @@ Root {
  nocc true
  addUserKnob {6 noburnin l "no quicktime burn-in" +STARTLINE}
  addUserKnob {6 exportburnin l "add export burn-in" +STARTLINE}
+ exportburnin true
  addUserKnob {1 ti_ih_show_name l "show name"}
  ti_ih_show_name ROMEO
  addUserKnob {1 ti_ih_file_name l "file name"}
- ti_ih_file_name 004_BUS_0100_comp_v401
+ ti_ih_file_name 004_BUS_0100_temp_v503
  addUserKnob {1 ti_ih_sequence l sequence}
  ti_ih_sequence BUS
  addUserKnob {1 ti_ih_shot l shot -STARTLINE}
  ti_ih_shot 004_BUS_0100
  addUserKnob {1 ti_ih_version l version -STARTLINE}
- ti_ih_version 401
+ ti_ih_version 503
  addUserKnob {1 ti_ih_vendor l artist}
- ti_ih_vendor "Ned Wilson"
+ ti_ih_vendor "Huey Carroll"
  addUserKnob {1 ti_ih_vendor_code l vendor}
  ti_ih_vendor_code In-House
  addUserKnob {1 export_label l "export label"}
@@ -100,17 +101,17 @@ Root {
  addUserKnob {1 ti_ih_format l format}
  ti_ih_format 3272x1768
  addUserKnob {1 ti_submission_reason l "submission reason"}
- ti_submission_reason "For Final"
+ ti_submission_reason "For Temp"
  addUserKnob {1 ti_ih_notes_1 l "notes line 1"}
- ti_ih_notes_1 "Submission Test"
+ ti_ih_notes_1 "For review. comp in bridge."
  addUserKnob {1 ti_ih_notes_2 l "notes line 2"}
  addUserKnob {1 ti_ih_notes_3 l "notes line 3"}
  addUserKnob {1 ti_ih_notes_4 l "notes line 4"}
  addUserKnob {1 ti_ih_notes_5 l "notes line 5"}
  addUserKnob {1 ti_ih_delivery_folder l "delivery folder"}
- ti_ih_delivery_folder /Volumes/romeo_primary/_IO/INH/From_INH
+ ti_ih_delivery_folder /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503
  addUserKnob {1 ti_ih_delivery_package l "delivery package"}
- ti_ih_delivery_package From_INH_20190128_A
+ ti_ih_delivery_package NOPKG
  addUserKnob {1 txt_ih_show l show}
  txt_ih_show romeo
  addUserKnob {1 txt_ih_show_path l "show path"}
@@ -148,7 +149,7 @@ Transform {
  xpos 2402
  ypos 654
 }
-set N7de7e1d0 [stack 0]
+set N52bc05b0 [stack 0]
 Dot {
  name Dot24
  xpos 2712
@@ -158,7 +159,7 @@ Read {
  inputs 0
  file_type exr
  file FILE_PATH
- format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
+ format "3272 1768 0 0 3272 1768 1 Submission Format"
  first 1001
  last 1179
  origfirst 1001
@@ -170,32 +171,32 @@ Read {
  auto_alpha true
  metadatafilter timecode
  name EXR_READ
- xpos 1684
+ xpos 1573
  ypos -292
 }
 Crop {
  box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
  reformat true
  name Crop5
- xpos 1684
+ xpos 1573
  ypos -131
 }
 Dot {
  name Dot9
- xpos 1718
+ xpos 1607
  ypos -2
 }
-set N7c1db630 [stack 0]
+set N52bc5890 [stack 0]
 Dot {
  name Dot14
- xpos 1580
+ xpos 1469
  ypos -2
 }
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  filter Simon
  name Reformat10
- xpos 1546
+ xpos 1435
  ypos 54
 }
 Crop {
@@ -203,21 +204,21 @@ Crop {
  reformat true
  crop false
  name Crop7
- xpos 1546
+ xpos 1435
  ypos 86
 }
 Dot {
  name Dot16
- xpos 1580
+ xpos 1469
  ypos 226
 }
-push $N7c1db630
+push $N52bc5890
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
  filter Simon
  name Reformat6
- xpos 1684
+ xpos 1573
  ypos 131
 }
 Crop {
@@ -225,55 +226,107 @@ Crop {
  reformat true
  crop false
  name Crop6
- xpos 1684
+ xpos 1573
  ypos 163
 }
+set N52bf4520 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
  name Switch6
- xpos 1684
+ xpos 1573
  ypos 223
 }
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ filter Simon
+ black_outside true
+ name Reformat12
+ xpos 1573
+ ypos 349
+}
+OCIOColorSpace {
+ in_colorspace linear
+ out_colorspace AlexaV3LogC
+ name OCIOColorSpace1
+ xpos 1573
+ ypos 422
+ disable {{root.nocc}}
+}
+OCIOFileTransform {
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/data/color/004_BUS_0100.cube
+ version 6
+ working_space linear
+ name OCIOFileTransform2
+ xpos 1573
+ ypos 467
+ disable {{root.nocc}}
+}
+OFXcom.2d4a.livegrain_v0 {
+ "FILM PROFILES" 1
+ preset "35MM KD V3 500T 5219 - V"
+ preset_id 0,006_35MM_5219_LVL5
+ shadowAsset "Shad 35mm KODAK V3 500T 5219 Level 5"
+ shadowAsset_id 0,MSNNizc6
+ midtoneAsset "Mid 35mm KODAK V3 500T 5219 Level 5"
+ midtoneAsset_id 0,ObOKd5mK
+ highlightAsset "High 35mm KODAK V3 500T 5219 Level 5"
+ highlightAsset_id 0,8HOKTIJm
+ gammaWorkflow sRGB
+ gammaWorkflow_id 0,srgb
+ SHADOWS 1
+ shadowLow 0
+ shadowHigh 0.026
+ shadowSoftnessLow 0.502
+ shadowSoftnessHigh 0.358
+ shadowGain 0.806
+ MIDTONES 1
+ midtoneLow 0.379
+ midtoneHigh 0.657
+ midtoneSoftnessLow 0.454
+ midtoneSoftnessHigh 0.611
+ midtoneGain 0.82
+ HIGHLIGHTS 1
+ highlightLow 0.87
+ highlightHigh 1
+ highlightSoftnessLow 0.556
+ highlightSoftnessHigh 1
+ highlightGain 0.95
+ revealMask false
+ ADVANCED 1
+ gangToneVal true
+ shadowTone 2
+ midtoneTone 2
+ highlightTone 2
+ gangZoomVal true
+ shadowZoom 1
+ midtoneZoom 1
+ highlightZoom 1
+ gangSharpnessVal true
+ shadowSharpness 0
+ midtoneSharpness 0
+ highlightSharpness 0
+ name "LIVEGRAIN Texture Mapping2"
+ xpos 1573
+ ypos 491
+ disable {{root.nocc}}
+}
+set N57282050 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
  black_outside true
  name Reformat3
- xpos 1684
- ypos 278
-}
-set N66d02ba0 [stack 0]
-Dot {
- name Dot5
- xpos 1794
- ypos 285
-}
-Dot {
- name Dot7
- xpos 1794
- ypos 516
-}
-push $N7c1db630
-Dot {
- name Dot10
- xpos 1859
- ypos -2
-}
-Switch {
- inputs 2
- which {{"EXR_READ.bbox.x > 0 ? 1 : 0"}}
- name Switch2
  xpos 1825
- ypos 513
+ ypos 487
 }
-set N66d115d0 [stack 0]
+set N55307580 [stack 0]
 Dot {
  name Dot19
  xpos 1859
  ypos 748
 }
-set N66d15780 [stack 0]
+set N55326a60 [stack 0]
 Dot {
  name Dot18
  xpos 2087
@@ -287,7 +340,7 @@ Shuffle {
  xpos 2053
  ypos 950
 }
-set N66d1a100 [stack 0]
+set N5532e810 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -322,7 +375,7 @@ Shuffle {
  xpos 2164
  ypos 589
 }
-set N66d35fe0 [stack 0]
+set N5535dc60 [stack 0]
 Dot {
  name Dot21
  xpos 2339
@@ -450,7 +503,7 @@ Crop {
  xpos 2678
  ypos 1154
 }
-push $N66d1a100
+push $N5532e810
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -473,14 +526,15 @@ Write {
  label "\[value file]"
  xpos 2053
  ypos 1635
+ disable true
 }
-push $N7de7e1d0
-push $N66d115d0
+push $N52bc05b0
+push $N55307580
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
  xpos 1974
- ypos 509
+ ypos 487
 }
 Crop {
  box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
@@ -502,7 +556,7 @@ Transform {
  xpos 1974
  ypos 630
 }
-push $N66d35fe0
+push $N5535dc60
 Merge2 {
  inputs 2
  name Merge17
@@ -548,14 +602,14 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 49 53 95 84 79 87 95 48 48 49 48 95 99 111 109 112 95 118 48 48 49 10 10 78 101 100 32 87 105 108 115 111 110 10 32 10 48 49 45 50 51 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 54 51 10 10 10 10 10 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116 10 10 10 10}
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
    }
- old_expression_markers {{3 24 27 36 40 49 53 56 58 61 67 81 83 82 84 83 85 84 86 85}
+ old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 52 99 62 99 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 0 45 1 45}
+ font_size_values {{53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 86 45 87 45 88 45 89 45 90 45 91 45 92 45 93 45 94 45 95 45 96 45 97 45 98 45 99 45 54 99 64 99 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 0 45 1 45}
    }
  cursor_position 128
  font {{ Arial : Regular : Arial.ttf : 0 }}
@@ -573,95 +627,13 @@ Text2 {
  xpos 2164
  ypos 717
 }
-set N7ddcf9c0 [stack 0]
+set N5546daf0 [stack 0]
 Dot {
  name Dot2
  xpos 1607
  ypos 720
 }
-push $N66d02ba0
-Dot {
- name Dot3
- xpos 1607
- ypos 285
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- filter Simon
- black_outside true
- name Reformat12
- xpos 1573
- ypos 349
-}
-set N7dde1b00 [stack 0]
-Dot {
- name Dot20
- xpos 1469
- ypos 356
-}
-Dot {
- name Dot17
- xpos 1469
- ypos 521
-}
-push $N7dde1b00
-OFXcom.2d4a.livegrain_v0 {
- "FILM PROFILES" 1
- preset "35MM KD V3 500T 5219 - V"
- preset_id 0,006_35MM_5219_LVL5
- shadowAsset "Shad 35mm KODAK V3 500T 5219 Level 5"
- shadowAsset_id 0,MSNNizc6
- midtoneAsset "Mid 35mm KODAK V3 500T 5219 Level 5"
- midtoneAsset_id 0,ObOKd5mK
- highlightAsset "High 35mm KODAK V3 500T 5219 Level 5"
- highlightAsset_id 0,8HOKTIJm
- gammaWorkflow sRGB
- gammaWorkflow_id 0,srgb
- SHADOWS 1
- shadowLow 0
- shadowHigh 0.026
- shadowSoftnessLow 0.502
- shadowSoftnessHigh 0.358
- shadowGain 0.806
- MIDTONES 1
- midtoneLow 0.379
- midtoneHigh 0.657
- midtoneSoftnessLow 0.454
- midtoneSoftnessHigh 0.611
- midtoneGain 0.82
- HIGHLIGHTS 1
- highlightLow 0.87
- highlightHigh 1
- highlightSoftnessLow 0.556
- highlightSoftnessHigh 1
- highlightGain 0.95
- revealMask false
- ADVANCED 1
- gangToneVal true
- shadowTone 2
- midtoneTone 2
- highlightTone 2
- gangZoomVal true
- shadowZoom 1
- midtoneZoom 1
- highlightZoom 1
- gangSharpnessVal true
- shadowSharpness 0
- midtoneSharpness 0
- highlightSharpness 0
- name "LIVEGRAIN Texture Mapping2"
- xpos 1573
- ypos 435
- disable {{root.nocc}}
-}
-Switch {
- inputs 2
- which {{"EXR_READ.format.r == 1920"}}
- name Switch7
- xpos 1573
- ypos 518
-}
-set N66d62fc0 [stack 0]
+push $N57282050
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -669,18 +641,19 @@ Switch {
  xpos 1573
  ypos 577
 }
+set N55607990 [stack 0]
 Dot {
  name Dot13
  xpos 1359
  ypos 580
 }
-set N66d6b160 [stack 0]
+set N5560e5b0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N66d6d620 [stack 0]
+set N55612490 [stack 0]
 Dot {
  name Dot12
  xpos 580
@@ -691,15 +664,15 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 4444 23.98"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 52 52 52 32 50 51 46 57 56}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 4444 24"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 52 52 52 32 50 52}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 33
+ cursor_position 36
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 2
  font_size 45
@@ -714,28 +687,6 @@ Text2 {
  name Text4
  xpos 546
  ypos 666
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat5
- xpos 546
- ypos 767
-}
-OCIOColorSpace {
- in_colorspace linear
- out_colorspace AlexaV3LogC
- name OCIOColorSpace3
- xpos 546
- ypos 810
- disable {{root.nocc}}
-}
-OCIOFileTransform {
- file "\[value root.txt_ih_shot_path]/data/color/\[value root.txt_ih_shot].cube"
- working_space linear
- name OCIOFileTransform1
- xpos 546
- ypos 853
- disable {{root.nocc}}
 }
 Text2 {
  font_size_toolbar 30
@@ -964,7 +915,7 @@ Text2 {
  disable {{root.noburnin}}
 }
 Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/VFX/\[value root.ti_ih_file_name]_vfx.mov"
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_vfx.mov
  colorspace rec709
  raw true
  file_type mov
@@ -995,21 +946,21 @@ Write {
  xpos 546
  ypos 1610
 }
-push $N66d6d620
+push $N55612490
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 422 HQ 23.98"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 50 50 32 72 81 32 50 51 46 57 56}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 422 HQ 24"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 50 50 32 72 81 32 50 52}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 33
+ cursor_position 38
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 2
  font_size 45
@@ -1025,45 +976,23 @@ Text2 {
  xpos 940
  ypos 659
 }
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat9
- xpos 940
- ypos 766
-}
-OCIOColorSpace {
- in_colorspace linear
- out_colorspace AlexaV3LogC
- name OCIOColorSpace2
- xpos 940
- ypos 835
- disable {{root.nocc}}
-}
-OCIOFileTransform {
- file "\[value root.txt_ih_shot_path]/data/color/\[value root.txt_ih_shot].cube"
- working_space linear
- name OCIOFileTransform3
- xpos 940
- ypos 876
- disable {{root.nocc}}
-}
 Dot {
  name Dot6
  xpos 974
- ypos 1313
+ ypos 1337
 }
-set N66e27540 [stack 0]
-push $N66e27540
+set N52f47f50 [stack 0]
+push $N52f47f50
 Dot {
  name Dot8
  xpos 1111
- ypos 1313
+ ypos 1337
 }
 Group {
  name Group1
  label "Export Burn-In"
  xpos 1077
- ypos 1362
+ ypos 1386
 }
  Input {
   inputs 0
@@ -1232,14 +1161,14 @@ end_group
 Dot {
  name Dot4
  xpos 1111
- ypos 1435
+ ypos 1459
 }
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
  name Switch5
  xpos 940
- ypos 1432
+ ypos 1456
 }
 Text2 {
  font_size_toolbar 30
@@ -1277,7 +1206,7 @@ Text2 {
  shadow_size 1
  name Text19
  xpos 940
- ypos 1456
+ ypos 1480
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1315,7 +1244,7 @@ Text2 {
  shadow_size 1
  name Text20
  xpos 940
- ypos 1480
+ ypos 1504
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1353,7 +1282,7 @@ Text2 {
  shadow_size 1
  name Text21
  xpos 940
- ypos 1504
+ ypos 1528
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1389,7 +1318,7 @@ Text2 {
  shadow_size 1
  name Text22
  xpos 940
- ypos 1528
+ ypos 1552
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1426,7 +1355,7 @@ Text2 {
  shadow_size 1
  name Text23
  xpos 940
- ypos 1552
+ ypos 1576
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1464,11 +1393,11 @@ Text2 {
  shadow_size 1
  name Text26
  xpos 940
- ypos 1576
+ ypos 1600
  disable {{root.noburnin}}
 }
 Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/EXPORT/\[value root.ti_ih_file_name]_export.mov"
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_export.mov
  colorspace rec709
  raw true
  file_type mov
@@ -1505,14 +1434,12 @@ Constant {
  channels rgb
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Constant3
- selected true
  xpos 1467
  ypos 870
 }
 Shuffle {
  alpha white
  name Shuffle4
- selected true
  xpos 1467
  ypos 960
 }
@@ -1520,7 +1447,6 @@ Reformat {
  inputs 0
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  name Reformat4
- selected true
  xpos 1613
  ypos 852
 }
@@ -1528,7 +1454,6 @@ Rectangle {
  invert true
  area {0 942 1920 1080}
  name Rectangle1
- selected true
  xpos 1613
  ypos 924
 }
@@ -1536,13 +1461,11 @@ Rectangle {
  area {0 0 1920 138}
  color 0
  name Rectangle2
- selected true
  xpos 1613
  ypos 963
 }
 Dot {
  name Dot1
- selected true
  xpos 1647
  ypos 1011
 }
@@ -1550,31 +1473,29 @@ Merge2 {
  inputs 2
  operation out
  name Merge16
- selected true
  xpos 1467
  ypos 1008
 }
 Dot {
  name Dot11
- selected true
  xpos 1501
  ypos 1083
 }
-push $N66d6b160
+push $N5560e5b0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 DNxHD 115 23.98"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 68 78 120 72 68 32 49 49 53 32 50 51 46 57 56}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 DNxHD 115 24"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 68 78 120 72 68 32 49 49 53 32 50 52}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 31
+ cursor_position 34
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 2
  font_size 45
@@ -1589,28 +1510,6 @@ Text2 {
  name Text6
  xpos 1325
  ypos 660
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- name Reformat1
- xpos 1325
- ypos 767
-}
-OCIOColorSpace {
- in_colorspace linear
- out_colorspace AlexaV3LogC
- name OCIOColorSpace1
- xpos 1325
- ypos 809
- disable {{root.nocc}}
-}
-OCIOFileTransform {
- file "\[value root.txt_ih_shot_path]/data/color/\[value root.txt_ih_shot].cube"
- working_space linear
- name OCIOFileTransform2
- xpos 1325
- ypos 843
- disable {{root.nocc}}
 }
 Merge2 {
  inputs 2
@@ -1656,7 +1555,7 @@ Text2 {
  shadow_size 1
  name Text3
  xpos 1325
- ypos 1322
+ ypos 1498
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1694,7 +1593,7 @@ Text2 {
  shadow_size 1
  name Text25
  xpos 1325
- ypos 1346
+ ypos 1522
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1703,7 +1602,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 49 47 50 56 47 49 57}
+ old_message {{48 49 47 50 57 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1732,7 +1631,7 @@ Text2 {
  shadow_size 1
  name Text9
  xpos 1325
- ypos 1370
+ ypos 1546
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1741,7 +1640,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[value root.ti_ih_file_name]"
- old_message {{48 48 52 95 66 85 83 95 48 49 48 48 95 99 111 109 112 95 118 52 48 49}
+ old_message {{48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51}
    }
  old_expression_markers {{0 21}
    }
@@ -1768,7 +1667,7 @@ Text2 {
  shadow_size 1
  name Text12
  xpos 1325
- ypos 1394
+ ypos 1570
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1777,15 +1676,15 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "v\[value root.ti_ih_version] \[value root.ti_ih_notes_1]"
- old_message {{118 52 48 49 32 83 117 98 109 105 115 115 105 111 110 32 84 101 115 116}
+ old_message {{118 53 48 51 32 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46}
    }
- old_expression_markers {{1 3 5 19}
+ old_expression_markers {{1 3 5 31}
    }
  box {30 0 1890 48}
  yjustify bottom
  transforms {{0 2}
    }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30}
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30 22 30 23 30 24 30 25 30 26 30 27 30 28 30 29 30 30 30 31 30}
    }
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 0.65
@@ -1805,7 +1704,7 @@ Text2 {
  shadow_size 1
  name Text13
  xpos 1325
- ypos 1418
+ ypos 1594
  disable {{root.noburnin}}
 }
 Text2 {
@@ -1814,7 +1713,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[format %04d \[frame]] / \[value root.last_frame]"
- old_message {{49 48 48 49 32 47 32 49 49 54 51}
+ old_message {{49 48 48 48 32 47 32 49 49 55 57}
    }
  old_expression_markers {{0 3 7 10}
    }
@@ -1843,11 +1742,11 @@ Text2 {
  shadow_size 1
  name Text14
  xpos 1325
- ypos 1442
+ ypos 1618
  disable {{root.noburnin}}
 }
 Write {
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/AVID/\[value root.ti_ih_file_name].mov"
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_avid.mov
  colorspace rec709
  raw true
  file_type mov
@@ -1871,50 +1770,13 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
- in_colorspace linear
- out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1895
 }
-Read {
- inputs 0
- file_type exr
- file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/img/comp/004_BUS_0100_comp_v401/004_BUS_0100_comp_v401.####.exr
- format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
- first 1001
- last 1179
- origfirst 1001
- origlast 1179
- origset true
- on_error black
- version 1
- colorspace linear
- auto_alpha true
- metadatafilter timecode
- name EXR_READ_EXAMPLE
- xpos 1393
- ypos -267
-}
-push $N66d62fc0
-push $N7dde1b00
-Viewer {
- inputs 2
- frame_range 1001-1163
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {0.1769325137 0.07312883437 0.212269932 0.1330061406}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 2842
- ypos 1192
-}
-push $N7ddcf9c0
+push $N5546daf0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1956,7 +1818,7 @@ Crop {
  xpos 2164
  ypos 837
 }
-push $N66d15780
+push $N55326a60
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1977,4 +1839,60 @@ Write {
  label "\[value file]"
  xpos 1825
  ypos 1339
+ disable true
+}
+push $N52bf4520
+push $N55607990
+Viewer {
+ inputs 2
+ frame 1000
+ frame_range 1001-1179
+ frame_increment 5
+ fps 23.97602463
+ colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 2842
+ ypos 1192
+}
+Read {
+ inputs 0
+ file_type exr
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0010/img/comp/004_BUS_0010_temp_v503/004_BUS_0010_temp_v503.####.exr
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ first 1001
+ last 1442
+ origfirst 1001
+ origlast 1442
+ origset true
+ on_error black
+ version 1
+ colorspace linear
+ auto_alpha true
+ metadatafilter timecode
+ name EXR_READ_EXAMPLE_HDRES
+ xpos 1152
+ ypos -425
+}
+Read {
+ inputs 0
+ file_type exr
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/img/comp/004_BUS_0100_comp_v401/004_BUS_0100_comp_v401.####.exr
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
+ first 1001
+ last 1179
+ origfirst 1001
+ origlast 1179
+ origset true
+ on_error black
+ version 1
+ colorspace linear
+ auto_alpha true
+ metadatafilter timecode
+ name EXR_READ_EXAMPLE_FULLRES
+ xpos 1148
+ ypos -291
 }
