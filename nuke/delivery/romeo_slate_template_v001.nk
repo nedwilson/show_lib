@@ -130,7 +130,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 1
+ version 2
  name Read2
  xpos 3071
  ypos 347
@@ -149,7 +149,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N8fd8d960 [stack 0]
+set N1abeed50 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -166,7 +166,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 99
+ version 105
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -181,7 +181,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N8fdb5c40 [stack 0]
+set N1af17940 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -192,7 +192,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N8fdc28a0 [stack 0]
+set N1af23df0 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -206,7 +206,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N8fdca680 [stack 0]
+set N1af2b7c0 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -241,7 +241,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set N8fdf9910 [stack 0]
+set N1af5ab70 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -369,7 +369,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N8fdca680
+push $N1af2b7c0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -377,7 +377,6 @@ Switch {
  xpos 2722
  ypos 1154
 }
-set N91092a20 [stack 0]
 Write {
  channels rgba
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]_matte/\[value root.ti_ih_format]/\[value root.ti_ih_file_name]_matte.%04d.tif"
@@ -395,14 +394,14 @@ Write {
  ypos 1635
  disable true
 }
-push $N8fd8d960
-push $N8fdb5c40
+push $N1abeed50
+push $N1af17940
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set N910af020 [stack 0]
+set N1c010160 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -428,7 +427,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N910af020
+push $N1c010160
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -445,7 +444,7 @@ Crop {
  xpos 1573
  ypos 163
 }
-set N910dcbe0 [stack 0]
+set N1c03dd20 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -453,7 +452,7 @@ Switch {
  xpos 1573
  ypos 223
 }
-set N910e5370 [stack 0]
+set N1c0464b0 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -488,7 +487,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $N8fdf9910
+push $N1af5ab70
 Merge2 {
  inputs 2
  name Merge17
@@ -600,7 +599,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $N8fdc28a0
+push $N1af23df0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -634,7 +633,7 @@ Read {
  origlast 1442
  origset true
  on_error black
- version 39
+ version 67
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -653,7 +652,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 98
+ version 104
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -661,24 +660,8 @@ Read {
  xpos 1148
  ypos -291
 }
-push $N910dcbe0
-push $N91092a20
-Viewer {
- inputs 2
- frame_range 1001-1179
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
- samplepoints {{-0.1575864106 0.4610427618}
-   }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 3511
- ypos 1192
-}
-push $N8fd8d960
-push $N910e5370
+push $N1abeed50
+push $N1c0464b0
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -753,7 +736,7 @@ OFXcom.2d4a.livegrain_v0 {
  ypos 491
  disable {{root.nocc}}
 }
-set N8d880c20 [stack 0]
+set N10f39220 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -877,7 +860,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N8d880c20
+push $N10f39220
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -890,13 +873,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N913d7810 [stack 0]
+set N1c3ec590 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N913db6f0 [stack 0]
+set N1c3f0470 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -939,8 +922,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N914d25d0 [stack 0]
-push $N914d25d0
+set N1c41def0 [stack 0]
+push $N1c41def0
 Dot {
  name Dot8
  xpos 1111
@@ -1054,7 +1037,7 @@ Group {
   font_height_toolbar 100
   opacity 0.5
   message "\[date %Y-%m-%d]"
-  old_message {{50 48 49 57 45 48 51 45 48 52}
+  old_message {{50 48 49 57 45 48 51 45 48 56}
     }
   old_expression_markers {{0 9}
     }
@@ -1128,6 +1111,7 @@ Switch {
  xpos 940
  ypos 1456
 }
+set N1c4c8900 [stack 0]
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1379,6 +1363,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1437,7 +1423,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N913d7810
+push $N1c3ec590
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1734,13 +1720,15 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1896
 }
-push $N913db6f0
+push $N1c3f0470
 Dot {
  name Dot12
  xpos 580
@@ -2034,9 +2022,38 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 123
+ in_colorspace linear
+ out_colorspace linear
  name MOV_VFX_WRITE
  label "\[value file]"
- selected true
  xpos 546
  ypos 1611
+}
+push $N1c03dd20
+push $N1c4c8900
+Viewer {
+ inputs 2
+ frame_range 1001-1179
+ frame_increment 5
+ fps 23.97602463
+ colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 3511
+ ypos 1192
+}
+push $N1c4c8900
+Write {
+ file /path/to/thumbnail.%04d.png
+ raw true
+ file_type png
+ checkHashOnRead false
+ name PNG_THUMBNAIL_WRITE
+ selected true
+ xpos 759
+ ypos 1447
+ disable true
 }
