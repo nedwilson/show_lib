@@ -11,7 +11,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
                 <split size="1272"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -20,7 +20,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                 </dock>
             </splitter>
             <split size="615"/>
-            <dock id="" activePageId="Properties.1">
+            <dock id="" activePageId="Properties.1" focus="true">
                 <page id="Properties.1"/>
                 <page id="uk.co.thefoundry.backgroundrenderview.1"/>
             </dock>
@@ -54,6 +54,7 @@ Root {
  int16Lut sRGB
  logLut Cineon
  floatLut linear
+ free_type_font_path /Volumes/romeo_inhouse/romeo/SHARED/data/fonts/
  addUserKnob {20 mariTab l Mari}
  addUserKnob {26 cmdStatus l "listen status" t "The status of Nuke's command port" T <b>Disabled</b>}
  addUserKnob {26 sendStatus l "send status" t "The status of Nuke's connection to Mari" T <b>Inactive</b>}
@@ -130,7 +131,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 3
+ version 4
  name Read2
  xpos 3071
  ypos 347
@@ -149,7 +150,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N4f990350 [stack 0]
+set N66f7c280 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -166,7 +167,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 174
+ version 180
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -181,7 +182,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N4e633890 [stack 0]
+set N66f90260 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -192,7 +193,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N4e63a850 [stack 0]
+set N66f978b0 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -206,7 +207,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N4e63f1d0 [stack 0]
+set N66f9c230 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -241,7 +242,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set N4e65af00 [stack 0]
+set N66fb7f60 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -369,7 +370,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N4e63f1d0
+push $N66f9c230
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -394,14 +395,14 @@ Write {
  ypos 1635
  disable true
 }
-push $N4f990350
-push $N4e633890
+push $N66f7c280
+push $N66f90260
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set N4fb2fc40 [stack 0]
+set N6819c7d0 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -427,7 +428,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N4fb2fc40
+push $N6819c7d0
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -444,7 +445,7 @@ Crop {
  xpos 1573
  ypos 163
 }
-set N4fb4ae30 [stack 0]
+set N681b7bc0 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -452,7 +453,7 @@ Switch {
  xpos 1573
  ypos 223
 }
-set N4fb4fef0 [stack 0]
+set N681bcc80 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -487,7 +488,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $N4e65af00
+push $N66fb7f60
 Merge2 {
  inputs 2
  name Merge17
@@ -599,7 +600,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $N4e63a850
+push $N66f978b0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -633,7 +634,7 @@ Read {
  origlast 1442
  origset true
  on_error black
- version 202
+ version 204
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -652,7 +653,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 173
+ version 179
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -660,8 +661,8 @@ Read {
  xpos 1148
  ypos -291
 }
-push $N4f990350
-push $N4fb4fef0
+push $N66f7c280
+push $N681bcc80
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -758,7 +759,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set N53155b70 [stack 0]
+set N6803f510 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -882,7 +883,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N53155b70
+push $N6803f510
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -895,13 +896,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N4f848ef0 [stack 0]
+set N680cdd50 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N4f862350 [stack 0]
+set N680d0210 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -944,8 +945,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N4f88f5a0 [stack 0]
-push $N4f88f5a0
+set N680e7aa0 [stack 0]
+push $N680e7aa0
 Dot {
  name Dot8
  xpos 1111
@@ -1133,7 +1134,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set N4fa59210 [stack 0]
+set N68749430 [stack 0]
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1385,6 +1386,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1443,7 +1446,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N4f848ef0
+push $N680cdd50
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1740,13 +1743,15 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1896
 }
-push $N4fa59210
+push $N68749430
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -1759,8 +1764,8 @@ Write {
  ypos 1447
  disable true
 }
-push $N4fb4ae30
-push $N4f862350
+push $N681b7bc0
+push $N680d0210
 Dot {
  name Dot12
  xpos 580
@@ -2064,14 +2069,12 @@ Viewer {
  frame_range 1001-1179
  frame_increment 5
  fps 23.97602463
- gain 8.8
  colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
  samplepoints {{-0.1575864106 0.4610427618}
    }
  viewerProcess None
  translate {0.1410000026 -0.1014999971}
  name Viewer1
- selected true
  xpos 3511
  ypos 1192
 }
