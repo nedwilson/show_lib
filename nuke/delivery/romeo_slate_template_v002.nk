@@ -1,24 +1,22 @@
-#! /usr/local/Nuke11.3v2/libnuke-11.3.2.so -nx
+#! /Applications/Nuke11.3v2/Nuke11.3v2.app/Contents/MacOS/libnuke-11.3.2.dylib -nx
 version 11.3 v2
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="0" w="1920" h="1080" maximized="1" fullscreen="1" screen="0">
+    <window x="0" y="23" w="2560" h="1293" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
                 <page id="Toolbar.1"/>
             </dock>
-            <split size="1257" stretch="1"/>
+            <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="605"/>
-                <dock id="" activePageId="Viewer.1">
-                    <page id="Viewer.1"/>
-                </dock>
-                <split size="425"/>
+                <split size="1272"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                    <page id="Error Console.1"/>
                 </dock>
             </splitter>
             <split size="615"/>
@@ -28,11 +26,19 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
         </splitter>
     </window>
+    <window x="2560" y="0" w="2560" h="1424" maximized="1" screen="1">
+        <splitter orientation="2">
+            <split size="1424"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+        </splitter>
+    </window>
 </layout>
 }
 Root {
  inputs 0
- name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/delivery/romeo_slate_template_v002.nk
+ name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v002.nk
  frame 1001
  first_frame 1001
  last_frame 1179
@@ -125,7 +131,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 4
+ version 5
  name Read2
  xpos 3071
  ypos 347
@@ -144,7 +150,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N70ecc90 [stack 0]
+set Ne4683ba0 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -161,7 +167,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 180
+ version 182
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -176,7 +182,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N77175e0 [stack 0]
+set Ne46c18d0 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -187,7 +193,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N7726f10 [stack 0]
+set Ne46ce260 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -201,7 +207,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N77305f0 [stack 0]
+set Ne46d6040 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -236,7 +242,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set N776b5e0 [stack 0]
+set Ne5109370 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -364,7 +370,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N77305f0
+push $Ne46d6040
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -389,14 +395,14 @@ Write {
  ypos 1635
  disable true
 }
-push $N70ecc90
-push $N77175e0
+push $Ne4683ba0
+push $Ne46c18d0
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set N78557f0 [stack 0]
+set Ne52220c0 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -422,7 +428,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N78557f0
+push $Ne52220c0
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -439,7 +445,7 @@ Crop {
  xpos 1573
  ypos 163
 }
-set N788bd10 [stack 0]
+set Ne524fd70 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -447,7 +453,7 @@ Switch {
  xpos 1573
  ypos 223
 }
-set N7895e80 [stack 0]
+set Ne5258600 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -482,7 +488,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $N776b5e0
+push $Ne5109370
 Merge2 {
  inputs 2
  name Merge17
@@ -594,7 +600,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $N7726f10
+push $Ne46ce260
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -628,7 +634,7 @@ Read {
  origlast 1442
  origset true
  on_error black
- version 204
+ version 206
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -647,7 +653,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 179
+ version 181
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -655,8 +661,8 @@ Read {
  xpos 1148
  ypos -291
 }
-push $N70ecc90
-push $N7895e80
+push $Ne4683ba0
+push $Ne5258600
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -682,7 +688,8 @@ OCIOFileTransform {
  ypos 375
  disable {{root.nocc}}
 }
-OFXcom.2d4a.livegrain_v0 { "FILM PROFILES" 1
+OFXcom.2d4a.livegrain_v0 {
+ "FILM PROFILES" 1
  preset "35MM KD V3 500T 5219 - V"
  preset_id 0,006_35MM_5219_LVL5
  shadowAsset "Shad 35mm KODAK V3 500T 5219 Level 5"
@@ -729,11 +736,6 @@ OFXcom.2d4a.livegrain_v0 { "FILM PROFILES" 1
  xpos 1573
  ypos 399
  disable {{root.nocc}}
-
- xpos 1573
- ypos 399
- selected false
- disable {{root.nocc}}
 }
 Reformat {
  format "1920 1038 0 0 1920 1038 1 HD 1.85"
@@ -757,7 +759,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set N7a1b730 [stack 0]
+set Ne5557c00 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -851,7 +853,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 51 45 49 51 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
    }
  old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
    }
@@ -881,7 +883,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N7a1b730
+push $Ne5557c00
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -894,13 +896,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N7b20850 [stack 0]
+set Ne55e9d40 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N7b25400 [stack 0]
+set Ne55edc20 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -943,8 +945,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N7b5a1e0 [stack 0]
-push $N7b5a1e0
+set Ne561b6a0 [stack 0]
+push $Ne561b6a0
 Dot {
  name Dot8
  xpos 1111
@@ -1132,7 +1134,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set N7c30350 [stack 0]
+set Ne5666b90 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -1145,8 +1147,8 @@ Write {
  ypos 1447
  disable true
 }
-push $N788bd10
-push $N7b25400
+push $Ne524fd70
+push $Ne55edc20
 Dot {
  name Dot12
  xpos 580
@@ -1157,15 +1159,15 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 ProRes 4444 24"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 114 111 82 101 115 32 52 52 52 52 32 50 52}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 Photo-JPEG 24"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 104 111 116 111 45 74 80 69 71 32 50 52}
    }
  box {1804.5 185.625 4299.5 2082.375}
  transforms {{0 2}
    }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
    }
- cursor_position 36
+ cursor_position 32
  font {{ Arial : Regular : Arial.ttf : 0 }}
  global_font_scale 2
  font_size 45
@@ -1272,7 +1274,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 50 47 49 57}
+ old_message {{48 51 47 49 51 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1383,7 +1385,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[format %04d \[frame]] / \[value root.last_frame]"
- old_message {{49 48 48 49 32 47 32 49 49 55 57}
+ old_message {{49 48 53 48 32 47 32 49 49 55 57}
    }
  old_expression_markers {{0 3 7 10}
    }
@@ -1420,21 +1422,24 @@ Write {
  colorspace rec709
  raw true
  file_type mov
+ meta_codec jpeg
+ mov32_codec jpeg
+ mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov64_codec jpeg
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
  mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
- mov64_bitrate 20000
- mov64_bitrate_tolerance 40000000
- mov64_quality_min 2
- mov64_quality_max 31
+ mov64_bitrate 40000000
+ mov64_bitrate_tolerance 2000000
+ mov64_quality_min 1
+ mov64_quality_max 1
  mov64_gop_size 12
  mov64_b_frames 0
  mov64_write_nclc false
  checkHashOnRead false
- version 123
+ version 125
  name MOV_VFX_WRITE
  label "\[value file]"
  xpos 546
@@ -1454,7 +1459,7 @@ Viewer {
  xpos 3511
  ypos 1192
 }
-push $N7c30350
+push $Ne5666b90
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1686,6 +1691,7 @@ Write {
  colorspace rec709
  raw true
  file_type mov
+ mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov64_codec apcn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
  mov64_fps 24
@@ -1701,6 +1707,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1759,7 +1767,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N7b20850
+push $Ne55e9d40
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -2036,6 +2044,7 @@ Write {
  colorspace rec709
  raw true
  file_type mov
+ mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov64_codec AVdn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
  mov64_fps 24
@@ -2051,6 +2060,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
