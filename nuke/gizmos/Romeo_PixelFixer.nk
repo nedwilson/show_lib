@@ -1,0 +1,335 @@
+#! /Applications/Nuke11.3v2/Nuke11.3v2.app/Contents/MacOS/libnuke-11.3.2.dylib -nx
+version 11.3 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="23" w="2560" h="1293" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1897" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1272"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                    <page id="Error Console.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="2560" y="0" w="2560" h="1424" maximized="1" screen="1">
+        <splitter orientation="2">
+            <split size="1424"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/gizmos/Romeo_PixelFixer.nk
+ frame 1001
+ first_frame 1001
+ last_frame 1088
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Read {
+ inputs 0
+ file_type exr
+ file /Volumes/romeo_primary/SHOTS/ARK/088_ARK_0020/img/plates/088_ARK_0020_PLATE/088_ARK_0020_PLATE.####.exr
+ format "4971 2349 0 0 4971 2349 1 VFX Full AP v011"
+ first 1001
+ last 1091
+ origfirst 1001
+ origlast 1091
+ origset true
+ name Read1
+ xpos -665
+ ypos -377
+}
+set Nf651c750 [stack 0]
+push $Nf651c750
+Group {
+ name Romeo_PixelFixer
+ tile_color 0x6d8e6dff
+ label "ATTACH TO 4K \nALEXA 65 SCAN\n"
+ note_font "Verdana Bold Bold Bold"
+ note_font_size 20
+ note_font_color 0xff
+ xpos -775
+ ypos -232
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 409
+  ypos -473
+ }
+ Dot {
+  name Dot3
+  xpos 443
+  ypos -433
+ }
+set Nf6540690 [stack 0]
+ Roto {
+  output alpha
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44800000 x44428000 0 0 0 0 0 0 0
+   {{1 1 -}}}
+    {a fx 1 fy 1 pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Bezier1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {x3d4d0000 0}
+        {x45157e00 x444e059a}
+        {xbd4d0000 0}
+        {0 x3dcce000}
+        {x45158000 x444d7d9a}
+        {0 xbdcce000}
+        {xbd4d0000 xbd4cc000}
+        {x4515a133 x444d899a}
+        {x3d4d0000 x3d4cc000}
+        {0 xbd4cc000}
+        {x45159fcd x444e0733}
+        {0 x3d4cc000}}}     idem}
+     {tx 1 x45158f00 x444dc401}
+     {a fx x40000000 fy x40000000 osw x41200000 osf 0 str 1 spx x44800000 spy x44428000 sb 1 tt x40800000 ff x40000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 778}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  feather 2
+  feather_falloff 2
+  source_black_outside true
+  name Roto1
+  xpos -252
+  ypos -101
+ }
+set Nededeca0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 234
+  ypos 76
+ }
+set Nf6101e40 [stack 0]
+push $Nf6540690
+ Transform {
+  translate {2 0}
+  center {1024 778}
+  name Transform4
+  xpos 356
+  ypos -52
+ }
+ Remove {
+  channels alpha
+  name Remove4
+  xpos 356
+  ypos -31
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 495
+  ypos -37
+ }
+ Dot {
+  name Dot5
+  xpos 529
+  ypos 48
+ }
+set Nf8a5ec20 [stack 0]
+ Merge2 {
+  inputs 2+1
+  name Merge5
+  xpos 356
+  ypos 132
+ }
+push $Nf6101e40
+push $Nf6540690
+ Transform {
+  translate {-2 0}
+  center {1024 778}
+  name Transform3
+  xpos 253
+  ypos -53
+ }
+ Remove {
+  channels alpha
+  name Remove3
+  xpos 253
+  ypos -29
+ }
+push $Nf8a5ec20
+ Merge2 {
+  inputs 2+1
+  name Merge4
+  xpos 250
+  ypos 133
+ }
+push $Nf6101e40
+push $Nf6540690
+ Transform {
+  translate {0 2}
+  center {2485.5 1174.5}
+  name Transform2
+  xpos 145
+  ypos -55
+ }
+ Remove {
+  channels alpha
+  name Remove2
+  xpos 145
+  ypos -31
+ }
+push $Nf8a5ec20
+ Merge2 {
+  inputs 2+1
+  name Merge3
+  xpos 145
+  ypos 133
+ }
+push $Nf6101e40
+push $Nf6540690
+ Transform {
+  translate {0 -2}
+  center {2485.5 1174.5}
+  name Transform1
+  xpos 45
+  ypos -57
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 45
+  ypos -33
+ }
+push $Nf8a5ec20
+ Merge2 {
+  inputs 2+1
+  name Merge1
+  xpos 45
+  ypos 134
+ }
+push $Nededeca0
+ Invert {
+  name Invert1
+  xpos -252
+  ypos -37
+ }
+push $Nf6540690
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -252
+  ypos 24
+ }
+ Premult {
+  name Premult1
+  xpos -252
+  ypos 66
+ }
+ Merge2 {
+  inputs 2
+  mix 0.25
+  name Merge9
+  xpos -63
+  ypos 271
+ }
+ Merge2 {
+  inputs 2
+  mix 0.25
+  name Merge2
+  xpos -7
+  ypos 315
+ }
+ Merge2 {
+  inputs 2
+  mix 0.25
+  name Merge6
+  xpos 59
+  ypos 350
+ }
+ Merge2 {
+  inputs 2
+  mix 0.25
+  name Merge7
+  xpos 149
+  ypos 386
+ }
+push $Nf6540690
+ Switch {
+  inputs 2
+  which {{"\[string equal \[metadata exr/CameraID] 1378895159 ]"}}
+  name Switch
+  label "TEST_TO_SEE_\nIF_CAMERA_ID\n_IS_1378895159"
+  note_font Verdana
+  note_font_size 15
+  selected true
+  xpos 759
+  ypos 481
+ }
+ Output {
+  name Output1
+  xpos 759
+  ypos 581
+ }
+end_group
+Viewer {
+ inputs 2
+ frame_range 1001-1088
+ colour_sample_bbox {0.009857171215 -0.1559042484 0.01025950536 -0.155501917}
+ viewerProcess None
+ translate {-0.01429999992 -0.1569000036}
+ name Viewer1
+ xpos -665
+ ypos -98
+}
