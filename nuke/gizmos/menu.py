@@ -11,4 +11,5 @@ def echo_camera_format_node():
 menubar = nuke.menu("Nuke")
 m = menubar.addMenu("Romeo")
 m.addCommand("Echo Camera Format", 'echo_camera_format_node()')
+m.addCommand("Romeo Pixel Fixer", r'nuke.createNode("Romeo_PixelFixer")')
 m.addCommand("Romeo Reformat", r'nuke.createNode("Romeo_Reformat")')
