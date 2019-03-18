@@ -17,6 +17,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="DopeSheet.1"/>
                     <page id="uk.co.thefoundry.scripteditor.1"/>
                     <page id="Error Console.1"/>
+                    <page id="DAG.2"/>
                 </dock>
             </splitter>
             <split size="615"/>
@@ -43,7 +44,7 @@ Root {
  first_frame 1001
  last_frame 1088
  lock_range true
- format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ format "4971 2349 0 0 4971 2349 1 VFX Full AP v011"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
  colorManagement Nuke
@@ -68,17 +69,15 @@ Read {
  xpos -665
  ypos -377
 }
-set Nf651c750 [stack 0]
-push $Nf651c750
 Group {
  name Romeo_PixelFixer
  tile_color 0x6d8e6dff
  label "ATTACH TO 4K \nALEXA 65 SCAN\n"
- note_font "Verdana Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold"
  note_font_size 20
  note_font_color 0xff
- xpos -775
- ypos -232
+ xpos -665
+ ypos -273
 }
  Input {
   inputs 0
@@ -91,9 +90,10 @@ Group {
   xpos 443
   ypos -433
  }
-set Nf6540690 [stack 0]
+set Ne9520c00 [stack 0]
  Roto {
   output alpha
+  replace true
   curves {{{v x3f99999a}
   {f 0}
   {n
@@ -148,17 +148,18 @@ set Nf6540690 [stack 0]
   feather_falloff 2
   source_black_outside true
   name Roto1
+  selected true
   xpos -252
-  ypos -101
+  ypos -98
  }
-set Nededeca0 [stack 0]
+set Ne95247d0 [stack 0]
  Dot {
   name Dot4
   xpos 234
   ypos 76
  }
-set Nf6101e40 [stack 0]
-push $Nf6540690
+set Ne9410050 [stack 0]
+push $Ne9520c00
  Transform {
   translate {2 0}
   center {1024 778}
@@ -184,15 +185,15 @@ push $Nf6540690
   xpos 529
   ypos 48
  }
-set Nf8a5ec20 [stack 0]
+set Ne7b79230 [stack 0]
  Merge2 {
   inputs 2+1
   name Merge5
   xpos 356
   ypos 132
  }
-push $Nf6101e40
-push $Nf6540690
+push $Ne9410050
+push $Ne9520c00
  Transform {
   translate {-2 0}
   center {1024 778}
@@ -206,15 +207,15 @@ push $Nf6540690
   xpos 253
   ypos -29
  }
-push $Nf8a5ec20
+push $Ne7b79230
  Merge2 {
   inputs 2+1
   name Merge4
   xpos 250
   ypos 133
  }
-push $Nf6101e40
-push $Nf6540690
+push $Ne9410050
+push $Ne9520c00
  Transform {
   translate {0 2}
   center {2485.5 1174.5}
@@ -228,15 +229,15 @@ push $Nf6540690
   xpos 145
   ypos -31
  }
-push $Nf8a5ec20
+push $Ne7b79230
  Merge2 {
   inputs 2+1
   name Merge3
   xpos 145
   ypos 133
  }
-push $Nf6101e40
-push $Nf6540690
+push $Ne9410050
+push $Ne9520c00
  Transform {
   translate {0 -2}
   center {2485.5 1174.5}
@@ -250,20 +251,20 @@ push $Nf6540690
   xpos 45
   ypos -33
  }
-push $Nf8a5ec20
+push $Ne7b79230
  Merge2 {
   inputs 2+1
   name Merge1
   xpos 45
   ypos 134
  }
-push $Nededeca0
+push $Ne95247d0
  Invert {
   name Invert1
   xpos -252
   ypos -37
  }
-push $Nf6540690
+push $Ne9520c00
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -305,7 +306,7 @@ push $Nf6540690
   xpos 149
   ypos 386
  }
-push $Nf6540690
+push $Ne9520c00
  Switch {
   inputs 2
   which {{"\[string equal \[metadata exr/CameraID] 1378895159 ]"}}
@@ -313,7 +314,6 @@ push $Nf6540690
   label "TEST_TO_SEE_\nIF_CAMERA_ID\n_IS_1378895159"
   note_font Verdana
   note_font_size 15
-  selected true
   xpos 759
   ypos 481
  }
@@ -324,7 +324,6 @@ push $Nf6540690
  }
 end_group
 Viewer {
- inputs 2
  frame_range 1001-1088
  colour_sample_bbox {0.009857171215 -0.1559042484 0.01025950536 -0.155501917}
  viewerProcess None
