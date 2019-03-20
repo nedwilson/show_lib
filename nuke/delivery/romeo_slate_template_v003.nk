@@ -15,7 +15,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="Viewer.1"/>
                 </dock>
                 <split size="384"/>
-                <dock id="" activePageId="DAG.1" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -37,7 +37,6 @@ Root {
  first_frame 1001
  last_frame 1179
  lock_range true
- fps 23.976
  format "3272 1768 0 0 3272 1768 1 Submission Format"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
@@ -144,7 +143,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N7f0dd20 [stack 0]
+set N70ff570 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -166,7 +165,6 @@ Read {
  auto_alpha true
  metadatafilter timecode
  name EXR_READ
- selected true
  xpos 1573
  ypos -398
 }
@@ -174,7 +172,7 @@ Group {
  name Romeo_Reformat1
  tile_color 0xffce77ff
  label "\nPlate to Delivery\nResolution"
- note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 1573
  ypos -302
@@ -194,31 +192,31 @@ Group {
   xpos 512
   ypos 116
  }
-set Nac31a20 [stack 0]
+set N7569240 [stack 0]
  Dot {
   name Dot1
   xpos 710
   ypos 138
  }
-set Nac39a60 [stack 0]
+set N7522700 [stack 0]
  Dot {
   name Dot2
   xpos 885
   ypos 138
  }
-set Nac3e680 [stack 0]
+set N70d80c0 [stack 0]
  Dot {
   name Dot3
   xpos 1054
   ypos 138
  }
-set Nac43180 [stack 0]
+set N6ff6980 [stack 0]
  Dot {
   name Dot4
   xpos 1228
   ypos 138
  }
-set Nabbb410 [stack 0]
+set N7154b80 [stack 0]
  Dot {
   name Dot5
   xpos 1407
@@ -245,7 +243,7 @@ set Nabbb410 [stack 0]
   xpos 1373
   ypos 283
  }
-push $Nabbb410
+push $N7154b80
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -267,7 +265,7 @@ push $Nabbb410
   xpos 1194
   ypos 283
  }
-push $Nac43180
+push $N6ff6980
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -289,7 +287,7 @@ push $Nac43180
   xpos 1020
   ypos 283
  }
-push $Nac3e680
+push $N70d80c0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -311,7 +309,7 @@ push $Nac3e680
   xpos 851
   ypos 283
  }
-push $Nac39a60
+push $N7522700
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -336,7 +334,7 @@ push $Nac39a60
   xpos 676
   ypos 283
  }
-push $Nac31a20
+push $N7569240
  Switch {
   inputs 6
   which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
@@ -382,7 +380,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N87b1850 [stack 0]
+set N7481140 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -393,7 +391,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N8939f20 [stack 0]
+set N64be610 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -407,7 +405,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N887ce50 [stack 0]
+set N6473690 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -442,7 +440,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set N898e9f0 [stack 0]
+set N8b64da0 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -570,7 +568,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N887ce50
+push $N6473690
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -595,14 +593,14 @@ Write {
  ypos 1635
  disable true
 }
-push $N7f0dd20
-push $N87b1850
+push $N70ff570
+push $N7481140
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set N88ae910 [stack 0]
+set N7016060 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -628,7 +626,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N88ae910
+push $N7016060
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -645,7 +643,7 @@ Crop {
  xpos 1573
  ypos 167
 }
-set N871ae60 [stack 0]
+set N770e560 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -653,7 +651,7 @@ Switch {
  xpos 1573
  ypos 223
 }
-set N8725010 [stack 0]
+set N7718710 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -688,7 +686,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $N898e9f0
+push $N8b64da0
 Merge2 {
  inputs 2
  name Merge17
@@ -734,7 +732,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 51 45 49 51 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 51 45 50 48 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
    }
  old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
    }
@@ -801,8 +799,8 @@ Crop {
  xpos 2833
  ypos 837
 }
-set N7fce8a0 [stack 0]
-push $N8939f20
+set N90eb140 [stack 0]
+push $N64be610
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -863,8 +861,8 @@ Read {
  xpos 1148
  ypos -291
 }
-push $N7f0dd20
-push $N8725010
+push $N70ff570
+push $N7718710
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -961,7 +959,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set N7cecaf0 [stack 0]
+set N6f07470 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -1085,7 +1083,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N7cecaf0
+push $N6f07470
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1098,13 +1096,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N7dc4060 [stack 0]
+set N6fde9e0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N7dc8bc0 [stack 0]
+set N6fe3540 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1147,8 +1145,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N7dfd990 [stack 0]
-push $N7dfd990
+set N6b13da0 [stack 0]
+push $N6b13da0
 Dot {
  name Dot8
  xpos 1111
@@ -1262,7 +1260,7 @@ Group {
   font_height_toolbar 100
   opacity 0.5
   message "\[date %Y-%m-%d]"
-  old_message {{50 48 49 57 45 48 51 45 49 50}
+  old_message {{50 48 49 57 45 48 51 45 50 48}
     }
   old_expression_markers {{0 9}
     }
@@ -1336,7 +1334,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set N7ed9c80 [stack 0]
+set N6bf0090 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -1349,303 +1347,22 @@ Write {
  ypos 1447
  disable true
 }
-push $N7dc8bc0
-Dot {
- name Dot12
- xpos 580
- ypos 580
+push $N770e560
+push $N90eb140
+Viewer {
+ inputs 2
+ frame_range 1001-1179
+ frame_increment 5
+ colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
+ samplepoints {{-0.1575864106 0.4610427618}
+   }
+ viewerProcess None
+ translate {0.1410000026 -0.1014999971}
+ name Viewer1
+ xpos 3511
+ ypos 1192
 }
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 0 : 1"}}
- message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 Photo-JPEG 24"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 104 111 116 111 45 74 80 69 71 32 50 52}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
-   }
- cursor_position 32
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text4
- xpos 546
- ypos 666
-}
-Reformat {
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- filter Simon
- black_outside true
- name Reformat1
- xpos 546
- ypos 690
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_vendor_code]"
- old_message {{73 110 45 72 111 117 115 101}
-   }
- old_expression_markers {{0 7}
-   }
- box {0 0 1920 48}
- xjustify center
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- center {960 540}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{947 -0.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text1
- xpos 546
- ypos 1079
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_show_name]"
- old_message {{82 79 77 69 79}
-   }
- old_expression_markers {{0 4}
-   }
- box {0 1032 1920 1080}
- xjustify center
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- center {960 540}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{947 -0.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text7
- xpos 546
- ypos 1103
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 51 47 49 57}
-   }
- old_expression_markers {{0 7}
-   }
- box {0 1032 1890 1080}
- xjustify right
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- center {1050 576}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{1905 1063}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text8
- xpos 546
- ypos 1127
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[value root.ti_ih_file_name]"
- old_message {{48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51}
-   }
- old_expression_markers {{0 21}
-   }
- box {30 1032 1890 1080}
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text10
- xpos 546
- ypos 1151
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "v\[value root.ti_ih_version] \[value root.ti_ih_notes_1]"
- old_message {{118 53 48 51 32 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46}
-   }
- old_expression_markers {{1 3 5 31}
-   }
- box {30 0 1890 48}
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30 22 30 23 30 24 30 25 30 26 30 27 30 28 30 29 30 30 30 31 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text11
- xpos 546
- ypos 1175
- disable {{root.noburnin}}
-}
-Text2 {
- font_size_toolbar 30
- font_width_toolbar 100
- font_height_toolbar 100
- opacity {{"frame >= root.first_frame ? 1 : 0"}}
- message "\[format %04d \[frame]] / \[value root.last_frame]"
- old_message {{49 48 48 49 32 47 32 49 49 55 57}
-   }
- old_expression_markers {{0 3 7 10}
-   }
- box {30 0 1890 48}
- xjustify right
- yjustify bottom
- transforms {{0 2}
-   }
- font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 0.65
- font_size 30
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{19 15.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
-   }
- enable_shadows true
- shadow_angle 315
- shadow_distance 0
- shadow_softness 2
- shadow_size 1
- name Text27
- xpos 546
- ypos 1199
- disable {{root.noburnin}}
-}
-Write {
- file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_vfx.mov
- colorspace rec709
- raw true
- file_type mov
- mov64_codec jpeg
- mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
- mov64_fps 24
- mov64_units Frames
- mov64_write_timecode true
- mov64_advanced 1
- mov64_bitrate 40000000
- mov64_bitrate_tolerance 2000000
- mov64_quality_min 1
- mov64_quality_max 1
- mov64_gop_size 12
- mov64_b_frames 0
- mov64_write_nclc false
- checkHashOnRead false
- version 125
- in_colorspace linear
- out_colorspace linear
- name MOV_VFX_WRITE
- label "\[value file]"
- xpos 546
- ypos 1611
-}
-push $N7ed9c80
+push $N6bf0090
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1729,7 +1446,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 50 47 49 57}
+ old_message {{48 51 47 50 48 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1892,13 +1609,11 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
- in_colorspace linear
- out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
  xpos 940
- ypos 1753
+ ypos 1754
 }
 Constant {
  inputs 0
@@ -1952,7 +1667,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N7dc4060
+push $N6fde9e0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -2081,7 +1796,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 50 47 49 57}
+ old_message {{48 51 47 50 48 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -2244,27 +1959,303 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
- in_colorspace linear
- out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1896
 }
-push $N871ae60
-push $N7fce8a0
-Viewer {
- inputs 2
- frame_range 1001-1179
- frame_increment 5
- fps 23.97602463
- colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
- samplepoints {{-0.1575864106 0.4610427618}
+push $N6fe3540
+Dot {
+ name Dot12
+ xpos 580
+ ypos 580
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 0 : 1"}}
+ message "\n\n\n\n\n\n \n\n\n\n\n1920x1080 Photo-JPEG 24"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 49 57 50 48 120 49 48 56 48 32 80 104 111 116 111 45 74 80 69 71 32 50 52}
    }
- viewerProcess None
- translate {0.1410000026 -0.1014999971}
- name Viewer1
- xpos 3511
- ypos 1192
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+   }
+ cursor_position 32
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text4
+ xpos 546
+ ypos 666
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ filter Simon
+ black_outside true
+ name Reformat1
+ xpos 546
+ ypos 690
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_vendor_code]"
+ old_message {{73 110 45 72 111 117 115 101}
+   }
+ old_expression_markers {{0 7}
+   }
+ box {0 0 1920 48}
+ xjustify center
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ center {960 540}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{947 -0.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text1
+ xpos 546
+ ypos 1079
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_show_name]"
+ old_message {{82 79 77 69 79}
+   }
+ old_expression_markers {{0 4}
+   }
+ box {0 1032 1920 1080}
+ xjustify center
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ center {960 540}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{947 -0.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text7
+ xpos 546
+ ypos 1103
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[date %m/%d/%y]"
+ old_message {{48 51 47 50 48 47 49 57}
+   }
+ old_expression_markers {{0 7}
+   }
+ box {0 1032 1890 1080}
+ xjustify right
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ center {1050 576}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{1905 1063}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text8
+ xpos 546
+ ypos 1127
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[value root.ti_ih_file_name]"
+ old_message {{48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51}
+   }
+ old_expression_markers {{0 21}
+   }
+ box {30 1032 1890 1080}
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text10
+ xpos 546
+ ypos 1151
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "v\[value root.ti_ih_version] \[value root.ti_ih_notes_1]"
+ old_message {{118 53 48 51 32 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46}
+   }
+ old_expression_markers {{1 3 5 31}
+   }
+ box {30 0 1890 48}
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30 11 30 12 30 13 30 14 30 15 30 16 30 17 30 18 30 19 30 20 30 21 30 22 30 23 30 24 30 25 30 26 30 27 30 28 30 29 30 30 30 31 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text11
+ xpos 546
+ ypos 1175
+ disable {{root.noburnin}}
+}
+Text2 {
+ font_size_toolbar 30
+ font_width_toolbar 100
+ font_height_toolbar 100
+ opacity {{"frame >= root.first_frame ? 1 : 0"}}
+ message "\[format %04d \[frame]] / \[value root.last_frame]"
+ old_message {{49 48 48 49 32 47 32 49 49 55 57}
+   }
+ old_expression_markers {{0 3 7 10}
+   }
+ box {30 0 1890 48}
+ xjustify right
+ yjustify bottom
+ transforms {{0 2}
+   }
+ font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 8 30 9 30 10 30}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 0.65
+ font_size 30
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{19 15.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ enable_shadows true
+ shadow_angle 315
+ shadow_distance 0
+ shadow_softness 2
+ shadow_size 1
+ name Text27
+ xpos 546
+ ypos 1199
+ disable {{root.noburnin}}
+}
+Write {
+ file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_vfx.mov
+ colorspace rec709
+ raw true
+ file_type mov
+ mov64_codec jpeg
+ mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
+ mov64_fps 24
+ mov64_units Frames
+ mov64_write_timecode true
+ mov64_advanced 1
+ mov64_bitrate 40000000
+ mov64_bitrate_tolerance 2000000
+ mov64_quality_min 1
+ mov64_quality_max 1
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_write_nclc false
+ checkHashOnRead false
+ version 125
+ name MOV_VFX_WRITE
+ label "\[value file]"
+ xpos 546
+ ypos 1613
 }
