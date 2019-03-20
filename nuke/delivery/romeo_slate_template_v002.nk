@@ -31,6 +31,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             <split size="1424"/>
             <dock id="" activePageId="Viewer.1">
                 <page id="Viewer.1"/>
+                <page id="Viewer.1"/>
             </dock>
         </splitter>
     </window>
@@ -38,12 +39,11 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/delivery/romeo_slate_template_v002.nk
+ name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v002.nk
  frame 1001
  first_frame 1001
  last_frame 1179
  lock_range true
- fps 23.976
  format "3272 1768 0 0 3272 1768 1 Submission Format"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
@@ -131,7 +131,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 6
+ version 7
  name Read2
  xpos 3071
  ypos 347
@@ -150,7 +150,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set Nc8e5e410 [stack 0]
+set N916826a0 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -167,7 +167,7 @@ Read {
  origlast 1179
  origset true
  on_error black
- version 188
+ version 194
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -182,7 +182,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set Nb042e5d0 [stack 0]
+set N9154d630 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -193,7 +193,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set Nb0463cd0 [stack 0]
+set N91554f00 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -207,7 +207,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set Nb04e55d0 [stack 0]
+set N91559880 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -242,7 +242,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set Nc9d521c0 [stack 0]
+set N91574350 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -370,7 +370,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $Nb04e55d0
+push $N91559880
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -395,19 +395,45 @@ Write {
  ypos 1635
  disable true
 }
-push $Nc8e5e410
-push $Nb042e5d0
+push $N916826a0
+push $N9154d630
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set Nc998f230 [stack 0]
+set N8a339e90 [stack 0]
 Dot {
  name Dot14
  xpos 1469
  ypos -2
 }
+set N8a33c0e0 [stack 0]
+Reformat {
+ format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
+ resize none
+ filter Mitchell
+ black_outside true
+ name Reformat17
+ label "To Romeo\nDelivery Format\n(3272x1768)"
+ xpos 1285
+ ypos -24
+}
+Crop {
+ box {0 0 3272 1768}
+ reformat true
+ crop false
+ name Crop10
+ label "Reset Bounding Box"
+ xpos 1285
+ ypos 46
+}
+Dot {
+ name Dot3
+ xpos 1319
+ ypos 225
+}
+push $N8a33c0e0
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  filter Simon
@@ -426,16 +452,16 @@ Crop {
 Dot {
  name Dot16
  xpos 1469
- ypos 226
+ ypos 157
 }
-push $Nc998f230
+push $N8a339e90
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
  filter Simon
  name Reformat6
  xpos 1573
- ypos 131
+ ypos 55
 }
 Crop {
  box {0 0 3108 1680}
@@ -443,30 +469,37 @@ Crop {
  crop false
  name Crop6
  xpos 1573
- ypos 163
+ ypos 87
 }
-set Nc8de5350 [stack 0]
+set N8a359130 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
  name Switch6
  xpos 1573
- ypos 223
+ ypos 154
 }
-set Nb07749d0 [stack 0]
+Switch {
+ inputs 2
+ which {{"EXR_READ.format.r == 3866"}}
+ name Switch2
+ xpos 1573
+ ypos 222
+}
+set N819b97a0 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
  black_outside true
  name Reformat9
  xpos 1780
- ypos 219
+ ypos 218
 }
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold8
  xpos 2643
- ypos 219
+ ypos 218
 }
 Crop {
  box {0 0 2048 1152}
@@ -488,7 +521,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $Nc9d521c0
+push $N91574350
 Merge2 {
  inputs 2
  name Merge17
@@ -600,7 +633,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $Nb0463cd0
+push $N91554f00
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -623,46 +656,8 @@ Write {
  ypos 1339
  disable true
 }
-Read {
- inputs 0
- file_type exr
- file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0010/img/comp/004_BUS_0010_temp_v503/004_BUS_0010_temp_v503.####.exr
- format "1920 1080 0 0 1920 1080 1 HD_1080"
- first 1001
- last 1442
- origfirst 1001
- origlast 1442
- origset true
- on_error black
- version 208
- colorspace linear
- auto_alpha true
- metadatafilter timecode
- name EXR_READ_EXAMPLE_HDRES
- xpos 1151
- ypos -425
-}
-Read {
- inputs 0
- file_type exr
- file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/img/comp/004_BUS_0100_temp_v505/004_BUS_0100_temp_v505.####.exr
- format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery"
- first 1001
- last 1179
- origfirst 1001
- origlast 1179
- origset true
- on_error black
- version 187
- colorspace linear
- auto_alpha true
- metadatafilter timecode
- name EXR_READ_EXAMPLE_FULLRES
- xpos 1148
- ypos -291
-}
-push $Nc8e5e410
-push $Nb07749d0
+push $N916826a0
+push $N819b97a0
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -759,7 +754,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set Nb30e4f10 [stack 0]
+set N92b43410 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -883,7 +878,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $Nb30e4f10
+push $N92b43410
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -896,13 +891,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nb044b400 [stack 0]
+set N914c95e0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set Nb0453cc0 [stack 0]
+set N914cbaa0 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -945,8 +940,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set Nb3292da0 [stack 0]
-push $Nb3292da0
+set N914e32b0 [stack 0]
+push $N914e32b0
 Dot {
  name Dot8
  xpos 1111
@@ -1060,7 +1055,7 @@ Group {
   font_height_toolbar 100
   opacity 0.5
   message "\[date %Y-%m-%d]"
-  old_message {{50 48 49 57 45 48 51 45 49 50}
+  old_message {{50 48 49 57 45 48 51 45 50 48}
     }
   old_expression_markers {{0 9}
     }
@@ -1134,7 +1129,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set Nb3428cd0 [stack 0]
+set N915dc980 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -1147,8 +1142,8 @@ Write {
  ypos 1447
  disable true
 }
-push $Nc8de5350
-push $Nb0453cc0
+push $N8a359130
+push $N914cbaa0
 Dot {
  name Dot12
  xpos 580
@@ -1274,7 +1269,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 56 47 49 57}
+ old_message {{48 51 47 50 48 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1422,7 +1417,8 @@ Write {
  colorspace rec709
  raw true
  file_type mov
- meta_encoder mov32
+ meta_codec jpeg
+ mov32_codec jpeg
  mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov64_codec jpeg
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
@@ -1430,8 +1426,8 @@ Write {
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
- mov64_bitrate 40000000
- mov64_bitrate_tolerance 2000000
+ mov64_bitrate 400000000
+ mov64_bitrate_tolerance 20000000
  mov64_quality_min 1
  mov64_quality_max 1
  mov64_gop_size 12
@@ -1442,13 +1438,12 @@ Write {
  name MOV_VFX_WRITE
  label "\[value file]"
  xpos 546
- ypos 1611
+ ypos 1612
 }
 Viewer {
  inputs 2
  frame_range 1001-1179
  frame_increment 5
- fps 23.97602463
  colour_sample_bbox {-0.4202059209 0.1711711735 -0.4195624292 0.1718146652}
  samplepoints {{-0.1575864106 0.4610427618}
    }
@@ -1458,7 +1453,7 @@ Viewer {
  xpos 3511
  ypos 1192
 }
-push $Nb3428cd0
+push $N915dc980
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1542,7 +1537,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 50 47 49 57}
+ old_message {{48 51 47 50 48 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1690,6 +1685,7 @@ Write {
  colorspace rec709
  raw true
  file_type mov
+ meta_codec apcn
  mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
  mov64_codec apcn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
@@ -1706,8 +1702,6 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
- in_colorspace linear
- out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1766,7 +1760,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nb044b400
+push $N914c95e0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1895,7 +1889,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 49 56 47 49 57}
+ old_message {{48 51 47 50 48 47 49 57}
    }
  old_expression_markers {{0 7}
    }
