@@ -15,7 +15,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="Viewer.1"/>
                 </dock>
                 <split size="384"/>
-                <dock id="" activePageId="DAG.1">
+                <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
@@ -143,7 +143,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N796fe40 [stack 0]
+set N7e915f0 [stack 0]
 Dot {
  name Dot24
  xpos 3381
@@ -172,7 +172,7 @@ Group {
  name Romeo_Reformat1
  tile_color 0xffce77ff
  label "\nPlate to Delivery\nResolution"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 1573
  ypos -302
@@ -192,31 +192,31 @@ Group {
   xpos 512
   ypos 116
  }
-set N757c8d0 [stack 0]
+set N7929560 [stack 0]
  Dot {
   name Dot1
   xpos 710
   ypos 138
  }
-set N8a7a660 [stack 0]
+set N7928350 [stack 0]
  Dot {
   name Dot2
   xpos 885
   ypos 138
  }
-set N7933120 [stack 0]
+set N79ae500 [stack 0]
  Dot {
   name Dot3
   xpos 1054
   ypos 138
  }
-set N77f50f0 [stack 0]
+set N7a0f220 [stack 0]
  Dot {
   name Dot4
   xpos 1228
   ypos 138
  }
-set N7884ad0 [stack 0]
+set N79d2c80 [stack 0]
  Dot {
   name Dot5
   xpos 1407
@@ -243,7 +243,7 @@ set N7884ad0 [stack 0]
   xpos 1373
   ypos 283
  }
-push $N7884ad0
+push $N79d2c80
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -265,7 +265,7 @@ push $N7884ad0
   xpos 1194
   ypos 283
  }
-push $N77f50f0
+push $N7a0f220
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -287,7 +287,7 @@ push $N77f50f0
   xpos 1020
   ypos 283
  }
-push $N7933120
+push $N79ae500
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -309,7 +309,7 @@ push $N7933120
   xpos 851
   ypos 283
  }
-push $N8a7a660
+push $N7928350
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -334,7 +334,7 @@ push $N8a7a660
   xpos 676
   ypos 283
  }
-push $N757c8d0
+push $N7929560
  Switch {
   inputs 6
   which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
@@ -380,7 +380,7 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N7d4e010 [stack 0]
+set N7eb4cc0 [stack 0]
 Dot {
  name Dot5
  xpos 2528
@@ -391,7 +391,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N8ebb160 [stack 0]
+set N8c1ade0 [stack 0]
 Dot {
  name Dot18
  xpos 2756
@@ -405,7 +405,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N8ec4810 [stack 0]
+set N8c24490 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -440,7 +440,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set N4b0f370 [stack 0]
+set N791e0e0 [stack 0]
 Dot {
  name Dot21
  xpos 3008
@@ -568,13 +568,23 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N8ec4810
+push $N8c24490
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
  name Switch4
  xpos 2722
  ypos 1154
+}
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode5
+ selected true
+ xpos 2722
+ ypos 1178
 }
 Write {
  channels rgba
@@ -593,14 +603,14 @@ Write {
  ypos 1635
  disable true
 }
-push $N796fe40
-push $N7d4e010
+push $N7e915f0
+push $N7eb4cc0
 Dot {
  name Dot9
  xpos 1607
  ypos -2
 }
-set N8a91510 [stack 0]
+set N9090fa0 [stack 0]
 Dot {
  name Dot14
  xpos 1469
@@ -626,7 +636,7 @@ Dot {
  xpos 1469
  ypos 226
 }
-push $N8a91510
+push $N9090fa0
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -643,7 +653,7 @@ Crop {
  xpos 1573
  ypos 167
 }
-set N7ddc990 [stack 0]
+set N8b88d40 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -651,7 +661,7 @@ Switch {
  xpos 1573
  ypos 223
 }
-set N7de6b40 [stack 0]
+set N8b92ef0 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -686,7 +696,7 @@ Transform {
  xpos 2643
  ypos 630
 }
-push $N4b0f370
+push $N791e0e0
 Merge2 {
  inputs 2
  name Merge17
@@ -732,7 +742,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 51 45 50 48 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 51 45 50 53 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
    }
  old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
    }
@@ -799,14 +809,23 @@ Crop {
  xpos 2833
  ypos 837
 }
-set N760c250 [stack 0]
-push $N8ebb160
+set N747fe60 [stack 0]
+push $N8c1ade0
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
  name Switch3
  xpos 2494
  ypos 837
+}
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode4
+ xpos 2494
+ ypos 861
 }
 Write {
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]/\[value root.ti_ih_format]/\[value root.ti_ih_file_name].%04d.exr"
@@ -861,8 +880,8 @@ Read {
  xpos 1148
  ypos -291
 }
-push $N796fe40
-push $N7de6b40
+push $N7e915f0
+push $N8b92ef0
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -959,7 +978,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set N731c660 [stack 0]
+set N76bfc60 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -1083,7 +1102,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N731c660
+push $N76bfc60
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1096,13 +1115,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N73f3bd0 [stack 0]
+set N77971d0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N73f8730 [stack 0]
+set N779bd30 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1145,8 +1164,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set N742d500 [stack 0]
-push $N742d500
+set N77d0b00 [stack 0]
+push $N77d0b00
 Dot {
  name Dot8
  xpos 1111
@@ -1334,7 +1353,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set N75097f0 [stack 0]
+set N78acdf0 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -1347,7 +1366,7 @@ Write {
  ypos 1447
  disable true
 }
-push $N73f8730
+push $N779bd30
 Dot {
  name Dot12
  xpos 580
@@ -1473,7 +1492,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 51 47 50 48 47 49 57}
+ old_message {{48 51 47 50 53 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1616,6 +1635,15 @@ Text2 {
  ypos 1199
  disable {{root.noburnin}}
 }
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode1
+ xpos 546
+ ypos 1223
+}
 Write {
  file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_vfx.mov
  colorspace rec709
@@ -1623,7 +1651,6 @@ Write {
  file_type mov
  mov64_codec jpeg
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
- mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
@@ -1636,12 +1663,14 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 125
+ in_colorspace linear
+ out_colorspace linear
  name MOV_VFX_WRITE
  label "\[value file]"
  xpos 546
  ypos 1611
 }
-push $N75097f0
+push $N78acdf0
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1868,6 +1897,15 @@ Text2 {
  ypos 1600
  disable {{root.noburnin}}
 }
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode2
+ xpos 940
+ ypos 1624
+}
 Write {
  file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_export.mov
  colorspace rec709
@@ -1875,7 +1913,6 @@ Write {
  file_type mov
  mov64_codec apcn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
- mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
@@ -1888,6 +1925,8 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_VFX_EXPORT_WRITE
  label "\[value file]"
@@ -1946,7 +1985,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N73f3bd0
+push $N77971d0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -2218,6 +2257,15 @@ Text2 {
  ypos 1618
  disable {{root.noburnin}}
 }
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode3
+ xpos 1325
+ ypos 1642
+}
 Write {
  file /Volumes/romeo_inhouse/romeo/BUS/004_BUS_0100/delivery/004_BUS_0100_temp_v503/mov/004_BUS_0100_temp_v503_avid.mov
  colorspace rec709
@@ -2225,7 +2273,6 @@ Write {
  file_type mov
  mov64_codec AVdn
  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
- mov64_fps 24
  mov64_units Frames
  mov64_write_timecode true
  mov64_advanced 1
@@ -2238,14 +2285,16 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
+ in_colorspace linear
+ out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
  xpos 1325
  ypos 1896
 }
-push $N7ddc990
-push $N760c250
+push $N8b88d40
+push $N747fe60
 Viewer {
  inputs 2
  frame_range 1001-1179
