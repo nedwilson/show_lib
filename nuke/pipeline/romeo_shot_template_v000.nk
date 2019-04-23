@@ -1,9 +1,9 @@
-#! /Applications/Nuke11.3v1/Nuke11.3v1.app/Contents/MacOS/libnuke-11.3.1.dylib -nx
+#! /Applications/Nuke11.3v2/Nuke11.3v2.app/Contents/MacOS/libnuke-11.3.2.dylib -nx
 #write_info Write_exr file:"/Volumes/romeo_primary/romeo/BUS/004_BUS_0010/img/comp/004_BUS_0010_comp_v000/004_BUS_0010_comp_v000.%04d.exr" format:"3272 1768 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1001 1054" fps:"24" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" timecode:"11:47:57:18" colorManagement:"Nuke"
-version 11.3 v1
+version 11.3 v2
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="0" y="23" w="2560" h="1315" screen="0">
+    <window x="0" y="23" w="2560" h="1293" screen="0">
         <splitter orientation="1">
             <split size="40"/>
             <dock id="" hideTitles="1" activePageId="Toolbar.1">
@@ -11,7 +11,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1897" stretch="1"/>
             <splitter orientation="2">
-                <split size="1294"/>
+                <split size="1272"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
@@ -27,9 +27,9 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
         </splitter>
     </window>
-    <window x="2560" y="23" w="2560" h="1401" screen="1">
+    <window x="2560" y="0" w="2560" h="1424" maximized="1" screen="1">
         <splitter orientation="2">
-            <split size="1401"/>
+            <split size="1424"/>
             <dock id="" activePageId="Viewer.1">
                 <page id="Viewer.1"/>
             </dock>
@@ -108,7 +108,7 @@ Group {
  inputs 0
  name VIEWER_INPUT
  tile_color 0x5352ffff
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos -40
  ypos 850
@@ -149,6 +149,7 @@ Read {
  origfirst 1001
  origlast 1458
  origset true
+ version 89
  colorspace linear
  auto_alpha true
  name Read1
@@ -156,7 +157,7 @@ Read {
  xpos 70
  ypos -911
 }
-set Nd1eb9020 [stack 0]
+set N7b1678b0 [stack 0]
 PostageStamp {
  name PostageStamp1
  label "MAIN PLATE"
@@ -170,21 +171,28 @@ Dot {
  xpos 214
  ypos 738
 }
-push $Nd1eb9020
+push $N7b1678b0
 NoOp {
  name NoOp2
  tile_color 0xffce77ff
  label "Camera Format\n\[if \{(\[value input.width] == 4971) && (\[value input.height] == 2349)\} \{return \"Alexa 65\"\} else \{\[if \{(\[value input.width] == 4334) && (\[value input.height] == 3016)\} \{return \"Alexa LF\"\} else \{\[if \{(\[value input.width] == 4172) && (\[value input.height] == 1740)\} \{return \"Alexa LF 2.39\"\} else \{\[if \{(\[value input.width] == 3424) && (\[value input.height] == 2202)\} \{return \"Alexa Mini\"\} else \{\[if \{(\[value input.width] == 3840) && (\[value input.height] == 2160)\} \{return \"Blackmagic\"\} else \{return \"Unknown\"\}]\}]\}]\}]\}]"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
  ypos -793
+}
+Romeo_PixelFixer {
+ name Romeo_PixelFixer
+ label "ATTACH TO 4K \nALEXA 65 SCAN\n"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ xpos 70
+ ypos -676
 }
 Group {
  name Romeo_Reformat
  tile_color 0xffce77ff
  label "\nPlate to Delivery\nResolution"
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  note_font_size 20
  xpos 70
  ypos 367
@@ -204,31 +212,31 @@ Group {
   xpos 512
   ypos 116
  }
-set Nd1dc4d40 [stack 0]
+set N7b32eb80 [stack 0]
  Dot {
   name Dot1
   xpos 710
   ypos 138
  }
-set Nd1db0320 [stack 0]
+set N7b3357c0 [stack 0]
  Dot {
   name Dot2
   xpos 885
   ypos 138
  }
-set Nd1db3f30 [stack 0]
+set N7b3397a0 [stack 0]
  Dot {
   name Dot3
   xpos 1054
   ypos 138
  }
-set Nd1db7ba0 [stack 0]
+set N7b33d680 [stack 0]
  Dot {
   name Dot4
   xpos 1228
   ypos 138
  }
-set Nd1dc8aa0 [stack 0]
+set N7b3415b0 [stack 0]
  Dot {
   name Dot5
   xpos 1407
@@ -255,7 +263,7 @@ set Nd1dc8aa0 [stack 0]
   xpos 1373
   ypos 283
  }
-push $Nd1dc8aa0
+push $N7b3415b0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -277,7 +285,7 @@ push $Nd1dc8aa0
   xpos 1194
   ypos 283
  }
-push $Nd1db7ba0
+push $N7b33d680
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -299,7 +307,7 @@ push $Nd1db7ba0
   xpos 1020
   ypos 283
  }
-push $Nd1db3f30
+push $N7b3397a0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -321,7 +329,7 @@ push $Nd1db3f30
   xpos 851
   ypos 283
  }
-push $Nd1db0320
+push $N7b3357c0
  OCIOColorSpace {
   in_colorspace linear
   out_colorspace AlexaV3LogC
@@ -346,7 +354,7 @@ push $Nd1db0320
   xpos 676
   ypos 283
  }
-push $Nd1dc4d40
+push $N7b32eb80
  Switch {
   inputs 6
   which {{"\[if \{\[metadata romeo/camera_type] == \"Alexa 65\"\} \{return \"1\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF\"\} \{return \"2\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa LF 2.39\"\} \{return \"3\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Alexa Mini\"\} \{return \"4\"\} else \{\[if \{\[metadata romeo/camera_type] == \"Blackmagic\"\} \{return \"5\"\} else \{return \"0\"\}]\}]\}]\}]\}]"}}
