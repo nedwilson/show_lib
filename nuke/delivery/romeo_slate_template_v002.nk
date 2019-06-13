@@ -131,7 +131,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 12
+ version 13
  name Read2
  xpos 3071
  ypos 347
@@ -150,11 +150,11 @@ Transform {
  xpos 3071
  ypos 654
 }
-set Nb9e16800 [stack 0]
+set N1f3a8770 [stack 0]
 Read {
  inputs 0
  file_type exr
- file /Volumes/romeo_inhouse/romeo/MFS/118_MFS_9050/img/comp/118_MFS_9050_temp_v506/118_MFS_9050_temp_v506.%04d.exr
+ file /Volumes/romeo_inhouse/romeo/MFS/126_MFS_9020/img/comp/126_MFS_9020_comp_v502/126_MFS_9020_comp_v502.####.exr
  format "2880 2160 0 0 2880 2160 1 "
  first 1001
  last 1093
@@ -162,82 +162,72 @@ Read {
  origlast 1093
  origset true
  on_error black
- version 364
+ version 425
  colorspace linear
  auto_alpha true
  metadatafilter timecode
  name EXR_READ
  xpos 1573
- ypos -291
+ ypos -417
 }
 Crop {
  box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
  reformat true
  name Crop5
  xpos 1573
- ypos -131
+ ypos -258
 }
-set Nb9e51880 [stack 0]
+set Nb471860 [stack 0]
 Dot {
  name Dot9
  xpos 1607
- ypos -34
+ ypos -161
 }
-set Nb9e5a5e0 [stack 0]
+set Nb469bc0 [stack 0]
 Dot {
  name Dot14
  xpos 1469
- ypos -34
+ ypos -161
 }
-set Nb9e5e540 [stack 0]
+set Nb46dac0 [stack 0]
 Dot {
  name Dot7
  xpos 1319
- ypos -34
+ ypos -161
 }
-set Nb9e623e0 [stack 0]
+set Nb47d9b0 [stack 0]
 Dot {
  name Dot10
  xpos 1168
- ypos -34
+ ypos -161
 }
 Shuffle {
  alpha white
  name Shuffle3
  xpos 1134
- ypos 17
+ ypos -110
 }
 Reformat {
- format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
  resize height
  filter Mitchell
  black_outside true
  name Reformat18
- label "To Romeo\nDelivery Format\n(3272x1768)"
+ label "To UHD\n"
  xpos 1134
- ypos 73
-}
-Crop {
- box {0 0 3272 1768}
- reformat true
- crop false
- name Crop11
- label "Reset Bounding Box"
- xpos 1134
- ypos 135
- disable true
+ ypos -58
 }
 Dot {
  name Dot20
  xpos 1168
- ypos 225
+ ypos 98
 }
-push $Nb9e623e0
+push $Nb47d9b0
 Shuffle {
  alpha white
  name Shuffle5
  xpos 1285
- ypos 2
+ ypos -135
 }
 Reformat {
  format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
@@ -247,7 +237,7 @@ Reformat {
  name Reformat17
  label "To Romeo\nDelivery Format\n(3272x1768)"
  xpos 1285
- ypos 45
+ ypos -82
 }
 Crop {
  box {0 0 3272 1768}
@@ -256,26 +246,26 @@ Crop {
  name Crop10
  label "Reset Bounding Box"
  xpos 1285
- ypos 116
+ ypos -11
 }
 Dot {
  name Dot3
  xpos 1319
- ypos 193
+ ypos 66
 }
-push $Nb9e5e540
+push $Nb46dac0
 Shuffle {
  alpha white
  name Shuffle6
  xpos 1435
- ypos -10
+ ypos -137
 }
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  filter Simon
  name Reformat10
  xpos 1435
- ypos 22
+ ypos -105
 }
 Crop {
  box {0 0 3108 1680}
@@ -283,19 +273,19 @@ Crop {
  crop false
  name Crop7
  xpos 1435
- ypos 54
+ ypos -73
 }
 Dot {
  name Dot16
  xpos 1469
- ypos 125
+ ypos -2
 }
-push $Nb9e5a5e0
+push $Nb469bc0
 Shuffle {
  alpha white
  name Shuffle8
  xpos 1573
- ypos -10
+ ypos -137
 }
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
@@ -303,7 +293,7 @@ Reformat {
  filter Simon
  name Reformat6
  xpos 1573
- ypos 23
+ ypos -104
 }
 Crop {
  box {0 0 3108 1680}
@@ -311,31 +301,31 @@ Crop {
  crop false
  name Crop6
  xpos 1573
- ypos 55
+ ypos -72
 }
-set Nb9ecfe20 [stack 0]
+set Nb517480 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
  name Switch6
  xpos 1573
- ypos 122
+ ypos -5
 }
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 3866"}}
  name Switch2
  xpos 1573
- ypos 190
+ ypos 63
 }
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 2880"}}
  name Switch7
  xpos 1573
- ypos 222
+ ypos 95
 }
-set Nb9ee5d70 [stack 0]
+set Nb52d490 [stack 0]
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -343,19 +333,19 @@ Reformat {
  pbb true
  name Reformat12
  xpos 1573
- ypos 252
+ ypos 125
 }
 Unpremult {
  name Unpremult1
  xpos 1573
- ypos 284
+ ypos 157
 }
 OCIOColorSpace {
  in_colorspace linear
  out_colorspace AlexaV3LogC
  name OCIOColorSpace1
  xpos 1573
- ypos 317
+ ypos 190
  disable {{root.nocc}}
 }
 OCIOFileTransform {
@@ -364,7 +354,7 @@ OCIOFileTransform {
  working_space linear
  name OCIOFileTransform1
  xpos 1573
- ypos 345
+ ypos 218
  disable {{root.nocc}}
 }
 OFXcom.2d4a.livegrain_v0 {
@@ -413,27 +403,46 @@ OFXcom.2d4a.livegrain_v0 {
  highlightSharpness 0
  name LIVEGRAIN_Texture_Mapping1
  xpos 1573
- ypos 369
+ ypos 242
  disable {{root.nocc}}
 }
+set N1f538380 [stack 0]
+Dot {
+ name Dot17
+ xpos 1463
+ ypos 245
+}
+Dot {
+ name Dot25
+ xpos 1463
+ ypos 356
+}
+push $N1f538380
 Reformat {
  format "1920 1038 0 0 1920 1038 1 HD 1.85"
  resize none
  black_outside true
  name Reformat15
  xpos 1573
- ypos 393
+ ypos 266
 }
 Crop {
  box {0 0 1920 1038}
  name Crop9
  xpos 1573
- ypos 425
+ ypos 302
+}
+Switch {
+ inputs 2
+ which {{"EXR_READ.format.r == 2880"}}
+ name Switch8
+ xpos 1573
+ ypos 353
 }
 Premult {
  name Premult1
  xpos 1573
- ypos 449
+ ypos 393
 }
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
@@ -443,7 +452,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set N997214e0 [stack 0]
+set Nb65aa60 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -567,7 +576,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $N997214e0
+push $Nb65aa60
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -580,13 +589,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set N997b5590 [stack 0]
+set Nb6cf290 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set N997b9470 [stack 0]
+set Nb6d3170 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -629,8 +638,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set Nb9a352d0 [stack 0]
-push $Nb9a352d0
+set Nb800bf0 [stack 0]
+push $Nb800bf0
 Dot {
  name Dot8
  xpos 1111
@@ -818,7 +827,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set Nb9f17a80 [stack 0]
+set Nb864700 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -831,7 +840,7 @@ Write {
  ypos 1447
  disable true
 }
-push $N997b9470
+push $Nb6d3170
 Dot {
  name Dot12
  xpos 580
@@ -1138,7 +1147,7 @@ Write {
  xpos 546
  ypos 1612
 }
-push $Nb9f17a80
+push $Nb864700
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1403,6 +1412,431 @@ Write {
  xpos 940
  ypos 1753
 }
+push $N1f3a8770
+push $Nb52d490
+Reformat {
+ format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
+ filter Simon
+ black_outside true
+ name Reformat9
+ xpos 1780
+ ypos 91
+}
+FrameHold {
+ first_frame {{"\[value root.first_frame]"}}
+ name FrameHold8
+ xpos 2643
+ ypos 91
+}
+Crop {
+ box {0 0 2048 1152}
+ name Crop1
+ xpos 2643
+ ypos 519
+}
+Reformat {
+ format "4096 2304 0 0 4096 2304 1 4K 1.77 Aspect Ratio (.4k177)"
+ name Reformat8
+ xpos 2643
+ ypos 572
+}
+Transform {
+ translate {1158 2}
+ scale 0.4
+ center {1712 1101}
+ name Transform1
+ xpos 2643
+ ypos 630
+}
+Constant {
+ inputs 0
+ channels rgb
+ format "4096 2304 0 0 4096 2304 1 4K 1.77 Aspect Ratio (.4k177)"
+ name Constant4
+ xpos 2833
+ ypos 517
+}
+Shuffle {
+ alpha white
+ name Shuffle7
+ xpos 2833
+ ypos 589
+}
+set Nbac0510 [stack 0]
+Merge2 {
+ inputs 2
+ name Merge17
+ xpos 2833
+ ypos 630
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 2833
+ ypos 654
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\nFile Name:\n\nArtist:\n \nDate:\n\nFrames:\n\nFormat:\n\n\nShot Notes:"
+ old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 10 10 65 114 116 105 115 116 58 10 32 10 68 97 116 101 58 10 10 70 114 97 109 101 115 58 10 10 70 111 114 109 97 116 58 10 10 10 83 104 111 116 32 78 111 116 101 115 58}
+   }
+ box {1248 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 31 99 32 99 33 99 34 99 35 99 36 99 37 99 39 99 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 0 45 1 45}
+   }
+ cursor_position 40
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text5
+ xpos 2833
+ ypos 693
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
+   }
+ old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 86 45 87 45 88 45 89 45 90 45 91 45 92 45 93 45 94 45 95 45 96 45 97 45 98 45 99 45 54 99 64 99 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 0 45 1 45}
+   }
+ cursor_position 128
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text17
+ xpos 2833
+ ypos 717
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\n\n\n\n \n\n\n\n\n\[value EXR_READ.format.width]x\[value EXR_READ.format.height] EXR"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 51 50 55 50 120 49 55 54 56 32 69 88 82}
+   }
+ old_expression_markers {{12 15 17 20}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+   }
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text2
+ xpos 2833
+ ypos 772
+}
+Reformat {
+ format {{{EXR_READ.format}}}
+ name Reformat7
+ xpos 2833
+ ypos 796
+}
+Crop {
+ box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
+ name Crop3
+ xpos 2833
+ ypos 837
+}
+push $Nb471860
+Dot {
+ name Dot5
+ xpos 2528
+ ypos -255
+}
+Dot {
+ name Dot19
+ xpos 2528
+ ypos 748
+}
+set Nbb4ffc0 [stack 0]
+Switch {
+ inputs 2
+ which {{"frame >= root.first_frame ? 0 : 1"}}
+ name Switch3
+ xpos 2494
+ ypos 837
+}
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode4
+ xpos 2494
+ ypos 861
+}
+Remove {
+ channels alpha
+ name Remove1
+ xpos 2494
+ ypos 885
+}
+Remove {
+ operation keep
+ channels rgb
+ name Remove2
+ label "Keep ONLY RGB\nIf Mattes Isn't Checked"
+ xpos 2494
+ ypos 936
+ disable {{"root.render_mattes? 1: 0"}}
+}
+Write {
+ channels all
+ file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]/\[value root.ti_ih_format]/\[value root.ti_ih_file_name].%04d.exr"
+ colorspace linear
+ file_type exr
+ compression "PIZ Wavelet (32 scanlines)"
+ first_part rgba
+ version 89
+ in_colorspace linear
+ out_colorspace linear
+ name EXR_WRITE
+ label "\[value file]"
+ xpos 2494
+ ypos 1339
+ disable true
+}
+push $N1f3a8770
+Dot {
+ name Dot24
+ xpos 3381
+ ypos 657
+}
+push $Nbb4ffc0
+Dot {
+ name Dot18
+ xpos 2756
+ ypos 748
+}
+Shuffle {
+ red alpha
+ green alpha
+ blue alpha
+ name Shuffle1
+ xpos 2722
+ ypos 950
+}
+set N1f485740 [stack 0]
+FrameHold {
+ first_frame {{"\[value root.first_frame]"}}
+ name FrameHold1
+ xpos 3054
+ ypos 946
+}
+Crop {
+ box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
+ name Crop2
+ xpos 3054
+ ypos 985
+}
+Transform {
+ translate {1275 65}
+ scale 0.5
+ center {1712 1101}
+ name Transform4
+ xpos 3054
+ ypos 1021
+}
+push $Nbac0510
+Dot {
+ name Dot21
+ xpos 3008
+ ypos 592
+}
+Dot {
+ name Dot22
+ xpos 3008
+ ypos 887
+}
+Dot {
+ name Dot23
+ xpos 3239
+ ypos 887
+}
+Merge2 {
+ inputs 2
+ name Merge4
+ xpos 3205
+ ypos 1021
+}
+Merge2 {
+ inputs 2
+ name Merge5
+ xpos 3347
+ ypos 1021
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\nFile Name:\n\nArtist:\n \nDate:\n\nFrames:\n\nFormat:\n\n\nShot Notes:"
+ old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 10 10 65 114 116 105 115 116 58 10 32 10 68 97 116 101 58 10 10 70 114 97 109 101 115 58 10 10 70 111 114 109 97 116 58 10 10 10 83 104 111 116 32 78 111 116 101 115 58}
+   }
+ box {1248 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 31 99 32 99 33 99 34 99 35 99 36 99 37 99 39 99 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 0 45 1 45}
+   }
+ cursor_position 40
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text15
+ xpos 3347
+ ypos 1045
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\n\[value root.ti_ih_file_name]_matte\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
+ old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 95 109 97 116 116 101 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
+   }
+ old_expression_markers {{3 24 33 44 48 57 61 64 66 69 75 101 103 102 104 103 105 104 106 105}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 86 45 87 45 88 45 89 45 90 45 91 45 92 45 93 45 94 45 95 45 96 45 97 45 98 45 99 45 100 45 101 45 102 45 103 45 104 45 105 45 60 99 70 99 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 0 45 1 45}
+   }
+ cursor_position 37
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text16
+ xpos 3347
+ ypos 1069
+}
+Text2 {
+ font_size_toolbar 45
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n\n\n\n\n\n \n\n\n\n\n\[value EXR_READ.format.width]x\[value EXR_READ.format.height] TIFF"
+ old_message {{10 10 10 10 10 10 32 10 10 10 10 10 51 50 55 50 120 49 55 54 56 32 84 73 70 70}
+   }
+ old_expression_markers {{12 15 17 20}
+   }
+ box {1804.5 185.625 4299.5 2082.375}
+ transforms {{0 2}
+   }
+ font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
+   }
+ cursor_position 77
+ font {{ Arial : Regular : Arial.ttf : 0 }}
+ global_font_scale 2
+ font_size 45
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{201 968.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
+   }
+ name Text18
+ xpos 3347
+ ypos 1093
+}
+Reformat {
+ format {{{EXR_READ.format}}}
+ name Reformat2
+ xpos 3347
+ ypos 1117
+}
+Crop {
+ box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
+ name Crop4
+ xpos 3347
+ ypos 1154
+}
+push $N1f485740
+Switch {
+ inputs 2
+ which {{"frame >= root.first_frame ? 0 : 1"}}
+ name Switch4
+ xpos 2722
+ ypos 1154
+}
+AddTimeCode {
+ startcode 00:00:00:00
+ metafps false
+ frame 0
+ useFrame true
+ name AddTimeCode5
+ xpos 2722
+ ypos 1178
+}
+Write {
+ channels rgba
+ file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]_matte/\[value root.ti_ih_format]/\[value root.ti_ih_file_name]_matte.%04d.tif"
+ colorspace linear
+ file_type tiff
+ datatype "16 bit"
+ compression LZW
+ checkHashOnRead false
+ version 89
+ in_colorspace linear
+ out_colorspace linear
+ name TIFF_MATTE_WRITE
+ label "\[value file]"
+ xpos 2722
+ ypos 1634
+ disable true
+}
+push $Nb517480
 Constant {
  inputs 0
  channels rgb
@@ -1455,7 +1889,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $N997b5590
+push $Nb6cf290
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1584,7 +2018,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 54 47 49 50 47 49 57}
+ old_message {{48 54 47 49 51 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -1758,440 +2192,13 @@ Write {
  mov64_write_nclc false
  checkHashOnRead false
  version 121
- in_colorspace linear
- out_colorspace linear
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
+ selected true
  xpos 1325
  ypos 1896
 }
-push $Nb9e16800
-push $Nb9ee5d70
-Reformat {
- format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
- filter Simon
- black_outside true
- name Reformat9
- xpos 1780
- ypos 218
-}
-FrameHold {
- first_frame {{"\[value root.first_frame]"}}
- name FrameHold8
- xpos 2643
- ypos 218
-}
-Crop {
- box {0 0 2048 1152}
- name Crop1
- xpos 2643
- ypos 519
-}
-Reformat {
- format "4096 2304 0 0 4096 2304 1 4K 1.77 Aspect Ratio (.4k177)"
- name Reformat8
- xpos 2643
- ypos 572
-}
-Transform {
- translate {1158 2}
- scale 0.4
- center {1712 1101}
- name Transform1
- xpos 2643
- ypos 630
-}
-Constant {
- inputs 0
- channels rgb
- format "4096 2304 0 0 4096 2304 1 4K 1.77 Aspect Ratio (.4k177)"
- name Constant4
- xpos 2833
- ypos 517
-}
-Shuffle {
- alpha white
- name Shuffle7
- xpos 2833
- ypos 589
-}
-set N99b094c0 [stack 0]
-Merge2 {
- inputs 2
- name Merge17
- xpos 2833
- ypos 630
-}
-Merge2 {
- inputs 2
- name Merge2
- xpos 2833
- ypos 654
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\nFile Name:\n\nArtist:\n \nDate:\n\nFrames:\n\nFormat:\n\n\nShot Notes:"
- old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 10 10 65 114 116 105 115 116 58 10 32 10 68 97 116 101 58 10 10 70 114 97 109 101 115 58 10 10 70 111 114 109 97 116 58 10 10 10 83 104 111 116 32 78 111 116 101 115 58}
-   }
- box {1248 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 31 99 32 99 33 99 34 99 35 99 36 99 37 99 39 99 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 0 45 1 45}
-   }
- cursor_position 40
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text5
- xpos 2833
- ypos 693
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\n\[value root.ti_ih_file_name]\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
-   }
- old_expression_markers {{3 24 27 38 42 51 55 58 60 63 69 95 97 96 98 97 99 98 100 99}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 86 45 87 45 88 45 89 45 90 45 91 45 92 45 93 45 94 45 95 45 96 45 97 45 98 45 99 45 54 99 64 99 27 45 28 45 29 45 30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 0 45 1 45}
-   }
- cursor_position 128
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text17
- xpos 2833
- ypos 717
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\n\n\n\n \n\n\n\n\n\[value EXR_READ.format.width]x\[value EXR_READ.format.height] EXR"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 51 50 55 50 120 49 55 54 56 32 69 88 82}
-   }
- old_expression_markers {{12 15 17 20}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
-   }
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text2
- xpos 2833
- ypos 772
-}
-Reformat {
- format {{{EXR_READ.format}}}
- name Reformat7
- xpos 2833
- ypos 796
-}
-Crop {
- box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
- name Crop3
- xpos 2833
- ypos 837
-}
-push $Nb9e51880
-Dot {
- name Dot5
- xpos 2528
- ypos -128
-}
-Dot {
- name Dot19
- xpos 2528
- ypos 748
-}
-set N9995c390 [stack 0]
-Switch {
- inputs 2
- which {{"frame >= root.first_frame ? 0 : 1"}}
- name Switch3
- xpos 2494
- ypos 837
-}
-AddTimeCode {
- startcode 00:00:00:00
- metafps false
- frame 0
- useFrame true
- name AddTimeCode4
- xpos 2494
- ypos 861
-}
-Remove {
- channels alpha
- name Remove1
- xpos 2494
- ypos 885
-}
-Remove {
- operation keep
- channels rgb
- name Remove2
- label "Keep ONLY RGB\nIf Mattes Isn't Checked"
- xpos 2494
- ypos 936
- disable {{"root.render_mattes? 1: 0"}}
-}
-Write {
- channels all
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]/\[value root.ti_ih_format]/\[value root.ti_ih_file_name].%04d.exr"
- colorspace linear
- file_type exr
- compression "PIZ Wavelet (32 scanlines)"
- first_part rgba
- version 89
- in_colorspace linear
- out_colorspace linear
- name EXR_WRITE
- label "\[value file]"
- xpos 2494
- ypos 1339
- disable true
-}
-push $Nb9e16800
-Dot {
- name Dot24
- xpos 3381
- ypos 657
-}
-push $N9995c390
-Dot {
- name Dot18
- xpos 2756
- ypos 748
-}
-Shuffle {
- red alpha
- green alpha
- blue alpha
- name Shuffle1
- xpos 2722
- ypos 950
-}
-set N99abda30 [stack 0]
-FrameHold {
- first_frame {{"\[value root.first_frame]"}}
- name FrameHold1
- xpos 3054
- ypos 946
-}
-Crop {
- box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
- name Crop2
- xpos 3054
- ypos 985
-}
-Transform {
- translate {1275 65}
- scale 0.5
- center {1712 1101}
- name Transform4
- xpos 3054
- ypos 1021
-}
-push $N99b094c0
-Dot {
- name Dot21
- xpos 3008
- ypos 592
-}
-Dot {
- name Dot22
- xpos 3008
- ypos 887
-}
-Dot {
- name Dot23
- xpos 3239
- ypos 887
-}
-Merge2 {
- inputs 2
- name Merge4
- xpos 3205
- ypos 1021
-}
-Merge2 {
- inputs 2
- name Merge5
- xpos 3347
- ypos 1021
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\nFile Name:\n\nArtist:\n \nDate:\n\nFrames:\n\nFormat:\n\n\nShot Notes:"
- old_message {{10 10 10 70 105 108 101 32 78 97 109 101 58 10 10 65 114 116 105 115 116 58 10 32 10 68 97 116 101 58 10 10 70 114 97 109 101 115 58 10 10 70 111 114 109 97 116 58 10 10 10 83 104 111 116 32 78 111 116 101 115 58}
-   }
- box {1248 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{30 45 31 45 32 45 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 59 45 60 45 61 45 31 99 32 99 33 99 34 99 35 99 36 99 37 99 39 99 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 0 45 1 45}
-   }
- cursor_position 40
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text15
- xpos 3347
- ypos 1045
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\n\[value root.ti_ih_file_name]_matte\n\n\[value root.ti_ih_vendor]\n \n\[date %m-%d-%Y] \n\n\[value root.first_frame]-\[value root.last_frame]\n\n\n\n\n\[value root.ti_ih_notes_1]\n\[value root.ti_ih_notes_2]\n\[value root.ti_ih_notes_3]\n\[value root.ti_ih_notes_4]\n\[value root.ti_ih_notes_5]"
- old_message {{10 10 10 48 48 52 95 66 85 83 95 48 49 48 48 95 116 101 109 112 95 118 53 48 51 95 109 97 116 116 101 10 10 72 117 101 121 32 67 97 114 114 111 108 108 10 32 10 48 49 45 50 57 45 50 48 49 57 32 10 10 49 48 48 49 45 49 49 55 57 10 10 10 10 10 70 111 114 32 114 101 118 105 101 119 46 32 99 111 109 112 32 105 110 32 98 114 105 100 103 101 46 10 10 10 10}
-   }
- old_expression_markers {{3 24 33 44 48 57 61 64 66 69 75 101 103 102 104 103 105 104 106 105}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{59 45 60 45 61 45 62 45 63 45 64 45 65 45 66 45 67 45 68 45 69 45 70 45 71 45 72 45 73 45 74 45 75 45 76 45 77 45 78 45 79 45 80 45 81 45 82 45 83 45 84 45 85 45 86 45 87 45 88 45 89 45 90 45 91 45 92 45 93 45 94 45 95 45 96 45 97 45 98 45 99 45 100 45 101 45 102 45 103 45 104 45 105 45 60 99 70 99 33 45 34 45 35 45 36 45 37 45 38 45 39 45 40 45 41 45 42 45 43 45 44 45 45 45 46 45 47 45 48 45 49 45 50 45 51 45 52 45 53 45 54 45 55 45 56 45 57 45 58 45 2 45 3 45 4 45 5 45 6 45 7 45 8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 26 45 27 45 28 45 29 45 30 45 31 45 32 45 0 45 1 45}
-   }
- cursor_position 37
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text16
- xpos 3347
- ypos 1069
-}
-Text2 {
- font_size_toolbar 45
- font_width_toolbar 100
- font_height_toolbar 100
- message "\n\n\n\n\n\n \n\n\n\n\n\[value EXR_READ.format.width]x\[value EXR_READ.format.height] TIFF"
- old_message {{10 10 10 10 10 10 32 10 10 10 10 10 51 50 55 50 120 49 55 54 56 32 84 73 70 70}
-   }
- old_expression_markers {{12 15 17 20}
-   }
- box {1804.5 185.625 4299.5 2082.375}
- transforms {{0 2}
-   }
- font_size_values {{8 45 9 45 10 45 11 45 12 45 13 45 14 45 15 45 16 45 17 45 18 45 19 45 20 45 21 45 22 45 23 45 24 45 25 45 9 99 10 99 5 45 6 45 7 45 2 45 3 45 4 45 0 45 1 45}
-   }
- cursor_position 77
- font {{ Arial : Regular : Arial.ttf : 0 }}
- global_font_scale 2
- font_size 45
- scale {1 1}
- cursor_initialised true
- autofit_bbox false
- initial_cursor_position {{201 968.5}
-   }
- group_animations {{0} imported: 0 selected: items: "root transform/"}
- animation_layers {{1 11 1024 576 -1000 -305 1 1 0 0 0 0}
-   }
- name Text18
- xpos 3347
- ypos 1093
-}
-Reformat {
- format {{{EXR_READ.format}}}
- name Reformat2
- xpos 3347
- ypos 1117
-}
-Crop {
- box {{EXR_READ.format.x} {EXR_READ.format.y} {EXR_READ.format.r} {EXR_READ.format.t}}
- name Crop4
- xpos 3347
- ypos 1154
-}
-push $N99abda30
-Switch {
- inputs 2
- which {{"frame >= root.first_frame ? 0 : 1"}}
- name Switch4
- xpos 2722
- ypos 1154
-}
-AddTimeCode {
- startcode 00:00:00:00
- metafps false
- frame 0
- useFrame true
- name AddTimeCode5
- xpos 2722
- ypos 1178
-}
-Write {
- channels rgba
- file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]_matte/\[value root.ti_ih_format]/\[value root.ti_ih_file_name]_matte.%04d.tif"
- colorspace linear
- file_type tiff
- datatype "16 bit"
- compression LZW
- checkHashOnRead false
- version 89
- in_colorspace linear
- out_colorspace linear
- name TIFF_MATTE_WRITE
- label "\[value file]"
- xpos 2722
- ypos 1634
- disable true
-}
-push $Nb9ecfe20
-push $N997214e0
 Viewer {
  inputs 2
  frame_range 1001-1179
@@ -2202,7 +2209,6 @@ Viewer {
  viewerProcess None
  translate {0.1410000026 -0.1014999971}
  name Viewer1
- selected true
  xpos 3511
  ypos 1192
 }
