@@ -132,7 +132,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 10
+ version 11
  name Read2
  xpos 3071
  ypos 347
@@ -151,7 +151,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N324c8b00 [stack 0]
+set Ne4526a80 [stack 0]
 Read {
  inputs 0
  file_type exr
@@ -163,7 +163,7 @@ Read {
  origlast 1093
  origset true
  on_error black
- version 292
+ version 340
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -178,25 +178,25 @@ Crop {
  xpos 1573
  ypos -131
 }
-set N324dc1c0 [stack 0]
+set Ne477bd10 [stack 0]
 Dot {
  name Dot9
  xpos 1607
  ypos -34
 }
-set Ne2a35750 [stack 0]
+set Ne4772560 [stack 0]
 Dot {
  name Dot14
  xpos 1469
  ypos -34
 }
-set Ne2a34100 [stack 0]
+set Ne476d0f0 [stack 0]
 Dot {
  name Dot7
  xpos 1319
  ypos -34
 }
-set Ne2a30750 [stack 0]
+set Ne476f5b0 [stack 0]
 Dot {
  name Dot10
  xpos 1168
@@ -233,7 +233,7 @@ Dot {
  xpos 1168
  ypos 225
 }
-push $Ne2a30750
+push $Ne476f5b0
 Reformat {
  format "3272 1768 0 0 3272 1768 1 Romeo VFX Delivery (Projection +5%)"
  resize none
@@ -258,7 +258,7 @@ Dot {
  xpos 1319
  ypos 193
 }
-push $Ne2a34100
+push $Ne476d0f0
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  filter Simon
@@ -279,7 +279,7 @@ Dot {
  xpos 1469
  ypos 125
 }
-push $Ne2a35750
+push $Ne4772560
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
  resize none
@@ -296,7 +296,7 @@ Crop {
  xpos 1573
  ypos 55
 }
-set Ne2a92800 [stack 0]
+set Ne47e1700 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -318,7 +318,7 @@ Switch {
  xpos 1573
  ypos 222
 }
-set Ne2a9f650 [stack 0]
+set Ne47ee550 [stack 0]
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -426,7 +426,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set Nd3110730 [stack 0]
+set Ne456af80 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -550,7 +550,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $Nd3110730
+push $Ne456af80
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -563,13 +563,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nd320c7e0 [stack 0]
+set Nd44264a0 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set Nd320eca0 [stack 0]
+set Nd4428960 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -612,8 +612,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set Nd3226500 [stack 0]
-push $Nd3226500
+set Ne46f1bf0 [stack 0]
+push $Ne46f1bf0
 Dot {
  name Dot8
  xpos 1111
@@ -801,7 +801,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set Nd326a4f0 [stack 0]
+set Nd456e0e0 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -814,7 +814,7 @@ Write {
  ypos 1447
  disable true
 }
-push $Nd320eca0
+push $Nd4428960
 Dot {
  name Dot12
  xpos 580
@@ -1121,7 +1121,7 @@ Write {
  xpos 546
  ypos 1612
 }
-push $Nd326a4f0
+push $Nd456e0e0
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1438,7 +1438,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nd320c7e0
+push $Nd44264a0
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -1749,8 +1749,8 @@ Write {
  xpos 1325
  ypos 1896
 }
-push $N324c8b00
-push $Ne2a9f650
+push $Ne4526a80
+push $Ne47ee550
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -1799,7 +1799,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set Nd3007eb0 [stack 0]
+set Ne50e66e0 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -1911,7 +1911,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $N324dc1c0
+push $Ne477bd10
 Dot {
  name Dot5
  xpos 2528
@@ -1922,7 +1922,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set N324e3810 [stack 0]
+set Nd4638390 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1954,7 +1954,7 @@ Remove {
  ypos 936
  disable {{"root.render_mattes? 1: 0"}}
 }
-set N127297e0 [stack 0]
+set Nd45ab400 [stack 0]
 Write {
  channels all
  file "\[value root.ti_ih_delivery_folder]/\[value root.ti_ih_delivery_package]/\[value root.ti_ih_file_name]/\[value root.ti_ih_format]/\[value root.ti_ih_file_name].%04d.exr"
@@ -1963,19 +1963,21 @@ Write {
  compression "PIZ Wavelet (32 scanlines)"
  first_part rgba
  version 89
+ in_colorspace linear
+ out_colorspace linear
  name EXR_WRITE
  label "\[value file]"
  xpos 2494
  ypos 1339
  disable true
 }
-push $N324c8b00
+push $Ne4526a80
 Dot {
  name Dot24
  xpos 3381
  ypos 657
 }
-push $N324e3810
+push $Nd4638390
 Dot {
  name Dot18
  xpos 2756
@@ -1989,7 +1991,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N324e8190 [stack 0]
+set Nd45c2060 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -2010,7 +2012,7 @@ Transform {
  xpos 3054
  ypos 1021
 }
-push $Nd3007eb0
+push $Ne50e66e0
 Dot {
  name Dot21
  xpos 3008
@@ -2138,7 +2140,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N324e8190
+push $Nd45c2060
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -2164,14 +2166,14 @@ Write {
  compression LZW
  checkHashOnRead false
  version 89
- name ROMEO_NO_SEPARATE_MATTE_RENDER
+ name TIFF_MATTE_WRITE
  label "\[value file]"
  xpos 2722
  ypos 1634
  disable true
 }
-push $Ne2a92800
-push $N127297e0
+push $Ne47e1700
+push $Nd45ab400
 Viewer {
  inputs 2
  frame_range 1001-1179
