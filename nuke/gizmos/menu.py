@@ -8,8 +8,8 @@ def echo_camera_format_node():
     noop_node.knob('note_font_size').setValue(20)
     noop_node.knob('note_font').setValue('Verdana Bold Bold Bold Bold Bold')
 
-menubar = nuke.menu("Nuke")
-m = menubar.addMenu("Romeo")
-m.addCommand("Echo Camera Format", 'echo_camera_format_node()')
-m.addCommand("Romeo Pixel Fixer", r'nuke.createNode("Romeo_PixelFixer")')
-m.addCommand("Romeo Reformat", r'nuke.createNode("Romeo_Reformat")')
+# menubar = nuke.menu("Nuke")
+# m = menubar.addMenu("Morbius")
+# m.addCommand("Echo Camera Format", 'echo_camera_format_node()')
+# m.addCommand("Romeo Pixel Fixer", r'nuke.createNode("Romeo_PixelFixer")')
+# m.addCommand("Romeo Reformat", r'nuke.createNode("Romeo_Reformat")')

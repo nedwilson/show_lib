@@ -35,7 +35,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Volumes/raid_vol01/work/SHARED/lib/nuke/gizmos/EscapeRoom_ShowLUT.nk
+ name /Volumes/qppe_das01/morbius/SHARED/lib/nuke/gizmos/Morbius_ShowLUT.nk
  addUserKnob {20 mariTab l Mari}
  addUserKnob {26 cmdStatus l "listen status" t "The status of Nuke's command port" T <b>Disabled</b>}
  addUserKnob {26 sendStatus l "send status" t "The status of Nuke's connection to Mari" T <b>Inactive</b>}
@@ -61,7 +61,7 @@ Root {
 }
 Group {
  inputs 0
- name EscapeRoom_ShowLUT
+ name Morbius_ShowLUT
  selected true
  xpos 1751
  ypos -1779
@@ -81,14 +81,14 @@ Group {
  }
  OCIOCDLTransform {
   read_from_file true
-  file "\[value root.txt_ih_shot_path]/data/cdl/\[value root.txt_ih_shot].ccc"
+  file "\[value root.txt_ih_shot_path]/data/color/\[value root.txt_ih_shot].cc"
   name OCIOCDLTransform2
-  label "CDL for \[value root.txt_ih_shot]"
+  label "CC for \[value root.txt_ih_shot]"
   xpos 826
   ypos -613
  }
  OCIOFileTransform {
-  file /Volumes/raid_vol01/work/escaperoom/SHARED/lut/FotokemSpinel_showLUT.cube
+  file /Volumes/qppe_das01/morbius/SHARED/lut/FotokemSpinel_showLUT.cube
   version 2
   name OCIOFileTransform2
   xpos 826

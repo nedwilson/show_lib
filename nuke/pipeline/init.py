@@ -6,6 +6,6 @@ import nuke
 nuke.load("formats.tcl")
 
 # viewer process register
-# nuke.ViewerProcess.register("Romeo Show LUT", nuke.Node, ("Romeo_ShowLUT", ""))
+# nuke.ViewerProcess.register("Morbius Show LUT", nuke.Node, ("Morbius_ShowLUT", ""))
 
 

@@ -2,15 +2,15 @@
 
 Important items to edit:
 
-./darktower.cfg
+./morbius.cfg
 
 Here is where you would specify things like an in-house email account and password, the show LUT file (goes in SHOW/SHARED/lut), the email address lists for deliveries, and the path to the delivery template Nuke script.
 
-./nuke/gizmos/DarkTower_ShowLUT.gizmo
-./nuke/gizmos/DarkTower_ShowLUT.nk
+./nuke/gizmos/Morbius_ShowLUT.gizmo
+./nuke/gizmos/Morbius_ShowLUT.nk
 
-These files will apply the viewer LUT as part of Nuke'S ViewerProcess. They convert the input from LogC to Linear, apply a shot-specific CDL file (located in SEQUENCE/SHOT/data/cdl/SHOT.cdl), and apply the show LUT, which usually outputs Rec.709.
+These files will apply the viewer LUT as part of Nuke's ViewerProcess. They convert the input from LogC to Linear, apply a shot-specific CC file (located in SEQUENCE/SHOT/data/color/SHOT.cc), and apply the show LUT, which usually outputs Rec.709.
 
-./nuke/delivery/darktower_slate_template_v0001.nk
+./nuke/delivery/morbius_slate_template_v001.nk
 
-This is where you specify how the slates are made, how the DPX frames are built, and how the shot Quicktimes are built.
+This is where you specify how the slates are made, how the EXR frames are built, and how the shot Quicktimes are built.

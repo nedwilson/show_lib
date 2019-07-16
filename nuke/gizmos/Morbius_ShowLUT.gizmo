@@ -1,6 +1,7 @@
 #! /Applications/Nuke8.0v5/Nuke8.0v5.app/Contents/MacOS/libnuke-8.0.v5.dylib -nx
 version 8.0 v5
 Gizmo {
+ name Morbius_ShowLUT
 }
  Input {
   inputs 0
@@ -17,14 +18,14 @@ Gizmo {
  }
  OCIOCDLTransform {
   read_from_file true
-  file "\[value root.txt_ih_shot_path]/data/cdl/\[value root.txt_ih_shot].ccc"
+  file "\[value root.txt_ih_shot_path]/data/color/\[value root.txt_ih_shot].cc"
   name OCIOCDLTransform2
-  label "CDL for \[value root.txt_ih_shot]"
+  label "CC for \[value root.txt_ih_shot]"
   xpos 826
   ypos -613
  }
  OCIOFileTransform {
-  file /Volumes/raid_vol01/shows/escaperoom/SHARED/lut/FotokemSpinel_showLUT.cube
+  file /Volumes/qppe_das01/morbius/SHARED/lut/FotokemSpinel_showLUT.cube
   version 2
   name OCIOFileTransform2
   xpos 826

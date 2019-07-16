@@ -23,7 +23,7 @@ add_format "3840 2160                    1.0   Blackmagic VFX Scan Projection + 
 add_format "3840 2076                    1.0   Blackmagic VFX Scan 1.85 Area"
 add_format "3108 1748                    1.0   Blackmagic VFX Delivery Full Ap"
 
-add_format "3272 1768	        		 1.0   Romeo VFX Delivery Projection + 5% Safety"
-add_format "3108 1680                    1.0   Romeo VFX Delivery Projection 1.85 Area"
+add_format "3272 1768	        		 1.0   Morbius VFX Delivery Projection + 5% Safety"
+add_format "3108 1680                    1.0   Morbius VFX Delivery Projection 1.85 Area"
 
 
