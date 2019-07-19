@@ -38,7 +38,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /Users/ned/PycharmProjects/show_lib/nuke/delivery/romeo_slate_template_v002.nk
+ name /Volumes/romeo_inhouse/romeo/SHARED/romeo/lib/nuke/delivery/romeo_slate_template_v002.nk
  frame 1001
  first_frame 1001
  last_frame 1179
@@ -131,7 +131,7 @@ Read {
  file /Volumes/romeo_inhouse/romeo/SHARED/img/stills/Romeo_ShowLogo_Final_WhiteonBlack.png
  format "4667 1444 0 0 4667 1444 1 "
  origset true
- version 13
+ version 14
  name Read2
  xpos 3071
  ypos 347
@@ -150,7 +150,7 @@ Transform {
  xpos 3071
  ypos 654
 }
-set N1f3a8770 [stack 0]
+set N180cbee0 [stack 0]
 Read {
  inputs 0
  file_type exr
@@ -162,7 +162,7 @@ Read {
  origlast 1093
  origset true
  on_error black
- version 425
+ version 433
  colorspace linear
  auto_alpha true
  metadatafilter timecode
@@ -177,25 +177,32 @@ Crop {
  xpos 1573
  ypos -258
 }
-set Nb471860 [stack 0]
+set N6e7c2d10 [stack 0]
+OCIOColorSpace {
+ in_colorspace linear
+ out_colorspace AlexaV3LogC
+ name OCIOColorSpace2
+ xpos 1573
+ ypos -214
+}
 Dot {
  name Dot9
  xpos 1607
  ypos -161
 }
-set Nb469bc0 [stack 0]
+set Nfe50a5d0 [stack 0]
 Dot {
  name Dot14
  xpos 1469
  ypos -161
 }
-set Nb46dac0 [stack 0]
+set Nfe50d230 [stack 0]
 Dot {
  name Dot7
  xpos 1319
  ypos -161
 }
-set Nb47d9b0 [stack 0]
+set Nfe514cd0 [stack 0]
 Dot {
  name Dot10
  xpos 1168
@@ -222,7 +229,7 @@ Dot {
  xpos 1168
  ypos 98
 }
-push $Nb47d9b0
+push $Nfe514cd0
 Shuffle {
  alpha white
  name Shuffle5
@@ -253,7 +260,7 @@ Dot {
  xpos 1319
  ypos 66
 }
-push $Nb46dac0
+push $Nfe50d230
 Shuffle {
  alpha white
  name Shuffle6
@@ -280,12 +287,12 @@ Dot {
  xpos 1469
  ypos -2
 }
-push $Nb469bc0
+push $Nfe50a5d0
 Shuffle {
  alpha white
  name Shuffle8
  xpos 1573
- ypos -137
+ ypos -136
 }
 Reformat {
  format "3108 1680 0 0 3108 1680 1 Romeo VFX Delivery Projection 1.85 Area"
@@ -303,7 +310,7 @@ Crop {
  xpos 1573
  ypos -72
 }
-set Nb517480 [stack 0]
+set Nfe563320 [stack 0]
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 1920"}}
@@ -325,7 +332,7 @@ Switch {
  xpos 1573
  ypos 95
 }
-set Nb52d490 [stack 0]
+set Nfe56f630 [stack 0]
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
  filter Simon
@@ -335,17 +342,24 @@ Reformat {
  xpos 1573
  ypos 125
 }
+OCIOColorSpace {
+ in_colorspace AlexaV3LogC
+ out_colorspace linear
+ name OCIOColorSpace3
+ xpos 1573
+ ypos 163
+}
 Unpremult {
  name Unpremult1
  xpos 1573
- ypos 157
+ ypos 209
 }
 OCIOColorSpace {
  in_colorspace linear
  out_colorspace AlexaV3LogC
  name OCIOColorSpace1
  xpos 1573
- ypos 190
+ ypos 242
  disable {{root.nocc}}
 }
 OCIOFileTransform {
@@ -354,7 +368,7 @@ OCIOFileTransform {
  working_space linear
  name OCIOFileTransform1
  xpos 1573
- ypos 218
+ ypos 270
  disable {{root.nocc}}
 }
 OFXcom.2d4a.livegrain_v0 {
@@ -403,46 +417,46 @@ OFXcom.2d4a.livegrain_v0 {
  highlightSharpness 0
  name LIVEGRAIN_Texture_Mapping1
  xpos 1573
- ypos 242
+ ypos 294
  disable {{root.nocc}}
 }
-set N1f538380 [stack 0]
+set Nfe585670 [stack 0]
 Dot {
  name Dot17
  xpos 1463
- ypos 245
+ ypos 297
 }
 Dot {
  name Dot25
  xpos 1463
- ypos 356
+ ypos 408
 }
-push $N1f538380
+push $Nfe585670
 Reformat {
  format "1920 1038 0 0 1920 1038 1 HD 1.85"
  resize none
  black_outside true
  name Reformat15
  xpos 1573
- ypos 266
+ ypos 318
 }
 Crop {
  box {0 0 1920 1038}
  name Crop9
  xpos 1573
- ypos 302
+ ypos 354
 }
 Switch {
  inputs 2
  which {{"EXR_READ.format.r == 2880"}}
  name Switch8
  xpos 1573
- ypos 353
+ ypos 405
 }
 Premult {
  name Premult1
  xpos 1573
- ypos 393
+ ypos 445
 }
 Reformat {
  format "1920 1080 0 0 1920 1080 1 HD_1080"
@@ -452,7 +466,7 @@ Reformat {
  xpos 1573
  ypos 487
 }
-set Nb65aa60 [stack 0]
+set Ne8024a60 [stack 0]
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -576,7 +590,7 @@ Dot {
  xpos 1607
  ypos 720
 }
-push $Nb65aa60
+push $Ne8024a60
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -589,13 +603,13 @@ Dot {
  xpos 1359
  ypos 580
 }
-set Nb6cf290 [stack 0]
+set N18034080 [stack 0]
 Dot {
  name Dot15
  xpos 974
  ypos 580
 }
-set Nb6d3170 [stack 0]
+set N18036540 [stack 0]
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -638,8 +652,8 @@ Dot {
  xpos 974
  ypos 1337
 }
-set Nb800bf0 [stack 0]
-push $Nb800bf0
+set Nee610c80 [stack 0]
+push $Nee610c80
 Dot {
  name Dot8
  xpos 1111
@@ -827,7 +841,7 @@ Switch {
  xpos 940
  ypos 1456
 }
-set Nb864700 [stack 0]
+set Nee678580 [stack 0]
 Write {
  file /path/to/thumbnail.%04d.png
  raw true
@@ -840,7 +854,7 @@ Write {
  ypos 1447
  disable true
 }
-push $Nb6d3170
+push $N18036540
 Dot {
  name Dot12
  xpos 580
@@ -1147,7 +1161,7 @@ Write {
  xpos 546
  ypos 1612
 }
-push $Nb864700
+push $Nee678580
 Text2 {
  font_size_toolbar 30
  font_width_toolbar 100
@@ -1412,8 +1426,8 @@ Write {
  xpos 940
  ypos 1753
 }
-push $N1f3a8770
-push $Nb52d490
+push $N180cbee0
+push $Nfe56f630
 Reformat {
  format "2048 1152 0 0 2048 1152 1 2K 1.77 Aspect Ratio (.2k177)"
  filter Simon
@@ -1421,6 +1435,13 @@ Reformat {
  name Reformat9
  xpos 1780
  ypos 91
+}
+OCIOColorSpace {
+ in_colorspace AlexaV3LogC
+ out_colorspace linear
+ name OCIOColorSpace4
+ xpos 1914
+ ypos 95
 }
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
@@ -1462,7 +1483,7 @@ Shuffle {
  xpos 2833
  ypos 589
 }
-set Nbac0510 [stack 0]
+set Nee4ed200 [stack 0]
 Merge2 {
  inputs 2
  name Merge17
@@ -1574,7 +1595,7 @@ Crop {
  xpos 2833
  ypos 837
 }
-push $Nb471860
+push $N6e7c2d10
 Dot {
  name Dot5
  xpos 2528
@@ -1585,7 +1606,7 @@ Dot {
  xpos 2528
  ypos 748
 }
-set Nbb4ffc0 [stack 0]
+set Ndee5df20 [stack 0]
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1633,13 +1654,13 @@ Write {
  ypos 1339
  disable true
 }
-push $N1f3a8770
+push $N180cbee0
 Dot {
  name Dot24
  xpos 3381
  ypos 657
 }
-push $Nbb4ffc0
+push $Ndee5df20
 Dot {
  name Dot18
  xpos 2756
@@ -1653,7 +1674,7 @@ Shuffle {
  xpos 2722
  ypos 950
 }
-set N1f485740 [stack 0]
+set Nee6a9880 [stack 0]
 FrameHold {
  first_frame {{"\[value root.first_frame]"}}
  name FrameHold1
@@ -1674,7 +1695,7 @@ Transform {
  xpos 3054
  ypos 1021
 }
-push $Nbac0510
+push $Nee4ed200
 Dot {
  name Dot21
  xpos 3008
@@ -1802,7 +1823,7 @@ Crop {
  xpos 3347
  ypos 1154
 }
-push $N1f485740
+push $Nee6a9880
 Switch {
  inputs 2
  which {{"frame >= root.first_frame ? 0 : 1"}}
@@ -1836,7 +1857,6 @@ Write {
  ypos 1634
  disable true
 }
-push $Nb517480
 Constant {
  inputs 0
  channels rgb
@@ -1889,7 +1909,7 @@ Dot {
  xpos 1501
  ypos 1083
 }
-push $Nb6cf290
+push $N18034080
 Text2 {
  font_size_toolbar 45
  font_width_toolbar 100
@@ -2018,7 +2038,7 @@ Text2 {
  font_height_toolbar 100
  opacity {{"frame >= root.first_frame ? 1 : 0"}}
  message "\[date %m/%d/%y]"
- old_message {{48 54 47 49 51 47 49 57}
+ old_message {{48 55 47 49 57 47 49 57}
    }
  old_expression_markers {{0 7}
    }
@@ -2195,10 +2215,11 @@ Write {
  beforeFrameRender "print \"Rendered frame %s of %s.\"%(nuke.frame(), os.path.basename(nuke.thisNode()\['file'].evaluate()))"
  name MOV_DNXHD_WRITE
  label "\[value file]"
- selected true
  xpos 1325
  ypos 1896
 }
+push $Nfe563320
+push $Ne8024a60
 Viewer {
  inputs 2
  frame_range 1001-1179
@@ -2209,6 +2230,7 @@ Viewer {
  viewerProcess None
  translate {0.1410000026 -0.1014999971}
  name Viewer1
+ selected true
  xpos 3511
  ypos 1192
 }
